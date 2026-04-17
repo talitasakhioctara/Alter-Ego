@@ -1,0 +1,27 @@
+/* Place your CSS styles in this file */
+
+h1 {
+    text-align: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: bold;
+    color: pink
+}
+ul {list-style-type:none;
+background-color: red;
+border:5px solid gray;}
+ul{text-align: center;}
+ul{border:5px solid gray;
+background-color:white;
+padding:5px;}
+li {display:inline;
+padding:6px;
+}
+
+pre {
+    color: red;
+    font-weight: bold;
+    font-family:'Verdana', sans-serif
+    font-size: 30px;
+}
+body {background-color: beige;
+}
