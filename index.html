@@ -1,28 +1,45 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="id">
 <head>
-    <meta charset="utf-8">
-    <title>Alter Ego - Home</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alter Ego - SMAN 71</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Metamorphous&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <h1>SMAN 71</h1>
-    
-    <ul>
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="Design.html">Design</a></li>
-        <li><a href="product.html">Product</a></li>
-    </ul>
+    <div class="kop-surat">
+        <div class="instansi">SMAN 71 JAKARTA</div>
+        <div class="nama-kelompok">ALTER EGO</div>
+        <div class="sub-kop">Proyek Informatika • Temukan Karakter Alter Egomu</div>
+    </div>
 
-    <p>Selamat datang di Website Proyek Informatika Alter Ego kelompok kami!</p>
-    
-    <pre>Balonku ada lima
-Rupa rupa warnanya
-hijau kuning kelabu merah muda
-dan biru meletus balon hijau</pre>
+    <nav class="navbar">
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        <ul class="nav-links" id="nav-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="Design.html" class="active">Design</a></li>
+            <li><a href="product.html">Product</a></li>
+        </ul>
+    </nav>
 
-    <marquee>Design By Okta</marquee>
-    y    
+    <div class="content">
+        <h2>Our Design & Concept</h2>
+        </div>
+
+    <script>
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navList = document.getElementById('nav-list');
+
+        mobileMenu.addEventListener('click', () => {
+            navList.classList.toggle('active');
+            mobileMenu.classList.toggle('is-active');
+        });
+    </script>
 </body>
 </html>
