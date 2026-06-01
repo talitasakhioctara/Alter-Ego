@@ -15,12 +15,17 @@
 
     <!-- CSS Khusus Komponen Fungsional Kuis -->
     <style>
+        /* Menyembunyikan tahap kuis yang belum aktif agar tidak bocor ke bawah */
+        .hidden {
+            display: none !important;
+        }
+
         .quiz-box {
             background-color: #ffffff;
             border: none;
             border-radius: 15px;
             padding: 35px;
-            max-width: 600px;
+            max-width: 650px;
             margin: 40px auto;
             text-align: center;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
@@ -52,7 +57,7 @@
 
         .welcome-title {
             font-family: 'Cinzel Decorative', serif;
-            font-size: 26px;
+            font-size: 28px;
             color: #5c4033;
             margin-bottom: 25px;
             letter-spacing: 1px;
@@ -100,8 +105,9 @@
             transition: 0.2s;
             font-family: 'Poppins', sans-serif;
             text-decoration: none;
-            margin-top: 10px;
+            margin-top: 15px;
             text-align: center;
+            box-sizing: border-box;
         }
 
         .btn-action:hover {
@@ -123,6 +129,7 @@
             font-weight: 600;
             color: #5c4033;
             margin-bottom: 25px;
+            text-align: left;
         }
 
         .options-container {
@@ -135,7 +142,7 @@
             background-color: #fcf9f2;
             border: 2px solid #5c4033;
             color: #5c4033;
-            padding: 12px 20px;
+            padding: 14px 20px;
             font-size: 15px;
             text-align: left;
             border-radius: 8px;
@@ -149,30 +156,53 @@
             color: #ffffff;
         }
 
-        /* Hasil Akhir Nyentrik */
+        /* Desain Halaman Hasil Nyentrik */
         .result-title {
-            font-family: 'Cinzel Decorative', serif; /* Font nyentrik & eksklusif */
-            font-size: 34px;
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 32px;
             font-weight: bold;
             color: #e65c00;
-            margin: 15px 0;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            margin: 5px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .result-tokoh {
+            font-family: 'Cinzel', serif;
+            font-size: 20px;
+            color: #7a5a40;
+            margin-bottom: 15px;
+            font-style: italic;
         }
 
         .result-img {
-            max-width: 220px;
+            max-width: 200px;
             height: auto;
-            margin: 20px auto;
+            margin: 15px auto;
             display: block;
-            border: none;
+        }
+
+        .desc-box {
+            text-align: left;
+            background-color: #fcf9f2;
+            border-left: 4px solid #e65c00;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+            font-size: 14px;
+        }
+
+        .desc-box strong {
+            color: #5c4033;
+            display: block;
+            margin-bottom: 5px;
         }
 
         .result-cta {
             font-size: 15px;
             color: #5c4033;
             font-weight: 600;
-            line-height: 1.6;
-            margin: 20px 0;
+            margin: 20px 0 10px 0;
+            line-height: 1.5;
         }
     </style>
 </head>
@@ -205,6 +235,7 @@
         <!-- TAHAP 1: SCREEN PEMBUKA / SLIDESHOW -->
         <div id="tahap-welcome">
             <div class="slide-frame">
+                <!-- Ganti nama file gambar sesuai file aset yang kamu miliki jika berbeda -->
                 <img src="21154.png" class="slide-img active" alt="Karakter 1">
                 <img src="21153.png" class="slide-img" alt="Karakter 2">
                 <img src="21155.png" class="slide-img" alt="Karakter 3">
@@ -229,37 +260,50 @@
             </div>
         </div>
 
-        <!-- TAHAP 3: FORM PERTANYAAN KUIS JAVASCRIPT -->
+        <!-- TAHAP 3: FORM PERTANYAAN KUIS (12 SOAL) -->
         <div id="tahap-kuis" class="hidden">
             <div class="progress-bar" id="kuis-progress">Soal 1 dari 12</div>
             <div class="question-text" id="kuis-soal">Memuat pertanyaan...</div>
             <div class="options-container" id="kuis-pilihan">
-                <!-- Pilihan jawaban -->
+                <!-- Pilihan jawaban akan dibuat otomatis oleh JavaScript -->
             </div>
         </div>
 
-        <!-- TAHAP 4: HALAMAN HASIL AKHIR (BESAR & NYENTRIK) -->
+        <!-- TAHAP 4: HALAMAN HASIL AKHIR (BESAR, NYENTRIK, DAN DETAIL) -->
         <div id="tahap-hasil" class="hidden">
-            <p style="font-size: 14px; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; color: #7a5a40;">Alter Egomu Adalah</p>
+            <p style="font-size: 13px; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; color: #7a5a40; margin-bottom: 0;">Alter Egomu Adalah</p>
+            
             <div class="result-title" id="hasil-karakter">THE GUARDIAN</div>
+            <div class="result-tokoh" id="hasil-tokoh">(Julius Caesar)</div>
+            
             <img src="" id="hasil-gambar" class="result-img" alt="Karakter Pemenang">
             
-            <!-- Kalimat ajakan dinamis -->
-            <p class="result-cta" id="hasil-teks-ajakan">Memuat petualanganmu...</p>
+            <!-- Penjelasan Sisi Baik & Buruk -->
+            <div class="desc-box">
+                <strong style="color: #2e7d32;">✨ Public Self – Baik:</strong>
+                <span id="desc-baik">Penjelasan sisi baik...</span>
+            </div>
+            <div class="desc-box" style="border-left-color: #c62828;">
+                <strong style="color: #c62828;">⚠️ Alter Ego – Buruk (Dampak ke orang lain):</strong>
+                <span id="desc-buruk">Penjelasan sisi buruk...</span>
+            </div>
+
+            <p class="result-cta" id="hasil-teks-ajakan">Yuk, buka dunia barumu!</p>
             
-            <!-- Tombol Link Scratch Dinamis Berbeda Tiap Karakter -->
-            <a href="#" id="hasil-link-scratch" target="_blank" class="btn-action">Mainkan Game Karaktermu di Scratch</a>
+            <!-- Tombol Mengarah ke Link Scratch Spesifik Karakter -->
+            <a href="#" id="hasil-link-scratch" target="_blank" class="btn-action">Buka Link Game Scratch Karaktermu</a>
         </div>
 
     </div>
 
     <!-- ENGINE LOGIKA JAVASCRIPT KUIS -->
     <script>
-        // 1. ENGINE SLIDESHOW KARAKTER
+        // 1. ENGINE SLIDESHOW KARAKTER (TAHAP 1)
         let indeksSlide = 0;
         const daftarGambar = document.querySelectorAll('.slide-img');
         
         function jalankanSlideshow() {
+            if(daftarGambar.length === 0) return;
             daftarGambar[indeksSlide].classList.remove('active');
             indeksSlide = (indeksSlide + 1) % daftarGambar.length;
             daftarGambar[indeksSlide].classList.add('active');
@@ -290,19 +334,19 @@
             tampilkanSoal();
         }
 
-        // 3. BANK DATA 12 PERTANYAAN LOGIKA KUIS
+        // 3. BANK DATA 12 PERTANYAAN (Kunci Jawaban Dipetakan ke 7 Karakter Anggota)
         const dataKuis = [
             {
-                q: "1. Temanmu hampir membuat keputusan berisiko besar. Kamu...",
+                q: "1. Temanmu hampir membuat keputusan berisiko besar. Kamu…",
                 o: [
                     { t: "A. Mengambil alih demi melindungi dia", k: "guardian" },
-                    { t: "B. Mendorong dia mengambil langkah besar", k: "driven" },
+                    { t: "B. Mendorong dia mengambil langkah besar", k: "visionary" },
                     { t: "C. Menjelaskan realita apa adanya", k: "truthteller" },
                     { t: "D. Menenangkan dia agar tidak panik", k: "peacemaker" }
                 ]
             },
             {
-                q: "2. Dalam konflik kelompok, kamu...",
+                q: "2. Dalam konflik kelompok, kamu…",
                 o: [
                     { t: "A. Menjaga semua orang tetap aman", k: "guardian" },
                     { t: "B. Mencari solusi ideal jangka panjang", k: "visionary" },
@@ -311,99 +355,102 @@
                 ]
             },
             {
-                q: "3. Seseorang sedang gagal dan frustrasi. Kamu...",
+                q: "3. Seseorang sedang gagal dan frustrasi. Kamu…",
                 o: [
                     { t: "A. Melindungi dia dari tekanan tambahan", k: "guardian" },
-                    { t: "B. Mendorong dia bangkit lebih kuat", k: "driven" },
+                    { t: "B. Mendorong dia bangkit lebih kuat", k: "charmer" },
                     { t: "C. Memberi perspektif jujur tentang kesalahannya", k: "truthteller" },
                     { t: "D. Membuat dia merasa lebih tenang", k: "peacemaker" }
                 ]
             },
             {
-                q: "4. Kalau seseorang mengabaikan nasihatmu, kamu...",
+                q: "4. Kalau seseorang mengabaikan nasihatmu, kamu…",
                 o: [
                     { t: "A. Tetap mengawasi demi keamanannya", k: "guardian" },
-                    { t: "B. Membiarkan dia belajar dari realita", k: "grounded" },
+                    { t: "B. Membiarkan dia belajar dari realita sendiri", k: "freespirit" },
                     { t: "C. Mengingatkan dengan tegas dan jujur", k: "truthteller" },
                     { t: "D. Mengurangi konflik dan tidak memaksa", k: "peacemaker" }
                 ]
             },
             {
-                q: "5. Saat kerja kelompok, kamu biasanya...",
+                q: "5. Saat kerja kelompok, kamu biasanya…",
                 o: [
                     { t: "A. Mengatur agar semuanya aman dan stabil", k: "guardian" },
-                    { t: "B. Mendorong hasil terbaik", k: "driven" },
+                    { t: "B. Rela memberikan fasilitas/bantuan agar semua sukses", k: "benefactor" },
                     { t: "C. Memberi arah besar yang jelas", k: "visionary" },
                     { t: "D. Menjaga suasana tetap harmonis", k: "peacemaker" }
                 ]
             },
             {
-                q: "6. Temanmu terlalu bergantung padamu. Kamu...",
+                q: "6. Temanmu terlalu bergantung padamu. Kamu…",
                 o: [
                     { t: "A. Mengontrol agar dia tidak jatuh", k: "guardian" },
-                    { t: "B. Mendorong dia lebih kuat dan mandiri", k: "driven" },
+                    { t: "B. Membantu memberikan koneksi/bantuan materi", k: "benefactor" },
                     { t: "C. Menghadapkan dia pada realita", k: "truthteller" },
                     { t: "D. Menenangkan agar dia tidak cemas berlebihan", k: "peacemaker" }
                 ]
             },
             {
-                q: "7. Saat melihat ketidakadilan, kamu...",
+                q: "7. Saat melihat ketidakadilan, kamu…",
                 o: [
                     { t: "A. Melindungi pihak yang lemah", k: "guardian" },
-                    { t: "B. Mengubah situasi dengan tindakan besar", k: "driven" },
+                    { t: "B. Menggunakan karisma untuk mengubah suasana", k: "charmer" },
                     { t: "C. Mengatakan fakta tanpa bias", k: "truthteller" },
                     { t: "D. Menjaga situasi tetap damai dulu", k: "peacemaker" }
                 ]
             },
             {
-                q: "8. Ketika rencana berubah mendadak, kamu...",
+                q: "8. Ketika rencana berubah mendadak, kamu…",
                 o: [
                     { t: "A. Langsung mengamankan situasi", k: "guardian" },
-                    { t: "B. Melihat peluang baru", k: "visionary" },
+                    { t: "B. Melihat peluang dan ide baru yang seru", k: "visionary" },
                     { t: "C. Menganalisis realita yang terjadi", k: "truthteller" },
-                    { t: "D. Menenangkan semua orang", k: "peacemaker" }
+                    { t: "D. Mengajak santai dan keluar dari zona kaku", k: "freespirit" }
                 ]
             },
             {
-                q: "9. Temanmu sedang sedih berat. Kamu...",
+                q: "9. Temanmu sedang sedih berat. Kamu…",
                 o: [
                     { t: "A. Menjaganya sampai stabil", k: "guardian" },
-                    { t: "B. Mendorong dia bangkit", k: "driven" },
+                    { t: "B. Mengajak dia melakukan hal spontan yang seru", k: "freespirit" },
                     { t: "C. Memberi kebenaran yang perlu dia dengar", k: "truthteller" },
                     { t: "D. Menenangkan emosinya", k: "peacemaker" }
                 ]
             },
             {
-                q: "10. Dalam keputusan penting, kamu...",
+                q: "10. Dalam keputusan penting, kamu…",
                 o: [
-                    { t: "A. Memilih yang paling aman", k: "guardian" },
-                    { t: "B. Memilih yang paling ambisius", k: "driven" },
+                    { t: "A. Memilih yang paling aman bagi kelompok", k: "guardian" },
+                    { t: "B. Memilih yang paling visioner dan berstandar tinggi", k: "visionary" },
                     { t: "C. Memilih berdasarkan fakta paling realistis", k: "truthteller" },
                     { t: "D. Memilih yang paling damai dan minim konflik", k: "peacemaker" }
                 ]
             },
             {
-                q: "11. Ketika kamu melihat seseorang membuat kesalahan fatal, reaksi pertamamu...",
+                q: "11. Jika seseorang tidak mendengarkanmu, kamu…",
                 o: [
-                    { t: "A. Membantu memperbaiki tanpa menghakimi", k: "guardian" },
-                    { t: "B. Menjadikannya pelajaran untuk maju terus", k: "driven" },
-                    { t: "C. Menyatakan kesalahan itu secara langsung agar sadar", k: "truthteller" },
-                    { t: "D. Menghibur hatinya agar tidak larut dalam kesedihan", k: "peacemaker" }
+                    { t: "A. Tetap mengawasi agar dia tidak terluka", k: "guardian" },
+                    { t: "B. Menggunakan pesona karismatik agar dia luluh", k: "charmer" },
+                    { t: "C. Mengatakan kebenaran lebih tegas tanpa drama", k: "truthteller" },
+                    { t: "D. Menghilang sementara/tidak mau ambil pusing", k: "freespirit" }
                 ]
             },
             {
-                q: "12. Apa visi terbesarmu saat memimpin sebuah tim?",
+                q: "12. Gaya hidup yang kamu pilih lebih ke…",
                 o: [
-                    { t: "A. Memastikan semua anggota tim terlindungi dan sejahtera", k: "guardian" },
-                    { t: "B. Mencapai target tertinggi bagaimanapun caranya", k: "driven" },
-                    { t: "C. Menegakkan transparansi dan kejujuran mutlak", k: "truthteller" },
-                    { t: "D. Menciptakan keharmonisan dan kedamaian antar anggota", k: "peacemaker" }
+                    { t: "A. Melindungi dan mengayomi orang lain", k: "guardian" },
+                    { t: "B. Suka berderma dan berinvestasi demi kesuksesan orang", k: "benefactor" },
+                    { t: "C. Jujur, objektif, dan realistis", k: "truthteller" },
+                    { t: "D. Hidup damai penuh keharmonisan tanpa konflik", k: "peacemaker" }
                 ]
             }
         ];
 
         let indeksSoalSkrg = 0;
-        let skorKepribadian = {};
+        let skorKepribadian = {
+            guardian: 0, peacemaker: 0, visionary: 0, 
+            truthteller: 0, charmer: 0, benefactor: 0, freespirit: 0
+        };
 
         function tampilkanSoal() {
             if (indeksSoalSkrg >= dataKuis.length) {
@@ -433,7 +480,7 @@
             tampilkanSoal();
         }
 
-        // 4. LOGIKA HASIL AKHIR CUSTOM LINK SCRATCH TIAP KARAKTER
+        // 4. LOGIKA HASIL AKHIR INTEGRASI DATA BIODATA, KARAKTER, DAN TOKOH
         function hitungDanTampilkanHasil() {
             document.getElementById('tahap-kuis').classList.add('hidden');
             document.getElementById('tahap-hasil').classList.remove('hidden');
@@ -448,49 +495,79 @@
                 }
             }
 
-            // Database Pemetaan Karakter, Gambar, dan Link Scratch yang Berbeda-beda
-            let dataVisual = {
-                "guardian": { 
-                    nama: "THE GUARDIAN", 
+            // Database Master Berdasarkan Data Peserta
+            const databaseKarakter = {
+                "guardian": {
+                    nama: "THE GUARDIAN",
+                    tokoh: "(Julius Caesar)",
                     img: "21154.png", 
-                    link: "https://scratch.mit.edu/projects/LINK_GUARDIAN_KAMU" 
+                    baik: "Kamu selalu memastikan keselamatan dan kenyamanan semua orang. Kamu adalah tempat bersandar yang aman, siap memasang badan, dan selalu bisa diandalkan dalam situasi krisis.",
+                    buruk: "Kamu menjadi sangat mengontrol dan mengekang. Sikap protektifmu membuat orang lain merasa tercekik, kehilangan kemandirian, dan merasa tidak dipercaya untuk mengambil keputusan sendiri.",
+                    link: "https://scratch.mit.edu/projects/LINK_GUARDIAN_KAMU"
                 },
-                "driven": { 
-                    nama: "THE DRIVEN ONE", 
-                    img: "21153.png", 
-                    link: "https://scratch.mit.edu/projects/LINK_DRIVEN_KAMU" 
+                "peacemaker": {
+                    nama: "THE PEACEMAKER",
+                    tokoh: "(Barack Obama)",
+                    img: "21153.png",
+                    baik: "Kamu pandai meredam konflik dan menyatukan perbedaan. Kehadiranmu membawa ketenangan, membuat suasana kelompok selalu harmonis, dan semua orang merasa diterima.",
+                    buruk: "Kamu mempraktikkan toksisitas positif (toxic positivity). Karena takut pada konflik, kamu mendesak orang lain untuk selalu memendam emosi negatif mereka, sehingga masalah asli mereka tidak pernah selesai dan mereka merasa tidak didengar.",
+                    link: "https://scratch.mit.edu/projects/LINK_PEACEMAKER_KAMU"
                 },
-                "truthteller": { 
-                    nama: "THE TRUTH TELLER", 
-                    img: "21155.png", 
-                    link: "https://scratch.mit.edu/projects/LINK_TRUTHTELLER_KAMU" 
+                "visionary": {
+                    nama: "THE VISIONARY",
+                    tokoh: "(Alexander Agung)",
+                    img: "21152.png",
+                    baik: "Kamu memiliki ide-ide besar yang menginspirasi dan mampu melihat potensi terbaik dalam diri orang lain yang bahkan tidak mereka sadari sendiri. Kamu mendorong mereka untuk melangkah maju.",
+                    buruk: "Kamu menjadi penuntut yang tidak realistis. Kamu memaksa orang lain mengejar standar kesempurnaanmu, membuat mereka merasa selalu gagal, kelelahan (burnout), dan merasa tidak pernah cukup baik di matamu.",
+                    link: "https://scratch.mit.edu/projects/LINK_VISIONARY_KAMU"
                 },
-                "peacemaker": { 
-                    nama: "THE PEACEMAKER", 
-                    img: "21156.png", 
-                    link: "https://scratch.mit.edu/projects/LINK_PEACEMAKER_KAMU" 
+                "truthteller": {
+                    nama: "THE TRUTH TELLER",
+                    tokoh: "(Socrates)",
+                    img: "21150.png",
+                    baik: "Kamu adalah orang yang paling jujur dan objektif. Orang lain datang kepadamu saat mereka membutuhkan penilaian yang adil, realistis, dan tanpa drama demi kemajuan mereka.",
+                    buruk: "Kejujuranmu berubah menjadi senjata yang mematikan rasa percaya diri. Sifat blak-blakanmu yang dingin tanpa empati sering kali menghancurkan mental orang lain dan membuat mereka merasa dihakimi secara kejam.",
+                    link: "https://scratch.mit.edu/projects/LINK_TRUTHTELLER_KAMU"
                 },
-                "visionary": { 
-                    nama: "THE VISIONARY", 
-                    img: "21153.png", 
-                    link: "https://scratch.mit.edu/projects/LINK_VISIONARY_KAMU" 
+                "charmer": {
+                    nama: "THE CHARMER",
+                    tokoh: "(Ratu Cleopatra)",
+                    img: "21149.png",
+                    baik: "Kamu sangat karismatik, pandai mencairkan suasana, dan membuat semua orang merasa spesial saat mengobrol bersamamu. Kehadiranmu selalu dinantikan di setiap perkumpulan.",
+                    buruk: "Kamu menjadi manipulatif. Kamu menggunakan pesonamu hanya untuk memanfaatkan kebaikan orang lain demi keuntungan pribadi, lalu meninggalkan mereka begitu saja saat mereka sudah tidak berguna bagimu.",
+                    link: "https://scratch.mit.edu/projects/LINK_CHARMER_KAMU"
                 },
-                "grounded": { 
-                    nama: "THE GROUNDED", 
-                    img: "21154.png", 
-                    link: "https://scratch.mit.edu/projects/LINK_GROUNDED_KAMU" 
+                "benefactor": {
+                    nama: "THE BENEFACTOR",
+                    tokoh: "(Mr Beast)",
+                    img: "21148.png",
+                    baik: "Kamu sangat dermawan dan suka berinvestasi pada masa depan orang lain. Kamu rela memberikan bantuan dana, fasilitas, atau koneksi agar orang di sekitarmu bisa sukses dan berkembang.",
+                    buruk: "Kamu menciptakan hubungan ketergantungan yang tidak sehat. Kamu membuat orang lain merasa berutang budi selamanya, sehingga mereka merasa tidak punya hak untuk menolak atau tidak sejalan dengan keinginanmu.",
+                    link: "https://scratch.mit.edu/projects/LINK_BENEFACTOR_KAMU"
+                },
+                "freespirit": {
+                    nama: "THE FREE SPIRIT",
+                    tokoh: "(Nikola Tesla)",
+                    img: "21151.png",
+                    baik: "Kamu membawa energi yang seru, spontan, dan mengajarkan orang lain untuk keluar dari zona nyaman. Bersamamu, orang lain merasa terlepas dari kepenatan hidup dan aturan yang kaku.",
+                    buruk: "Kamu menjadi sangat tidak bertanggung jawab. Sifatmu yang suka menghilang tanpa kabar atau membatalkan janji secara sepihak membuat orang lain kewalahan membereskan urusanmu.",
+                    link: "https://scratch.mit.edu/projects/LINK_FREESPIRIT_KAMU"
                 }
             };
 
-            let hasilAkhir = dataVisual[karakterPemenang] || dataVisual["guardian"];
+            let hasilFinal = databaseKarakter[karakterPemenang] || databaseKarakter["guardian"];
 
-            // Terapkan data dinamis ke elemen halaman kuis
-            document.getElementById('hasil-karakter').innerText = hasilAkhir.nama;
-            document.getElementById('hasil-gambar').src = hasilAkhir.img;
-            document.getElementById('hasil-teks-ajakan').innerText = `Hai ${namaPemain}, takdir telah memilihmu sebagai ${hasilAkhir.nama}! Ayo uji ketangkasan alter egomu langsung di dalam game khusus yang telah kami rancang di platform Scratch melalui tombol di bawah ini!`;
+            // Render Output Text & Visual
+            document.getElementById('hasil-karakter').innerText = hasilFinal.nama;
+            document.getElementById('hasil-tokoh').innerText = hasilFinal.tokoh;
+            document.getElementById('hasil-gambar').src = hasilFinal.img;
+            document.getElementById('desc-baik').innerText = hasilFinal.baik;
+            document.getElementById('desc-buruk').innerText = hasilFinal.buruk;
             
-            // Mengubah link tombol Scratch secara spesifik sesuai karakter yang didapat
-            document.getElementById('hasil-link-scratch').href = hasilAkhir.link;
+            document.getElementById('hasil-teks-ajakan').innerText = `Halo ${namaPemain}! Karakter tokomu adalah ${hasilFinal.nama} ${hasilFinal.tokoh}. Ingin tahu bagaimana petualangan serunya? Yuk buka link Scratch khusus karaktermu di bawah ini!`;
+            
+            // Mengarahkan tombol secara dinamis ke 1 dari 7 link Scratch yang berbeda
+            document.getElementById('hasil-link-scratch').href = hasilFinal.link;
         }
 
         // 5. ENGINE NAVBAR MOBILE
