@@ -1,11 +1,14 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="id">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alter Ego - Product Quiz</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@700&family=Metamorphous&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="styles.css">
     <style>
         /* Gaya Utama Wadah Kuis */
@@ -20,32 +23,8 @@
             font-family: 'Georgia', serif;
             text-align: center;
         }
-
-      /* Gaya Nama Karakter Dramatis & Sinematik */
-        .character-title {
-            font-family: 'Cinzel', serif; /* Font bergaya kerajaan/romawi kuno */
-            font-size: 28px;
-            color: #b71c1c;
-            margin: 10px 0;
-            letter-spacing: 2px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2), 0 0 10px rgba(211, 47, 47, 0.3);
-            text-transform: uppercase;
-        }
-
-        /* Gaya Tulisan Mengajak Audience */
-        .cta-text {
-            font-family: 'Georgia', serif;
-            font-size: 15px;
-            line-height: 1.6;
-            color: #5c4033;
-            margin: 20px 15px;
-            font-style: italic;
-        }
         
-        /* Gaya Tampilan Slideshow Pembuka (Tahap 1) */
-        .intro-container {
-            padding: 10px;
-        }
+        /* Gaya Slideshow Tanpa Garis Bingkai Hitam (Tahap 1) */
         .slide-frame {
             width: 220px;
             height: 330px;
@@ -84,10 +63,9 @@
         }
         .btn-start-intro:hover {
             transform: scale(1.05);
-            background: #b71c1c;
         }
 
-        /* Gaya Tampilan Form Data Diri (Tahap 2) */
+        /* Gaya Form Registrasi Data Diri (Tahap 2) */
         .form-container {
             padding: 20px;
             text-align: left;
@@ -122,13 +100,12 @@
             border-radius: 8px;
             cursor: pointer;
             transition: 0.2s;
-            text-align: center;
         }
         .btn-submit-form:hover {
             background-color: #7a5a40;
         }
 
-        /* Gaya Tampilan Soal Kuis (Tahap 3) */
+        /* Gaya Soal Kuis (Tahap 3) */
         .progress-bar {
             font-size: 14px;
             color: #7a5a40;
@@ -165,22 +142,24 @@
             transform: translateX(5px);
         }
 
-        /* Gaya Halaman Hasil Akhir */
+        /* Gaya Halaman Hasil Akhir Dramatis (Tahap 4) */
         .character-title {
-            font-size: 24px;
-            color: #d32f2f;
-            margin-top: 10px;
-            margin-bottom: 15px;
-            letter-spacing: 1px;
+            font-family: 'Cinzel', serif;
+            font-size: 26px;
+            color: #b71c1c;
+            margin: 15px 0;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2), 0 0 10px rgba(211, 47, 47, 0.3);
+            text-transform: uppercase;
         }
-        .section-title {
-            font-weight: bold;
-            margin-top: 15px;
-            margin-bottom: 5px;
-            font-size: 16px;
+        .cta-text {
+            font-family: 'Georgia', serif;
+            font-size: 15px;
+            line-height: 1.6;
+            color: #5c4033;
+            margin: 20px 15px;
+            font-style: italic;
         }
-        .text-baik { color: #2e7d32; }
-        .text-buruk { color: #c62828; }
         .btn-scratch {
             display: inline-block;
             background: linear-gradient(#ff7b00, #ff5100);
@@ -216,21 +195,29 @@
 </head>
 <body>
 
-    <h1>SMAN 71</h1>
-    
-    <!-- Menu Navigasi -->
-    <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="Design.html">Design</a></li>
-        <li><a href="product.html" class="active">Product</a></li>
-    </ul>
+    <div class="kop-surat">
+        <div class="instansi">SMAN 71 JAKARTA</div>
+        <div class="nama-kelompok">ALTER EGO</div>
+        <div class="sub-kop">Proyek Informatika • Temukan Karakter Alter Egomu</div>
+    </div>
+
+    <nav class="navbar">
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        <ul class="nav-links" id="nav-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="Design.html">Design</a></li>
+            <li><a href="product.html" class="active">Product</a></li>
+        </ul>
+    </nav>
 
     <div class="quiz-box">
         
-        <!-- TAHAP 1: SLIDESHOW GAMBAR PEMBUKA -->
         <div id="tahap-intro">
             <div class="slide-frame">
-                <!-- Gambar otomatis memanggil nama file pixel art milikmu -->
                 <img src="21154.png" class="slide-img active" alt="Julius Caesar">
                 <img src="21153.png" class="slide-img" alt="Barack Obama">
                 <img src="21152.png" class="slide-img" alt="Alexander Agung">
@@ -243,7 +230,6 @@
             <button class="btn-start-intro" onclick="pindahKeForm()">START QUIZ</button>
         </div>
 
-        <!-- TAHAP 2: FORM PENGISIAN DATA PRIBADI -->
         <div id="tahap-form" class="hidden">
             <h3 style="text-align: center; color: #5c4033; margin-bottom: 20px;">Registrasi Peserta</h3>
             <div class="form-container">
@@ -259,35 +245,29 @@
             </div>
         </div>
 
-        <!-- TAHAP 3: KONTENER PERTANYAAN KUIS -->
         <div id="tahap-kuis" class="hidden">
             <div class="progress-bar" id="progress-text">Pertanyaan 1 dari 12</div>
             <div class="question-text" id="question-display">Memuat pertanyaan...</div>
             <div id="options-display"></div>
         </div>
 
-        <!-- TAHAP 4: HALAMAN HASIL AKHIR (VERSI MINIMALIS DRAMATIS) -->
         <div id="quiz-result" class="hidden">
             <div class="result-box">
                 <p style="font-style: italic; color: #7a5a40; margin-bottom: 15px; font-size: 16px;">
                     ✨ <span id="user-greeting">Halo</span>, Analisis Selesai! Karakter Egomu Adalah:
                 </p>
                 
-                <!-- Nama Karakter dengan Font Dramatis -->
                 <h2 class="character-title" id="res-name">NAMA KARAKTER</h2>
                 
-                <!-- Wadah Gambar Pixel Art Dinamis (Otomatis Muncul Tanpa Garis) -->
                 <div style="margin: 25px auto; width: 220px; height: 330px; display: flex; align-items: center; justify-content: center;">
                     <img id="res-img" src="" alt="Karakter Ego" style="max-width: 100%; max-height: 100%; object-fit: contain;">
                 </div>
                 
-                <!-- Kalimat Ajakan Menggugah -->
                 <p class="cta-text">
                     Takdirmu telah terungkap. Jangan biarkan kekuatan ego ini terpendam begitu saja! <br>
                     <strong>Ketuk tombol di bawah ini</strong> untuk melihat perwujudan visual dan kisah epik karaktermu di dunia interaktif Game Scratch sekarang!
                 </p>
                 
-                <!-- Tombol Menuju Scratch -->
                 <a href="#" id="link-scratch-dinamis" target="_blank" class="btn-scratch">MASUK KE DUNIA SCRATCH KAMU</a>
                 
                 <br>
@@ -297,9 +277,8 @@
 
     </div>
 
-    <!-- LOGIKA JAVASCRIPT SYSTEM ENGINE -->
     <script>
-        // 1. ENGINE SLIDESHOW OTOMATIS (1.5 Detik)
+        // 1. ENGINE SLIDESHOW (1.5 Detik)
         let indexSlide = 0;
         const semuaSlides = document.querySelectorAll('.slide-img');
         let intervalSlideshow = setInterval(jalankanSlideshow, 1500);
@@ -310,9 +289,9 @@
             semuaSlides[indexSlide].classList.add('active');
         }
 
-        // Fungsi Perpindahan Halaman Web
+        // Fungsi Navigasi Halaman Dalam Kuis
         function pindahKeForm() {
-            clearInterval(intervalSlideshow); // Hentikan slideshow agar hemat memori
+            clearInterval(intervalSlideshow);
             document.getElementById('tahap-intro').classList.add('hidden');
             document.getElementById('tahap-form').classList.remove('hidden');
         }
@@ -334,7 +313,16 @@
             tampilkanSoal();
         }
 
-        // 2. BANK DATA PERTANYAAN KUIS
+        // NAVBAR HAMBURGER MENU ENGINE
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navList = document.getElementById('nav-list');
+
+        mobileMenu.addEventListener('click', () => {
+            navList.classList.toggle('active');
+            mobileMenu.classList.toggle('is-active');
+        });
+
+        // 2. BANK PERTANYAAN KUIS
         const dataKuis = [
             {
                 q: "1. Temanmu hampir membuat keputusan berisiko besar. Kamu…",
@@ -446,53 +434,17 @@
             }
         ];
 
-        // 3. DATABASE PROFIL KARAKTER & TEMPAT LINK SCRATCH
+        // 3. PROFIL DAN LINK SCRATCH AUTOMATION
         const profilKarakter = {
-            guardian: {
-                nama: "1. THE GUARDIAN (Julius Caesar)",
-                baik: "Kamu selalu memastikan keselamatan dan kenyamanan semua orang. Kamu adalah tempat bersandar yang aman, siap memasang badan, dan selalu bisa diandalkan dalam situasi krisis.",
-                buruk: "Kamu menjadi sangat mengontrol dan mengekang. Sikap protektifmu membuat orang lain merasa tercekik, kehilangan kemandirian, dan merasa tidak dipercaya untuk mengambil keputusan sendiri.",
-                linkScratch: "https://scratch.mit.edu/projects/LINK_SCRATCH_GUARDIAN_KAMU"
-            },
-            peacemaker: {
-                nama: "2. THE PEACEMAKER (Barack Obama)",
-                baik: "Kamu pandai meredam konflik dan menyatukan perbedaan. Kehadiranmu membawa ketenangan, membuat suasana kelompok selalu harmonis, dan semua orang merasa diterima.",
-                buruk: "Kamu mempraktikkan toksisitas positif (toxic positivity). Karena takut pada konflik, kamu mendesak orang lain untuk selalu memendam emosi negatif mereka, sehingga masalah asli mereka tidak pernah selesai dan mereka merasa tidak didengar.",
-                linkScratch: "https://scratch.mit.edu/projects/LINK_SCRATCH_PEACEMAKER_KAMU"
-            },
-            visionary: {
-                nama: "3. THE VISIONARY (Alexander Agung)",
-                baik: "Kamu memiliki ide-ide besar yang menginspirasi dan mampu melihat potensi terbaik dalam diri orang lain yang bahkan tidak mereka sadari sendiri. Kamu mendorong mereka untuk melangkah maju.",
-                buruk: "Kamu menjadi penuntut yang tidak realistis. Kamu memaksa orang lain mengejar standar kesempurnaanmu, membuat mereka merasa selalu gagal, kelelahan (burnout), dan merasa tidak pernah cukup baik di matamu.",
-                linkScratch: "https://scratch.mit.edu/projects/LINK_SCRATCH_VISIONARY_KAMU"
-            },
-            truthteller: {
-                nama: "4. THE TRUTHTELLER (Socrates)",
-                baik: "Kamu adalah orang yang paling jujur dan objektif. Orang lain datang kepadamu saat mereka membutuhkan penilaian yang adil, realistis, and tanpa drama demi kemajuan mereka.",
-                buruk: "Kejujuranmu berubah menjadi senjata yang mematikan rasa percaya diri. Sifat blak-blakanmu yang dingin tanpa empati sering kali menghancurkan mental orang lain dan membuat mereka merasa dihakimi secara kejam.",
-                linkScratch: "https://scratch.mit.edu/projects/LINK_SCRATCH_TRUTHTELLER_KAMU"
-            },
-            driven: {
-                nama: "5. THE CHARMER (Ratu Cleopatra)",
-                baik: "Kamu sangat karismatik, pandai mencairkan suasana, dan membuat semua orang merasa spesial saat mengobrol bersamamu. Kehadiranmu selalu dinantikan di setiap perkumpulan.",
-                buruk: "Kamu menjadi manipulatif. Kamu menggunakan pesonamu hanya untuk memanfaatkan kebaikan orang lain demi keuntungan pribadi, lalu meninggalkan mereka begitu saja saat mereka sudah tidak berguna bagimu.",
-                linkScratch: "https://scratch.mit.edu/projects/LINK_SCRATCH_CHARMER_KAMU"
-            },
-            grounded: {
-                nama: "6. THE BENEFACTOR (Mr Beast)",
-                baik: "Kamu sangat dermawan dan suka berinvestasi pada masa depan orang lain. Kamu rela memberikan bantuan dana, fasilitas, atau koneksi agar orang di sekitarmu bisa sukses dan berkembang.",
-                buruk: "Kamu menciptakan hubungan ketergantungan yang tidak sehat. Kamu membuat orang lain merasa berutang budi selamanya, sehingga mereka merasa tidak punya hak untuk menolak atau tidak sejalan dengan keinginanmu.",
-                linkScratch: "https://scratch.mit.edu/projects/LINK_SCRATCH_BENEFACTOR_KAMU"
-            },
-            freespirit: {
-                nama: "7. THE FREE SPIRIT (Nikola Tesla)",
-                baik: "Kamu membawa energi yang seru, spontan, dan mengajarkan orang lain untuk keluar dari zona nyaman. Bersamamu, orang lain merasa terlepas dari kepenatan hidup dan aturan yang kaku.",
-                buruk: "Kamu menjadi sangat tidak bertanggung jawab. Sifatmu yang suka menghilang tanpa kabar atau membatalkan janji secara sepihak membuat orang lain kewalahan membereskan dampaknya.",
-                linkScratch: "https://scratch.mit.edu/projects/LINK_SCRATCH_FREESPIRIT_KAMU"
-            }
+            guardian: { nama: "THE GUARDIAN (Julius Caesar)", linkScratch: "https://scratch.mit.edu/projects/LINK_GUARDIAN_KAMU" },
+            peacemaker: { nama: "THE PEACEMAKER (Barack Obama)", linkScratch: "https://scratch.mit.edu/projects/LINK_PEACEMAKER_KAMU" },
+            visionary: { nama: "THE VISIONARY (Alexander Agung)", linkScratch: "https://scratch.mit.edu/projects/LINK_VISIONARY_KAMU" },
+            truthteller: { nama: "THE TRUTHTELLER (Socrates)", linkScratch: "https://scratch.mit.edu/projects/LINK_TRUTHTELLER_KAMU" },
+            driven: { nama: "THE CHARMER (Ratu Cleopatra)", linkScratch: "https://scratch.mit.edu/projects/LINK_CHARMER_KAMU" },
+            grounded: { nama: "THE BENEFACTOR (Mr Beast)", linkScratch: "https://scratch.mit.edu/projects/LINK_BENEFACTOR_KAMU" },
+            freespirit: { nama: "THE FREE SPIRIT (Nikola Tesla)", linkScratch: "https://scratch.mit.edu/projects/LINK_FREESPIRIT_KAMU" }
         };
 
-        // 4. ENGINE UTAMA LOGIKA KUIS
         let skor = { guardian: 0, peacemaker: 0, visionary: 0, truthteller: 0, driven: 0, grounded: 0, freespirit: 0 };
         let indeksSoal = 0;
 
@@ -535,7 +487,6 @@
                 kategoriPemenang = "freespirit";
             }
 
-            // Ambil database profil & pasangkan file gambar .png transparan yang sesuai
             let finalKarakter = profilKarakter[kategoriPemenang];
             let fileGambar = "";
 
@@ -547,17 +498,13 @@
             else if (kategoriPemenang === "grounded") fileGambar = "21148.png";
             else if (kategoriPemenang === "freespirit") fileGambar = "21151.png";
 
-            // Tampilkan Data ke Halaman Hasil Akhir secara Dinamis
             document.getElementById("user-greeting").innerText = namaPemain;
             document.getElementById("res-name").innerText = finalKarakter.nama;
-            document.getElementById("res-img").src = fileGambar; // Otomatis ganti gambar karakter tanpa garis bingkai
-
-            // Merubah link tombol Scratch secara otomatis sesuai pemenang karakter
+            document.getElementById("res-img").src = fileGambar;
             document.getElementById("link-scratch-dinamis").href = finalKarakter.linkScratch;
 
             document.getElementById("quiz-result").classList.remove("hidden");
         }
     </script>
-
 </body>
 </html>
