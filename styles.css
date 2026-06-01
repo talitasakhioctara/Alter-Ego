@@ -1,27 +1,53 @@
-/* Place your CSS styles in this file */
+/* Style untuk Body */
+body {
+    background-color: beige;
+    font-family: 'Georgia', serif;
+    padding: 20px;
+}
 
+/* Style untuk Judul Utama */
 h1 {
     text-align: center;
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-weight: bold;
-    color: pink
-}
-ul {list-style-type:none;
-background-color: red;
-border:5px solid gray;}
-ul{text-align: center;}
-ul{border:5px solid gray;
-background-color:white;
-padding:5px;}
-li {display:inline;
-padding:6px;
+    color: pink;
 }
 
+/* Style untuk Menu Navigasi (ul) */
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 10px;
+    background-color: white;
+    border: 5px solid gray;
+    text-align: center;
+}
+
+/* Style untuk Item Menu (li) agar sejajar ke samping */
+li {
+    display: inline;
+    padding: 0 15px;
+}
+
+/* Style untuk Link di Menu */
+li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    padding: 5px 10px;
+}
+
+/* Efek saat link menu dilewati kursor atau sedang aktif */
+li a:hover, li a.active {
+    color: red;
+    border-bottom: 2px solid red;
+}
+
+/* Style untuk Teks Puisi/Pre */
 pre {
     color: red;
     font-weight: bold;
-    font-family:'Verdana', sans-serif
-    font-size: 30px;
-}
-body {background-color: beige;
+    font-family: 'Verdana', sans-serif;
+    font-size: 20px;
+    text-align: center;
 }
