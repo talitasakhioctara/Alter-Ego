@@ -13,13 +13,13 @@
     <!-- Menghubungkan ke CSS Utama -->
     <link rel="stylesheet" href="styles.css">
 
-    <!-- CSS Khusus Komponen Fungsional Kuis (Mencegah Tabrakan CSS Global) -->
+    <!-- CSS Khusus Komponen Fungsional Kuis -->
     <style>
         .quiz-box {
             background-color: #ffffff;
-            border: none; /* Karakter & wadah tanpa bingkai hitam/cokelat kaku */
+            border: none;
             border-radius: 15px;
-            padding: 30px;
+            padding: 35px;
             max-width: 600px;
             margin: 40px auto;
             text-align: center;
@@ -30,7 +30,7 @@
         .slide-frame {
             width: 220px;
             height: 330px;
-            margin: 0 auto 20px auto;
+            margin: 0 auto 15px auto;
             overflow: hidden;
             border: none;
             background-color: #ffffff;
@@ -48,6 +48,14 @@
 
         .slide-img.active {
             display: block;
+        }
+
+        .welcome-title {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 26px;
+            color: #5c4033;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
         }
 
         /* Form Registrasi */
@@ -141,18 +149,18 @@
             color: #ffffff;
         }
 
-        /* Hasil Akhir Dramatis */
+        /* Hasil Akhir Nyentrik */
         .result-title {
-            font-family: 'Cinzel', serif;
-            font-size: 32px;
+            font-family: 'Cinzel Decorative', serif; /* Font nyentrik & eksklusif */
+            font-size: 34px;
             font-weight: bold;
-            color: #5c4033;
-            margin-bottom: 10px;
-            text-shadow: 0 0 10px rgba(92, 64, 51, 0.1);
+            color: #e65c00;
+            margin: 15px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
 
         .result-img {
-            max-width: 200px;
+            max-width: 220px;
             height: auto;
             margin: 20px auto;
             display: block;
@@ -161,8 +169,10 @@
 
         .result-cta {
             font-size: 15px;
-            color: #666;
-            margin: 15px 0 25px 0;
+            color: #5c4033;
+            font-weight: 600;
+            line-height: 1.6;
+            margin: 20px 0;
         }
     </style>
 </head>
@@ -175,7 +185,7 @@
         <div class="sub-kop">Proyek Informatika • Temukan Karakter Alter Egomu</div>
     </div>
 
-    <!-- NAVBAR DENGAN MENU GARIS TIGA -->
+    <!-- NAVBAR -->
     <nav class="navbar">
         <div class="menu-toggle" id="mobile-menu">
             <span class="bar"></span>
@@ -200,6 +210,7 @@
                 <img src="21155.png" class="slide-img" alt="Karakter 3">
                 <img src="21156.png" class="slide-img" alt="Karakter 4">
             </div>
+            <div class="welcome-title">FIND YOUR ALTER EGO</div>
             <button class="btn-action" onclick="pindahKeForm()">Mulai Petualangan</button>
         </div>
 
@@ -223,17 +234,21 @@
             <div class="progress-bar" id="kuis-progress">Soal 1 dari 12</div>
             <div class="question-text" id="kuis-soal">Memuat pertanyaan...</div>
             <div class="options-container" id="kuis-pilihan">
-                <!-- Tombol pilihan dimuat dinamis oleh Javascript -->
+                <!-- Pilihan jawaban -->
             </div>
         </div>
 
-        <!-- TAHAP 4: HALAMAN HASIL AKHIR DRAMATIS & MINIMALIS -->
+        <!-- TAHAP 4: HALAMAN HASIL AKHIR (BESAR & NYENTRIK) -->
         <div id="tahap-hasil" class="hidden">
-            <p style="font-size: 14px; text-transform: uppercase; letter-spacing: 2px;">Alter Egomu Adalah</p>
-            <div class="result-title" id="hasil-karakter">GUARDIAN</div>
+            <p style="font-size: 14px; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; color: #7a5a40;">Alter Egomu Adalah</p>
+            <div class="result-title" id="hasil-karakter">THE GUARDIAN</div>
             <img src="" id="hasil-gambar" class="result-img" alt="Karakter Pemenang">
-            <p class="result-cta">Penasaran dengan aksi karaktermu? Ayo mainkan game interaktif buatan kelompok kami di platform Scratch sekarang!</p>
-            <a href="https://scratch.mit.edu" target="_blank" class="btn-action">Mainkan Game Scratch Kami</a>
+            
+            <!-- Kalimat ajakan dinamis -->
+            <p class="result-cta" id="hasil-teks-ajakan">Memuat petualanganmu...</p>
+            
+            <!-- Tombol Link Scratch Dinamis Berbeda Tiap Karakter -->
+            <a href="#" id="hasil-link-scratch" target="_blank" class="btn-action">Mainkan Game Karaktermu di Scratch</a>
         </div>
 
     </div>
@@ -275,7 +290,7 @@
             tampilkanSoal();
         }
 
-        // 3. BANK DATA 12 PERTANYAAN LOGIKA KUIS LENGKAP TANPA ADA YANG MISS
+        // 3. BANK DATA 12 PERTANYAAN LOGIKA KUIS
         const dataKuis = [
             {
                 q: "1. Temanmu hampir membuat keputusan berisiko besar. Kamu...",
@@ -396,14 +411,10 @@
                 return;
             }
 
-            // Tampilkan Progress angka soal (1 sampai 12)
             document.getElementById('kuis-progress').innerText = `Soal ${indeksSoalSkrg + 1} dari ${dataKuis.length}`;
-            
-            // Ambil data soal
             let soalSkrg = dataKuis[indeksSoalSkrg];
             document.getElementById('kuis-soal').innerText = soalSkrg.q;
 
-            // Render opsi jawaban
             let kontainerPilihan = document.getElementById('kuis-pilihan');
             kontainerPilihan.innerHTML = "";
 
@@ -422,12 +433,12 @@
             tampilkanSoal();
         }
 
-        // 4. LOGIKA PENENTUAN KARAKTER PEMENANG (ALTER EGO)
+        // 4. LOGIKA HASIL AKHIR CUSTOM LINK SCRATCH TIAP KARAKTER
         function hitungDanTampilkanHasil() {
             document.getElementById('tahap-kuis').classList.add('hidden');
             document.getElementById('tahap-hasil').classList.remove('hidden');
 
-            let karakterPemenang = "guardian"; // Nilai default cadangan
+            let karakterPemenang = "guardian"; 
             let skorTertinggi = -1;
 
             for (let kunci in skorKepribadian) {
@@ -437,24 +448,52 @@
                 }
             }
 
-            // Mapping nama karakter formal & file gambar PNG transparan pasangannya
+            // Database Pemetaan Karakter, Gambar, dan Link Scratch yang Berbeda-beda
             let dataVisual = {
-                "guardian": { nama: "THE GUARDIAN", img: "21154.png" },
-                "driven": { nama: "THE DRIVEN ONE", img: "21153.png" },
-                "truthteller": { nama: "THE TRUTH TELLER", img: "21155.png" },
-                "peacemaker": { nama: "THE PEACEMAKER", img: "21156.png" },
-                "visionary": { nama: "THE VISIONARY", img: "21153.png" },
-                "grounded": { nama: "THE GROUNDED", img: "21154.png" }
+                "guardian": { 
+                    nama: "THE GUARDIAN", 
+                    img: "21154.png", 
+                    link: "https://scratch.mit.edu/projects/LINK_GUARDIAN_KAMU" 
+                },
+                "driven": { 
+                    nama: "THE DRIVEN ONE", 
+                    img: "21153.png", 
+                    link: "https://scratch.mit.edu/projects/LINK_DRIVEN_KAMU" 
+                },
+                "truthteller": { 
+                    nama: "THE TRUTH TELLER", 
+                    img: "21155.png", 
+                    link: "https://scratch.mit.edu/projects/LINK_TRUTHTELLER_KAMU" 
+                },
+                "peacemaker": { 
+                    nama: "THE PEACEMAKER", 
+                    img: "21156.png", 
+                    link: "https://scratch.mit.edu/projects/LINK_PEACEMAKER_KAMU" 
+                },
+                "visionary": { 
+                    nama: "THE VISIONARY", 
+                    img: "21153.png", 
+                    link: "https://scratch.mit.edu/projects/LINK_VISIONARY_KAMU" 
+                },
+                "grounded": { 
+                    nama: "THE GROUNDED", 
+                    img: "21154.png", 
+                    link: "https://scratch.mit.edu/projects/LINK_GROUNDED_KAMU" 
+                }
             };
 
             let hasilAkhir = dataVisual[karakterPemenang] || dataVisual["guardian"];
 
-            // Pasang teks dan gambar pemenang kuis secara dinamis
+            // Terapkan data dinamis ke elemen halaman kuis
             document.getElementById('hasil-karakter').innerText = hasilAkhir.nama;
             document.getElementById('hasil-gambar').src = hasilAkhir.img;
+            document.getElementById('hasil-teks-ajakan').innerText = `Hai ${namaPemain}, takdir telah memilihmu sebagai ${hasilAkhir.nama}! Ayo uji ketangkasan alter egomu langsung di dalam game khusus yang telah kami rancang di platform Scratch melalui tombol di bawah ini!`;
+            
+            // Mengubah link tombol Scratch secara spesifik sesuai karakter yang didapat
+            document.getElementById('hasil-link-scratch').href = hasilAkhir.link;
         }
 
-        // 5. ENGINE MOBILE NAVBAR TOGGLE (HAMBURGER MENU)
+        // 5. ENGINE NAVBAR MOBILE
         const mobileMenu = document.getElementById('mobile-menu');
         const navList = document.getElementById('nav-list');
 
