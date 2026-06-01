@@ -3,98 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kuis Alter Ego - SMAN 71</title>
-    <!-- Google Fonts -->
+    <title>Alter Ego - Product Quiz</title>
+
+    <!-- Google Fonts Seragam -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <!-- Hubungkan ke CSS Utama -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@700&family=Metamorphous&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- Menghubungkan ke CSS Utama -->
     <link rel="stylesheet" href="styles.css">
-    
+
+    <!-- CSS Khusus Komponen Fungsional Kuis (Mencegah Tabrakan CSS Global) -->
     <style>
-        /* Desain Khusus Kontainer Kuis */
-        .quiz-container {
-            max-width: 650px;
+        .quiz-box {
+            background-color: #ffffff;
+            border: none; /* Karakter & wadah tanpa bingkai hitam/cokelat kaku */
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 600px;
             margin: 40px auto;
-            background: #ffffff;
-            border: 2px solid #5c4033;
-            border-radius: 12px;
-            padding: 35px;
             text-align: center;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
-        .char-slider {
+
+        /* Slide Animasi Karakter Pembuka */
+        .slide-frame {
             width: 220px;
-            height: 220px;
-            margin: 0 auto 20px;
-            border-radius: 50%;
-            border: 4px double #5c4033;
-            object-fit: cover;
-            transition: all 0.5s ease;
-        }
-        .btn-quiz {
-            display: inline-block;
-            background: linear-gradient(135deg, #ff9900, #e65c00);
-            color: white;
-            padding: 12px 35px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: bold;
+            height: 330px;
+            margin: 0 auto 20px auto;
+            overflow: hidden;
             border: none;
-            cursor: pointer;
-            margin-top: 20px;
-            font-size: 1rem;
-            box-shadow: 0 4px 15px rgba(230, 92, 0, 0.2);
-            transition: 0.2s;
+            background-color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .btn-quiz:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(230, 92, 0, 0.4);
+
+        .slide-img {
+            max-width: 100%;
+            max-height: 100%;
+            display: none;
+            object-fit: contain;
         }
-        .input-biodata {
-            width: 80%;
+
+        .slide-img.active {
+            display: block;
+        }
+
+        /* Form Registrasi */
+        .form-container {
+            padding: 10px;
+            text-align: left;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            color: #5c4033;
+            margin-bottom: 8px;
+        }
+
+        .form-group input {
+            width: 100%;
             padding: 12px;
-            margin-top: 15px;
             border: 2px solid #5c4033;
             border-radius: 8px;
-            font-family: 'Poppins', sans-serif;
-            text-align: center;
-            font-size: 1rem;
-            outline: none;
+            font-size: 16px;
+            box-sizing: border-box;
+            background-color: #fcf9f2;
         }
-        .option-btn {
-            display: block;
+
+        /* Tombol Aksi */
+        .btn-action {
+            display: inline-block;
             width: 100%;
-            background: #f4ecd8;
-            color: #5c4033;
-            border: 1px solid #5c4033;
+            background: linear-gradient(135deg, #ff9900, #e65c00);
+            color: white;
+            border: none;
             padding: 14px;
-            margin: 12px 0;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Poppins', sans-serif;
+            text-decoration: none;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .btn-action:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(230, 92, 0, 0.3);
+        }
+
+        /* Tampilan Soal Kuis */
+        .progress-bar {
+            font-size: 14px;
+            color: #7a5a40;
+            font-weight: bold;
+            text-align: right;
+            margin-bottom: 15px;
+        }
+
+        .question-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: #5c4033;
+            margin-bottom: 25px;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-btn {
+            background-color: #fcf9f2;
+            border: 2px solid #5c4033;
+            color: #5c4033;
+            padding: 12px 20px;
+            font-size: 15px;
+            text-align: left;
             border-radius: 8px;
             cursor: pointer;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            font-size: 0.95rem;
-            text-align: left;
             transition: 0.2s;
+            font-family: 'Poppins', sans-serif;
         }
+
         .option-btn:hover {
-            background: #5c4033;
-            color: white;
-            padding-left: 20px;
+            background-color: #5c4033;
+            color: #ffffff;
         }
-        .step { display: none; }
-        .step.active { display: block; }
-        
-        /* Box info hasil untuk Public Self & Alter Ego */
-        .result-box {
-            margin-top: 20px;
-            padding: 15px;
-            border-radius: 8px;
-            text-align: left;
+
+        /* Hasil Akhir Dramatis */
+        .result-title {
+            font-family: 'Cinzel', serif;
+            font-size: 32px;
+            font-weight: bold;
+            color: #5c4033;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(92, 64, 51, 0.1);
         }
-        .bg-good { background-color: #e8f5e9; border-left: 5px solid #2e7d32; }
-        .bg-bad { background-color: #ffebee; border-left: 5px solid #c62828; margin-top: 15px; }
+
+        .result-img {
+            max-width: 200px;
+            height: auto;
+            margin: 20px auto;
+            display: block;
+            border: none;
+        }
+
+        .result-cta {
+            font-size: 15px;
+            color: #666;
+            margin: 15px 0 25px 0;
+        }
     </style>
 </head>
 <body>
@@ -106,7 +175,7 @@
         <div class="sub-kop">Proyek Informatika • Temukan Karakter Alter Egomu</div>
     </div>
 
-    <!-- NAVBAR -->
+    <!-- NAVBAR DENGAN MENU GARIS TIGA -->
     <nav class="navbar">
         <div class="menu-toggle" id="mobile-menu">
             <span class="bar"></span>
@@ -120,319 +189,275 @@
         </ul>
     </nav>
 
-    <!-- KONTEN UTAMA KUIS MULTI-STEP -->
-    <div class="quiz-container">
-
-        <!-- ================= TAHAP 1: AWAL (SWITCH CHARACTER) ================= -->
-        <div id="step-1" class="step active">
-            <!-- Menampilkan gambar karakter bergantian secara otomatis -->
-            <img src="guardian.jpg" id="sliding-char" class="char-slider" alt="Karakter Alter Ego">
-            <h2 style="font-family: 'Cinzel', serif; color: #5c4033; margin-bottom: 15px;">Siapkah Mengenal Sisi Lainmu?</h2>
-            <p style="color: #666; font-size: 1rem; line-height: 1.6;">
-                Setiap manusia mengenakan topeng di dunia luar, namun jiwa terdalam menyimpan entitas yang berbeda jauh. Masuki portal ini untuk mengungkap kepribadian sejatimu dan temukan tokoh sejarah yang mengalir di dalam darahmu!
-            </p>
-            <button class="btn-quiz" onclick="nextStep(2)">Mulai Petualangan</button>
+    <!-- CONTAINER UTAMA KUIS -->
+    <div class="quiz-box">
+        
+        <!-- TAHAP 1: SCREEN PEMBUKA / SLIDESHOW -->
+        <div id="tahap-welcome">
+            <div class="slide-frame">
+                <img src="21154.png" class="slide-img active" alt="Karakter 1">
+                <img src="21153.png" class="slide-img" alt="Karakter 2">
+                <img src="21155.png" class="slide-img" alt="Karakter 3">
+                <img src="21156.png" class="slide-img" alt="Karakter 4">
+            </div>
+            <button class="btn-action" onclick="pindahKeForm()">Mulai Petualangan</button>
         </div>
 
-        <!-- ================= TAHAP 2: BIODATA ================= -->
-        <div id="step-2" class="step">
-            <h2 style="font-family: 'Cinzel', serif; color: #5c4033; margin-bottom: 10px;">Isi Identitas Dirimu</h2>
-            <p style="color: #666; font-size: 0.95rem;">Sebelum gerbang portal terbuka sepenuhnya, sebutkan namamu:</p>
-            <input type="text" id="nama-user" class="input-biodata" placeholder="Masukkan nama panggilanmu..." required>
-            <br>
-            <button class="btn-quiz" onclick="mulaiKuis()">Lanjut ke Kuis</button>
-        </div>
-
-        <!-- ================= TAHAP 3: PERTANYAAN KUIS ================= -->
-        <div id="step-3" class="step">
-            <h3 style="color: #888; font-size: 0.9rem; margin-bottom: 5px; font-weight: bold; letter-spacing: 1px;">PERTANYAAN <span id="quiz-number">1</span> / 12</h3>
-            <h2 id="quiz-question" style="font-family: 'Poppins', sans-serif; font-size: 1.25rem; color: #5c4033; margin-bottom: 25px; font-weight: 600;">Teks Pertanyaan</h2>
-            <div id="quiz-options">
-                <!-- Pilihan jawaban akan otomatis dirender di sini oleh engine JavaScript -->
+        <!-- TAHAP 2: FORM REGISTRASI DATA DIRI -->
+        <div id="tahap-form" class="hidden">
+            <div class="form-container">
+                <div class="form-group">
+                    <label for="nama-input">Nama Lengkap / Panggilan :</label>
+                    <input type="text" id="nama-input" placeholder="Masukkan namamu...">
+                </div>
+                <div class="form-group">
+                    <label for="email-input">Alamat Email Aktif :</label>
+                    <input type="email" id="email-input" placeholder="Masukkan emailmu...">
+                </div>
+                <button class="btn-action" onclick="pindahKeKuis()">Masuk Ke Dunia Alter Ego</button>
             </div>
         </div>
 
-        <!-- ================= TAHAP 4: HASIL AKHIR & LINK SCRATCH ================= -->
-        <div id="step-4" class="step">
-            <h2 style="font-family: 'Cinzel', serif; color: #5c4033; margin-bottom: 5px;">Halo, <span id="hasil-nama" style="color: #e65c00;">User</span>!</h2>
-            <p style="color: #666; font-size: 0.95rem; margin-bottom: 25px;">Berdasarkan getaran jiwamu, Alter Ego yang bersemayam dalam dirimu adalah:</p>
-            
-            <!-- Foto Tokoh Sejarah & Nama Arketipe -->
-            <img src="" id="hasil-foto" class="char-slider" style="width: 200px; height: 200px; border-radius: 50%;" alt="Hasil Karakter">
-            <h1 id="hasil-karakter" style="font-family: 'Cinzel Decorative', serif; font-size: 1.8rem; color: #5c4033; margin-bottom: 5px;">Arketipe</h1>
-            <h2 id="hasil-tokoh" style="font-family: 'Cinzel', serif; font-size: 1.3rem; color: #e65c00; margin-bottom: 25px;">Tokoh Sejarah</h2>
-            
-            <!-- Deskripsi Sisi Baik (Public Self) -->
-            <div class="result-box bg-good">
-                <h4 style="color: #2e7d32; font-weight: bold; margin-bottom: 5px;">🌟 Public Self (Sisi Baik):</h4>
-                <p id="deskripsi-baik" style="color: #1b5e20; font-size: 0.95rem; line-height: 1.5;"></p>
+        <!-- TAHAP 3: FORM PERTANYAAN KUIS JAVASCRIPT -->
+        <div id="tahap-kuis" class="hidden">
+            <div class="progress-bar" id="kuis-progress">Soal 1 dari 12</div>
+            <div class="question-text" id="kuis-soal">Memuat pertanyaan...</div>
+            <div class="options-container" id="kuis-pilihan">
+                <!-- Tombol pilihan dimuat dinamis oleh Javascript -->
             </div>
+        </div>
 
-            <!-- Deskripsi Sisi Buruk (Alter Ego) -->
-            <div class="result-box bg-bad">
-                <h4 style="color: #c62828; font-weight: bold; margin-bottom: 5px;">👁️ Alter Ego (Sisi Gelap / Dampak ke Orang Lain):</h4>
-                <p id="deskripsi-buruk" style="color: #b71c1c; font-size: 0.95rem; line-height: 1.5;"></p>
-            </div>
-            
-            <hr style="border: 1px dashed #5c4033; margin: 30px 0 20px 0;">
-            
-            <!-- Link Akses Game Scratch Proyek Kelompok -->
-            <p style="font-weight: bold; color: #5c4033; font-size: 1rem; margin-bottom: 10px;">Kendalikan Energi Karaktermu di Dunia Scratch!</p>
-            <a href="LINK_PROJECT_SCRATCH_KAMU" target="_blank" class="btn-quiz" style="background: #4c97ff; box-shadow: 0 4px 15px rgba(76, 151, 255, 0.3);">Mainkan Game di Scratch 🚀</a>
+        <!-- TAHAP 4: HALAMAN HASIL AKHIR DRAMATIS & MINIMALIS -->
+        <div id="tahap-hasil" class="hidden">
+            <p style="font-size: 14px; text-transform: uppercase; letter-spacing: 2px;">Alter Egomu Adalah</p>
+            <div class="result-title" id="hasil-karakter">GUARDIAN</div>
+            <img src="" id="hasil-gambar" class="result-img" alt="Karakter Pemenang">
+            <p class="result-cta">Penasaran dengan aksi karaktermu? Ayo mainkan game interaktif buatan kelompok kami di platform Scratch sekarang!</p>
+            <a href="https://scratch.mit.edu" target="_blank" class="btn-action">Mainkan Game Scratch Kami</a>
         </div>
 
     </div>
 
-    <!-- ENGINE JAVASCRIPT KUIS (SISTEM TERSTRUKTUR & AKURAT) -->
+    <!-- ENGINE LOGIKA JAVASCRIPT KUIS -->
     <script>
-        // 1. DATA FILE GAMBAR UNTUK ANIMASI AUTOMATIC SWITCH DI AWAL
-        // Ganti nama file di bawah ini sesuai nama aset foto karakter kamu di GitHub
-        const gambarKarakter = ["guardian.jpg", "peacemaker.jpg", "visionary.jpg", "truthteller.jpg", "charmer.jpg", "benefactor.jpg", "freespirit.jpg"]; 
-        let indeksGambar = 0;
-        setInterval(() => {
-            const imgElement = document.getElementById('sliding-char');
-            if(imgElement) {
-                indeksGambar = (indeksGambar + 1) % gambarKarakter.length;
-                imgElement.src = gambarKarakter[indeksGambar];
-            }
-        }, 2000); // Berganti gambar otomatis setiap 2 detik
+        // 1. ENGINE SLIDESHOW KARAKTER
+        let indeksSlide = 0;
+        const daftarGambar = document.querySelectorAll('.slide-img');
+        
+        function jalankanSlideshow() {
+            daftarGambar[indeksSlide].classList.remove('active');
+            indeksSlide = (indeksSlide + 1) % daftarGambar.length;
+            daftarGambar[indeksSlide].classList.add('active');
+        }
+        let intervalSlideshow = setInterval(jalankanSlideshow, 2000);
 
-        // 2. ENGINE NAVIGASI HALAMAN (MULTI-STEP)
-        function nextStep(stepNumber) {
-            document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
-            document.getElementById(`step-${stepNumber}`).classList.add('active');
-            window.scrollTo(0, 0);
+        // 2. NAVIGASI ANTAR TAHAP
+        function pindahKeForm() {
+            clearInterval(intervalSlideshow);
+            document.getElementById('tahap-welcome').classList.add('hidden');
+            document.getElementById('tahap-form').classList.remove('hidden');
         }
 
-        function mulaiKuis() {
-            const nama = document.getElementById('nama-user').value;
-            if (nama.trim() === "") {
-                alert("Mohon isi namamu terlebih dahulu untuk memulai kuis!");
-            } else {
-                nextStep(3);
-                showQuestion();
+        let namaPemain = "";
+        let emailPemain = "";
+
+        function pindahKeKuis() {
+            namaPemain = document.getElementById('nama-input').value.trim();
+            emailPemain = document.getElementById('email-input').value.trim();
+
+            if (namaPemain === "" || emailPemain === "") {
+                alert("Harap isi Nama dan Email kamu terlebih dahulu ya!");
+                return;
             }
+
+            document.getElementById('tahap-form').classList.add('hidden');
+            document.getElementById('tahap-kuis').classList.remove('hidden');
+            tampilkanSoal();
         }
 
-        // 3. DATABASE SOAL KUIS & PEMETAAN TARGET SKOR JAWABAN (12 SOAL SESUAI REQUES)
-        const questions = [
+        // 3. BANK DATA 12 PERTANYAAN LOGIKA KUIS LENGKAP TANPA ADA YANG MISS
+        const dataKuis = [
             {
-                question: "Temanmu hampir membuat keputusan berisiko besar. Kamu…",
-                options: [
-                    { text: "Mengambil alih demi melindungi dia", score: "Guardian" },
-                    { text: "Mendorong dia mengambil langkah besar", score: "Benefactor" }, // Mengisi peran Driven/Aksi/Investasi
-                    { text: "Menjelaskan realita apa adanya", score: "Truthteller" },
-                    { text: "Menangkan dia agar tidak panik", score: "Peacemaker" }
+                q: "1. Temanmu hampir membuat keputusan berisiko besar. Kamu...",
+                o: [
+                    { t: "A. Mengambil alih demi melindungi dia", k: "guardian" },
+                    { t: "B. Mendorong dia mengambil langkah besar", k: "driven" },
+                    { t: "C. Menjelaskan realita apa adanya", k: "truthteller" },
+                    { t: "D. Menenangkan dia agar tidak panik", k: "peacemaker" }
                 ]
             },
             {
-                question: "Dalam konflik kelompok, kamu…",
-                options: [
-                    { text: "Menjaga semua orang tetap aman", score: "Guardian" },
-                    { text: "Mencari solusi ideal jangka panjang", score: "Visionary" },
-                    { text: "Menyampaikan fakta siapa yang benar", score: "Truthteller" },
-                    { text: "Meredakan suasana agar damai", score: "Peacemaker" }
+                q: "2. Dalam konflik kelompok, kamu...",
+                o: [
+                    { t: "A. Menjaga semua orang tetap aman", k: "guardian" },
+                    { t: "B. Mencari solusi ideal jangka panjang", k: "visionary" },
+                    { t: "C. Menyampaikan fakta siapa yang benar", k: "truthteller" },
+                    { t: "D. Meredakan suasana agar damai", k: "peacemaker" }
                 ]
             },
             {
-                question: "Seseorang sedang gagal dan frustrasi. Kamu…",
-                options: [
-                    { text: "Melindungi dia dari tekanan tambahan", score: "Guardian" },
-                    { text: "Mendorong dia bangkit lebih kuat", score: "Charmer" }, // Menggunakan Karisma pesona untuk dorong semangat
-                    { text: "Memberi perspektif jujur tentang kesalahannya", score: "Truthteller" },
-                    { text: "Membuat dia merasa lebih tenang", score: "Peacemaker" }
+                q: "3. Seseorang sedang gagal dan frustrasi. Kamu...",
+                o: [
+                    { t: "A. Melindungi dia dari tekanan tambahan", k: "guardian" },
+                    { t: "B. Mendorong dia bangkit lebih kuat", k: "driven" },
+                    { t: "C. Memberi perspektif jujur tentang kesalahannya", k: "truthteller" },
+                    { t: "D. Membuat dia merasa lebih tenang", k: "peacemaker" }
                 ]
             },
             {
-                question: "Kalau seseorang mengabaikan nasihatmu, kamu…",
-                options: [
-                    { text: "Tetap mengawasi demi keamanannya", score: "Guardian" },
-                    { text: "Membiarkan dia belajar dari realita", score: "Free Spirit" }, // Berjiwa bebas membiarkan realita mengalir
-                    { text: "Mengingatkan dengan tegas dan jujur", score: "Truthteller" },
-                    { text: "Mengurangi konflik dan tidak memaksa", score: "Peacemaker" }
+                q: "4. Kalau seseorang mengabaikan nasihatmu, kamu...",
+                o: [
+                    { t: "A. Tetap mengawasi demi keamanannya", k: "guardian" },
+                    { t: "B. Membiarkan dia belajar dari realita", k: "grounded" },
+                    { t: "C. Mengingatkan dengan tegas dan jujur", k: "truthteller" },
+                    { t: "D. Mengurangi konflik dan tidak memaksa", k: "peacemaker" }
                 ]
             },
             {
-                question: "Saat kerja kelompok, kamu biasanya…",
-                options: [
-                    { text: "Mengatur agar semuanya aman dan stabil", score: "Guardian" },
-                    { text: "Mendorong hasil terbaik", score: "Benefactor" },
-                    { text: "Memberi arah besar yang jelas", score: "Visionary" },
-                    { text: "Menjaga suasana tetap harmonis", score: "Peacemaker" }
+                q: "5. Saat kerja kelompok, kamu biasanya...",
+                o: [
+                    { t: "A. Mengatur agar semuanya aman dan stabil", k: "guardian" },
+                    { t: "B. Mendorong hasil terbaik", k: "driven" },
+                    { t: "C. Memberi arah besar yang jelas", k: "visionary" },
+                    { t: "D. Menjaga suasana tetap harmonis", k: "peacemaker" }
                 ]
             },
             {
-                question: "Temanmu terlalu bergantung padamu. Kamu…",
-                options: [
-                    { text: "Mengontrol agar dia tidak jatuh", score: "Guardian" },
-                    { text: "Mendorong dia lebih kuat dan mandiri", score: "Visionary" },
-                    { text: "Menghadapkan dia pada realita", score: "Truthteller" },
-                    { text: "Menangkan agar dia tidak cemas berlebihan", score: "Peacemaker" }
+                q: "6. Temanmu terlalu bergantung padamu. Kamu...",
+                o: [
+                    { t: "A. Mengontrol agar dia tidak jatuh", k: "guardian" },
+                    { t: "B. Mendorong dia lebih kuat dan mandiri", k: "driven" },
+                    { t: "C. Menghadapkan dia pada realita", k: "truthteller" },
+                    { t: "D. Menenangkan agar dia tidak cemas berlebihan", k: "peacemaker" }
                 ]
             },
             {
-                question: "Saat melihat ketidakadilan, kamu…",
-                options: [
-                    { text: "Melindungi pihak yang lemah", score: "Guardian" },
-                    { text: "Mengubah situasi dengan tindakan besar", score: "Charmer" },
-                    { text: "Mengatakan fakta tanpa bias", score: "Truthteller" },
-                    { text: "Menjaga situasi tetap damai dulu", score: "Peacemaker" }
+                q: "7. Saat melihat ketidakadilan, kamu...",
+                o: [
+                    { t: "A. Melindungi pihak yang lemah", k: "guardian" },
+                    { t: "B. Mengubah situasi dengan tindakan besar", k: "driven" },
+                    { t: "C. Mengatakan fakta tanpa bias", k: "truthteller" },
+                    { t: "D. Menjaga situasi tetap damai dulu", k: "peacemaker" }
                 ]
             },
             {
-                question: "Ketika rencana berubah mendadak, kamu…",
-                options: [
-                    { text: "Langsung mengamankan situasi", score: "Guardian" },
-                    { text: "Melihat peluang baru", score: "Visionary" },
-                    { text: "Menganalisis realita yang terjadi", score: "Truthteller" },
-                    { text: "Menangkan semua orang", score: "Peacemaker" }
+                q: "8. Ketika rencana berubah mendadak, kamu...",
+                o: [
+                    { t: "A. Langsung mengamankan situasi", k: "guardian" },
+                    { t: "B. Melihat peluang baru", k: "visionary" },
+                    { t: "C. Menganalisis realita yang terjadi", k: "truthteller" },
+                    { t: "D. Menenangkan semua orang", k: "peacemaker" }
                 ]
             },
             {
-                question: "Temanmu sedang sedih berat. Kamu…",
-                options: [
-                    { text: "Menjaganya sampai stabil", score: "Guardian" },
-                    { text: "Mendorong dia bangkit", score: "Benefactor" },
-                    { text: "Memberi kebenaran yang perlu dia dengar", score: "Truthteller" },
-                    { text: "Menangkan emosinya", score: "Peacemaker" }
+                q: "9. Temanmu sedang sedih berat. Kamu...",
+                o: [
+                    { t: "A. Menjaganya sampai stabil", k: "guardian" },
+                    { t: "B. Mendorong dia bangkit", k: "driven" },
+                    { t: "C. Memberi kebenaran yang perlu dia dengar", k: "truthteller" },
+                    { t: "D. Menenangkan emosinya", k: "peacemaker" }
                 ]
             },
             {
-                question: "Dalam keputusan penting, kamu…",
-                options: [
-                    { text: "Memilih yang paling aman", score: "Guardian" },
-                    { text: "Memilih yang paling ambisius", score: "Free Spirit" },
-                    { text: "Memilih berdasarkan fakta paling realistis", score: "Truthteller" },
-                    { text: "Memilih yang paling damai dan minim konflik", score: "Peacemaker" }
+                q: "10. Dalam keputusan penting, kamu...",
+                o: [
+                    { t: "A. Memilih yang paling aman", k: "guardian" },
+                    { t: "B. Memilih yang paling ambisius", k: "driven" },
+                    { t: "C. Memilih berdasarkan fakta paling realistis", k: "truthteller" },
+                    { t: "D. Memilih yang paling damai dan minim konflik", k: "peacemaker" }
                 ]
             },
             {
-                question: "Jika seseorang tidak mendengarkanmu, kamu…",
-                options: [
-                    { text: "Tetap mengawasi", score: "Guardian" },
-                    { text: "Tetap mendorong dia berkembang", score: "Visionary" },
-                    { text: "Mengatakan kebenaran lebih tegas", score: "Truthteller" },
-                    { text: "Tidak memaksa lagi", score: "Free Spirit" }
+                q: "11. Ketika kamu melihat seseorang membuat kesalahan fatal, reaksi pertamamu...",
+                o: [
+                    { t: "A. Membantu memperbaiki tanpa menghakimi", k: "guardian" },
+                    { t: "B. Menjadikannya pelajaran untuk maju terus", k: "driven" },
+                    { t: "C. Menyatakan kesalahan itu secara langsung agar sadar", k: "truthteller" },
+                    { t: "D. Menghibur hatinya agar tidak larut dalam kesedihan", k: "peacemaker" }
                 ]
             },
             {
-                question: "Gaya hidup yang kamu pilih lebih ke…",
-                options: [
-                    { text: "Melindungi orang lain", score: "Guardian" },
-                    { text: "Mengejar target besar", score: "Charmer" },
-                    { text: "Jujur dan realistis", score: "Truthteller" },
-                    { text: "Hidup damai tanpa konflik", score: "Peacemaker" }
+                q: "12. Apa visi terbesarmu saat memimpin sebuah tim?",
+                o: [
+                    { t: "A. Memastikan semua anggota tim terlindungi dan sejahtera", k: "guardian" },
+                    { t: "B. Mencapai target tertinggi bagaimanapun caranya", k: "driven" },
+                    { t: "C. Menegakkan transparansi dan kejujuran mutlak", k: "truthteller" },
+                    { t: "D. Menciptakan keharmonisan dan kedamaian antar anggota", k: "peacemaker" }
                 ]
             }
         ];
 
-        let currentQuestionIndex = 0;
-        // Inisialisasi wadah penampung nilai 7 karakter utama kelompok
-        let scores = { "Guardian": 0, "Peacemaker": 0, "Visionary": 0, "Truthteller": 0, "Charmer": 0, "Benefactor": 0, "Free Spirit": 0 };
+        let indeksSoalSkrg = 0;
+        let skorKepribadian = {};
 
-        function showQuestion() {
-            const currentQuestion = questions[currentQuestionIndex];
-            document.getElementById('quiz-number').innerText = currentQuestionIndex + 1;
-            document.getElementById('quiz-question').innerText = currentQuestion.question;
+        function tampilkanSoal() {
+            if (indeksSoalSkrg >= dataKuis.length) {
+                hitungDanTampilkanHasil();
+                return;
+            }
+
+            // Tampilkan Progress angka soal (1 sampai 12)
+            document.getElementById('kuis-progress').innerText = `Soal ${indeksSoalSkrg + 1} dari ${dataKuis.length}`;
             
-            const optionsContainer = document.getElementById('quiz-options');
-            optionsContainer.innerHTML = "";
-            
-            currentQuestion.options.forEach(option => {
-                const button = document.createElement('button');
-                button.innerText = option.text;
-                button.classList.add('option-btn');
-                button.onclick = () => selectAnswer(option.score);
-                optionsContainer.appendChild(button);
+            // Ambil data soal
+            let soalSkrg = dataKuis[indeksSoalSkrg];
+            document.getElementById('kuis-soal').innerText = soalSkrg.q;
+
+            // Render opsi jawaban
+            let kontainerPilihan = document.getElementById('kuis-pilihan');
+            kontainerPilihan.innerHTML = "";
+
+            soalSkrg.o.forEach(opsi => {
+                let tombol = document.createElement('button');
+                tombol.className = "option-btn";
+                tombol.innerText = opsi.t;
+                tombol.onclick = () => pilihJawaban(opsi.k);
+                kontainerPilihan.appendChild(tombol);
             });
         }
 
-        function selectAnswer(scoreType) {
-            scores[scoreType]++;
-            currentQuestionIndex++;
-            
-            if (currentQuestionIndex < questions.length) {
-                showQuestion();
-            } else {
-                hitungDanTampilkanHasil();
-            }
+        function pilihJawaban(karakter) {
+            skorKepribadian[karakter] = (skorKepribadian[karakter] || 0) + 1;
+            indeksSoalSkrg++;
+            tampilkanSoal();
         }
 
-        // 4. DATABASE DETAIL HASIL UNTUK MASING-MASING ARKETIPE & TOKOH SEJARAHNYA
-        const databaseHasil = {
-            "Guardian": {
-                title: "THE GUARDIAN",
-                tokoh: "Julius Caesar",
-                foto: "guardian.jpg",
-                baik: "Kamu selalu memastikan keselamatan dan kenyamanan semua orang. Kamu adalah tempat bersandar yang aman, siap memasang badan, dan selalu bisa diandalkan dalam situasi krisis.",
-                buruk: "Kamu menjadi sangat mengontrol dan mengekang. Sikap protektifmu membuat orang lain merasa tercekik, kehilangan kemandirian, dan merasa tidak dipercaya untuk mengambil keputusan sendiri."
-            },
-            "Peacemaker": {
-                title: "THE PEACEMAKER",
-                tokoh: "Barack Obama",
-                foto: "peacemaker.jpg",
-                baik: "Kamu pandai meredam konflik dan menyatukan perbedaan. Kehadiranmu membawa ketenangan, membuat suasana kelompok selalu harmonis, dan semua orang merasa diterima.",
-                buruk: "Kamu mempraktikkan toksisitas positif (toxic positivity). Karena takut pada konflik, kamu mendesak orang lain untuk selalu memendam emosi negatif mereka, sehingga masalah asli mereka tidak pernah selesai dan mereka merasa tidak didengar."
-            },
-            "Visionary": {
-                title: "THE VISIONARY",
-                tokoh: "Alexander Agung",
-                foto: "visionary.jpg",
-                baik: "Kamu memiliki ide-ide besar yang menginspirasi dan mampu melihat potensi terbaik dalam diri orang lain yang bahkan tidak mereka sadari sendiri. Kamu mendorong mereka untuk melangkah maju.",
-                buruk: "Kamu menjadi penuntut yang tidak realistis. Kamu memaksa orang lain mengejar standar kesempurnaanmu, membuat mereka merasa selalu gagal, kelelahan (burnout), dan merasa tidak pernah cukup baik di matamu."
-            },
-            "Truthteller": {
-                title: "THE TRUTHTELLER",
-                tokoh: "Socrates",
-                foto: "truthteller.jpg",
-                baik: "Kamu adalah orang yang paling jujur dan objektif. Orang lain datang kepadamu saat mereka membutuhkan penilaian yang adil, realistis, dan tanpa drama demi kemajuan mereka.",
-                buruk: "Kejujuranmu berubah menjadi senjata yang mematikan rasa percaya diri. Sifat blak-blakanmu yang dingin tanpa empati sering kali menghancurkan mental orang lain dan membuat mereka merasa dihakimi secara kejam."
-            },
-            "Charmer": {
-                title: "THE CHARMER",
-                tokoh: "Ratu Cleopatra",
-                foto: "charmer.jpg",
-                baik: "Kamu sangat karismatik, pandai mencairkan suasana, dan membuat semua orang merasa spesial saat mengobrol bersamamu. Kehadiranmu selalu dinantikan di setiap perkumpulan.",
-                buruk: "Kamu menjadi manipulatif. Kamu menggunakan pesonamu hanya untuk memanfaatkan kebaikan orang lain demi keuntungan pribadi, lalu meninggalkan mereka begitu saja saat mereka sudah tidak berguna bagimu."
-            },
-            "Benefactor": {
-                title: "THE BENEFACTOR",
-                tokoh: "MrBeast",
-                foto: "benefactor.jpg",
-                baik: "Kamu sangat dermawan dan suka berinvestasi pada masa depan orang lain. Kamu rela memberikan bantuan dana, fasilitas, atau koneksi agar orang di sekitarmu bisa sukses dan berkembang.",
-                buruk: "Kamu menciptakan hubungan ketergantungan yang tidak sehat. Kamu membuat orang lain merasa berutang budi selamanya, sehingga mereka merasa tidak punya hak untuk menolak atau tidak sejalan dengan keinginanmu."
-            },
-            "Free Spirit": {
-                title: "THE FREE SPIRIT",
-                tokoh: "Nikola Tesla",
-                foto: "freespirit.jpg",
-                baik: "Kamu membawa energi yang seru, spontan, dan mengajarkan orang lain untuk keluar dari zona nyaman. Bersamamu, orang lain merasa terlepas dari kepenatan hidup dan aturan yang kaku.",
-                buruk: "Kamu menjadi sangat tidak bertanggung jawab. Sifatmu yang suka menghilang tanpa kabar atau membatalkan janji secara sepihak membuat orang lain kewalahan membereskan dampak kekacauannya."
-            }
-        };
-
+        // 4. LOGIKA PENENTUAN KARAKTER PEMENANG (ALTER EGO)
         function hitungDanTampilkanHasil() {
-            // Mengambil pemenang arketipe dengan nilai skor tertinggi
-            let karakterPemenang = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
-            let data = databaseHasil[karakterPemenang];
-            
-            // Render Nama Pengguna
-            const nama = document.getElementById('nama-user').value;
-            document.getElementById('hasil-nama').innerText = nama;
-            
-            // Render Konten Hasil secara Dinamis
-            document.getElementById('hasil-karakter').innerText = data.title;
-            document.getElementById('hasil-tokoh').innerText = `(${data.tokoh})`;
-            document.getElementById('hasil-foto').src = data.foto;
-            document.getElementById('deskripsi-baik').innerText = data.baik;
-            document.getElementById('deskripsi-buruk').innerText = data.buruk;
-            
-            nextStep(4);
+            document.getElementById('tahap-kuis').classList.add('hidden');
+            document.getElementById('tahap-hasil').classList.remove('hidden');
+
+            let karakterPemenang = "guardian"; // Nilai default cadangan
+            let skorTertinggi = -1;
+
+            for (let kunci in skorKepribadian) {
+                if (skorKepribadian[kunci] > skorTertinggi) {
+                    skorTertinggi = skorKepribadian[kunci];
+                    karakterPemenang = kunci;
+                }
+            }
+
+            // Mapping nama karakter formal & file gambar PNG transparan pasangannya
+            let dataVisual = {
+                "guardian": { nama: "THE GUARDIAN", img: "21154.png" },
+                "driven": { nama: "THE DRIVEN ONE", img: "21153.png" },
+                "truthteller": { nama: "THE TRUTH TELLER", img: "21155.png" },
+                "peacemaker": { nama: "THE PEACEMAKER", img: "21156.png" },
+                "visionary": { nama: "THE VISIONARY", img: "21153.png" },
+                "grounded": { nama: "THE GROUNDED", img: "21154.png" }
+            };
+
+            let hasilAkhir = dataVisual[karakterPemenang] || dataVisual["guardian"];
+
+            // Pasang teks dan gambar pemenang kuis secara dinamis
+            document.getElementById('hasil-karakter').innerText = hasilAkhir.nama;
+            document.getElementById('hasil-gambar').src = hasilAkhir.img;
         }
 
-        // TOGGLE MENU NAVBAR MOBILE
+        // 5. ENGINE MOBILE NAVBAR TOGGLE (HAMBURGER MENU)
         const mobileMenu = document.getElementById('mobile-menu');
         const navList = document.getElementById('nav-list');
+
         mobileMenu.addEventListener('click', () => {
             navList.classList.toggle('active');
             mobileMenu.classList.toggle('is-active');
