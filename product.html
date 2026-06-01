@@ -4,81 +4,69 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alter Ego - Product Quiz</title>
-    
+
+    <!-- Google Fonts Seragam -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@700&family=Metamorphous&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    
+
+    <!-- Menghubungkan ke CSS Utama -->
     <link rel="stylesheet" href="styles.css">
+
+    <!-- CSS Khusus Komponen Fungsional Kuis (Mencegah Tabrakan CSS Global) -->
     <style>
-        /* Gaya Utama Wadah Kuis */
         .quiz-box {
             background-color: #ffffff;
-            border: 4px solid #5c4033;
+            border: none; /* Karakter & wadah tanpa bingkai hitam/cokelat kaku */
             border-radius: 15px;
-            padding: 25px;
+            padding: 30px;
             max-width: 600px;
-            margin: 30px auto;
-            box-shadow: 0px 5px 15px rgba(0,0,0,0.15);
-            font-family: 'Georgia', serif;
+            margin: 40px auto;
             text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
-        
-        /* Gaya Slideshow Tanpa Garis Bingkai Hitam (Tahap 1) */
+
+        /* Slide Animasi Karakter Pembuka */
         .slide-frame {
             width: 220px;
             height: 330px;
             margin: 0 auto 20px auto;
             overflow: hidden;
             border: none;
-            border-radius: 10px;
             background-color: #ffffff;
             display: flex;
             align-items: center;
             justify-content: center;
         }
+
         .slide-img {
             max-width: 100%;
             max-height: 100%;
             display: none;
             object-fit: contain;
         }
+
         .slide-img.active {
             display: block;
         }
-        .btn-start-intro {
-            display: inline-block;
-            background: linear-gradient(#d32f2f, #b71c1c);
-            color: white;
-            padding: 15px 40px;
-            font-size: 18px;
-            font-weight: bold;
-            text-decoration: none;
-            border-radius: 30px;
-            border: 2px solid #5c4033;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-            transition: 0.2s;
-            letter-spacing: 1px;
-        }
-        .btn-start-intro:hover {
-            transform: scale(1.05);
-        }
 
-        /* Gaya Form Registrasi Data Diri (Tahap 2) */
+        /* Form Registrasi */
         .form-container {
-            padding: 20px;
+            padding: 10px;
             text-align: left;
         }
+
         .form-group {
             margin-bottom: 20px;
         }
+
         .form-group label {
             display: block;
             font-weight: bold;
             color: #5c4033;
             margin-bottom: 8px;
         }
+
         .form-group input {
             width: 100%;
             padding: 12px;
@@ -88,119 +76,106 @@
             box-sizing: border-box;
             background-color: #fcf9f2;
         }
-        .btn-submit-form {
-            display: block;
+
+        /* Tombol Aksi */
+        .btn-action {
+            display: inline-block;
             width: 100%;
-            background-color: #5c4033;
+            background: linear-gradient(135deg, #ff9900, #e65c00);
             color: white;
+            border: none;
             padding: 14px;
             font-size: 16px;
             font-weight: bold;
-            border: none;
-            border-radius: 8px;
+            border-radius: 25px;
             cursor: pointer;
             transition: 0.2s;
-        }
-        .btn-submit-form:hover {
-            background-color: #7a5a40;
+            font-family: 'Poppins', sans-serif;
+            text-decoration: none;
+            margin-top: 10px;
+            text-align: center;
         }
 
-        /* Gaya Soal Kuis (Tahap 3) */
+        .btn-action:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(230, 92, 0, 0.3);
+        }
+
+        /* Tampilan Soal Kuis */
         .progress-bar {
             font-size: 14px;
             color: #7a5a40;
             font-weight: bold;
             text-align: right;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
+
         .question-text {
             font-size: 18px;
+            font-weight: 600;
             color: #5c4033;
-            font-weight: bold;
-            margin-bottom: 20px;
-            line-height: 1.5;
-            text-align: left;
+            margin-bottom: 25px;
         }
-        .btn-pilihan {
-            display: block;
-            width: 100%;
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-btn {
             background-color: #fcf9f2;
             border: 2px solid #5c4033;
             color: #5c4033;
-            padding: 14px;
-            margin: 12px 0;
+            padding: 12px 20px;
             font-size: 15px;
-            font-weight: bold;
             text-align: left;
-            cursor: pointer;
             border-radius: 8px;
-            transition: 0.2s ease;
-        }
-        .btn-pilihan:hover {
-            background-color: #5c4033;
-            color: #f4ecd8;
-            transform: translateX(5px);
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Poppins', sans-serif;
         }
 
-        /* Gaya Halaman Hasil Akhir Dramatis (Tahap 4) */
-        .character-title {
+        .option-btn:hover {
+            background-color: #5c4033;
+            color: #ffffff;
+        }
+
+        /* Hasil Akhir Dramatis */
+        .result-title {
             font-family: 'Cinzel', serif;
-            font-size: 26px;
-            color: #b71c1c;
-            margin: 15px 0;
-            letter-spacing: 2px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2), 0 0 10px rgba(211, 47, 47, 0.3);
-            text-transform: uppercase;
-        }
-        .cta-text {
-            font-family: 'Georgia', serif;
-            font-size: 15px;
-            line-height: 1.6;
-            color: #5c4033;
-            margin: 20px 15px;
-            font-style: italic;
-        }
-        .btn-scratch {
-            display: inline-block;
-            background: linear-gradient(#ff7b00, #ff5100);
-            color: white;
-            padding: 15px 30px;
-            text-decoration: none;
+            font-size: 32px;
             font-weight: bold;
-            border-radius: 8px;
-            margin-top: 20px;
-            border: 2px solid #b33900;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-            transition: 0.2s;
-            font-size: 16px;
+            color: #5c4033;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(92, 64, 51, 0.1);
         }
-        .btn-scratch:hover {
-            transform: scale(1.05);
-            background: #e64a00;
+
+        .result-img {
+            max-width: 200px;
+            height: auto;
+            margin: 20px auto;
+            display: block;
+            border: none;
         }
-        .btn-colab {
-            display: inline-block;
-            background-color: #323232;
-            color: #ccc;
-            padding: 8px 15px;
-            text-decoration: none;
-            font-size: 12px;
-            border-radius: 5px;
-            margin-top: 30px;
-        }
-        .hidden {
-            display: none;
+
+        .result-cta {
+            font-size: 15px;
+            color: #666;
+            margin: 15px 0 25px 0;
         }
     </style>
 </head>
 <body>
 
+    <!-- KOP SURAT ATAS -->
     <div class="kop-surat">
         <div class="instansi">SMAN 71 JAKARTA</div>
         <div class="nama-kelompok">ALTER EGO</div>
         <div class="sub-kop">Proyek Informatika • Temukan Karakter Alter Egomu</div>
     </div>
 
+    <!-- NAVBAR DENGAN MENU GARIS TIGA -->
     <nav class="navbar">
         <div class="menu-toggle" id="mobile-menu">
             <span class="bar"></span>
@@ -214,85 +189,72 @@
         </ul>
     </nav>
 
+    <!-- CONTAINER UTAMA KUIS -->
     <div class="quiz-box">
         
-        <div id="tahap-intro">
+        <!-- TAHAP 1: SCREEN PEMBUKA / SLIDESHOW -->
+        <div id="tahap-welcome">
             <div class="slide-frame">
-                <img src="21154.png" class="slide-img active" alt="Julius Caesar">
-                <img src="21153.png" class="slide-img" alt="Barack Obama">
-                <img src="21152.png" class="slide-img" alt="Alexander Agung">
-                <img src="21150.png" class="slide-img" alt="Socrates">
-                <img src="21149.png" class="slide-img" alt="Ratu Cleopatra">
-                <img src="21148.png" class="slide-img" alt="Mr Beast">
-                <img src="21151.png" class="slide-img" alt="Nikola Tesla">
+                <img src="21154.png" class="slide-img active" alt="Karakter 1">
+                <img src="21153.png" class="slide-img" alt="Karakter 2">
+                <img src="21155.png" class="slide-img" alt="Karakter 3">
+                <img src="21156.png" class="slide-img" alt="Karakter 4">
             </div>
-            <h2 style="color: #5c4033; font-style: italic; margin-bottom: 25px;">"Find Your Alter Ego"</h2>
-            <button class="btn-start-intro" onclick="pindahKeForm()">START QUIZ</button>
+            <button class="btn-action" onclick="pindahKeForm()">Mulai Petualangan</button>
         </div>
 
+        <!-- TAHAP 2: FORM REGISTRASI DATA DIRI -->
         <div id="tahap-form" class="hidden">
-            <h3 style="text-align: center; color: #5c4033; margin-bottom: 20px;">Registrasi Peserta</h3>
             <div class="form-container">
                 <div class="form-group">
-                    <label for="nama-input">Nama Lengkap:</label>
-                    <input type="text" id="nama-input" placeholder="Masukkan nama kamu...">
+                    <label for="nama-input">Nama Lengkap / Panggilan :</label>
+                    <input type="text" id="nama-input" placeholder="Masukkan namamu...">
                 </div>
                 <div class="form-group">
-                    <label for="email-input">Alamat Email:</label>
-                    <input type="email" id="email-input" placeholder="Masukkan email aktif...">
+                    <label for="email-input">Alamat Email Aktif :</label>
+                    <input type="email" id="email-input" placeholder="Masukkan emailmu...">
                 </div>
-                <button class="btn-submit-form" onclick="pindahKeKuis()">Mulai Pertanyaan</button>
+                <button class="btn-action" onclick="pindahKeKuis()">Masuk Ke Dunia Alter Ego</button>
             </div>
         </div>
 
+        <!-- TAHAP 3: FORM PERTANYAAN KUIS JAVASCRIPT -->
         <div id="tahap-kuis" class="hidden">
-            <div class="progress-bar" id="progress-text">Pertanyaan 1 dari 12</div>
-            <div class="question-text" id="question-display">Memuat pertanyaan...</div>
-            <div id="options-display"></div>
+            <div class="progress-bar" id="kuis-progress">Soal 1 dari 12</div>
+            <div class="question-text" id="kuis-soal">Memuat pertanyaan...</div>
+            <div class="options-container" id="kuis-pilihan">
+                <!-- Tombol pilihan dimuat dinamis oleh Javascript -->
+            </div>
         </div>
 
-        <div id="quiz-result" class="hidden">
-            <div class="result-box">
-                <p style="font-style: italic; color: #7a5a40; margin-bottom: 15px; font-size: 16px;">
-                    ✨ <span id="user-greeting">Halo</span>, Analisis Selesai! Karakter Egomu Adalah:
-                </p>
-                
-                <h2 class="character-title" id="res-name">NAMA KARAKTER</h2>
-                
-                <div style="margin: 25px auto; width: 220px; height: 330px; display: flex; align-items: center; justify-content: center;">
-                    <img id="res-img" src="" alt="Karakter Ego" style="max-width: 100%; max-height: 100%; object-fit: contain;">
-                </div>
-                
-                <p class="cta-text">
-                    Takdirmu telah terungkap. Jangan biarkan kekuatan ego ini terpendam begitu saja! <br>
-                    <strong>Ketuk tombol di bawah ini</strong> untuk melihat perwujudan visual dan kisah epik karaktermu di dunia interaktif Game Scratch sekarang!
-                </p>
-                
-                <a href="#" id="link-scratch-dinamis" target="_blank" class="btn-scratch">MASUK KE DUNIA SCRATCH KAMU</a>
-                
-                <br>
-                <a href="https://colab.research.google.com/drive/1kB9lbrGBvW1sT3gcFX_QMSYm_jMrQyZO?usp=sharing" target="_blank" class="btn-colab">Open Backend Python (Google Colab)</a>
-            </div>
+        <!-- TAHAP 4: HALAMAN HASIL AKHIR DRAMATIS & MINIMALIS -->
+        <div id="tahap-hasil" class="hidden">
+            <p style="font-size: 14px; text-transform: uppercase; letter-spacing: 2px;">Alter Egomu Adalah</p>
+            <div class="result-title" id="hasil-karakter">GUARDIAN</div>
+            <img src="" id="hasil-gambar" class="result-img" alt="Karakter Pemenang">
+            <p class="result-cta">Penasaran dengan aksi karaktermu? Ayo mainkan game interaktif buatan kelompok kami di platform Scratch sekarang!</p>
+            <a href="https://scratch.mit.edu" target="_blank" class="btn-action">Mainkan Game Scratch Kami</a>
         </div>
 
     </div>
 
+    <!-- ENGINE LOGIKA JAVASCRIPT KUIS -->
     <script>
-        // 1. ENGINE SLIDESHOW (1.5 Detik)
-        let indexSlide = 0;
-        const semuaSlides = document.querySelectorAll('.slide-img');
-        let intervalSlideshow = setInterval(jalankanSlideshow, 1500);
-
+        // 1. ENGINE SLIDESHOW KARAKTER
+        let indeksSlide = 0;
+        const daftarGambar = document.querySelectorAll('.slide-img');
+        
         function jalankanSlideshow() {
-            semuaSlides[indexSlide].classList.remove('active');
-            indexSlide = (indexSlide + 1) % semuaSlides.length;
-            semuaSlides[indexSlide].classList.add('active');
+            daftarGambar[indeksSlide].classList.remove('active');
+            indeksSlide = (indeksSlide + 1) % daftarGambar.length;
+            daftarGambar[indeksSlide].classList.add('active');
         }
+        let intervalSlideshow = setInterval(jalankanSlideshow, 2000);
 
-        // Fungsi Navigasi Halaman Dalam Kuis
+        // 2. NAVIGASI ANTAR TAHAP
         function pindahKeForm() {
             clearInterval(intervalSlideshow);
-            document.getElementById('tahap-intro').classList.add('hidden');
+            document.getElementById('tahap-welcome').classList.add('hidden');
             document.getElementById('tahap-form').classList.remove('hidden');
         }
 
@@ -313,19 +275,10 @@
             tampilkanSoal();
         }
 
-        // NAVBAR HAMBURGER MENU ENGINE
-        const mobileMenu = document.getElementById('mobile-menu');
-        const navList = document.getElementById('nav-list');
-
-        mobileMenu.addEventListener('click', () => {
-            navList.classList.toggle('active');
-            mobileMenu.classList.toggle('is-active');
-        });
-
-        // 2. BANK PERTANYAAN KUIS
+        // 3. BANK DATA 12 PERTANYAAN LOGIKA KUIS LENGKAP TANPA ADA YANG MISS
         const dataKuis = [
             {
-                q: "1. Temanmu hampir membuat keputusan berisiko besar. Kamu…",
+                q: "1. Temanmu hampir membuat keputusan berisiko besar. Kamu...",
                 o: [
                     { t: "A. Mengambil alih demi melindungi dia", k: "guardian" },
                     { t: "B. Mendorong dia mengambil langkah besar", k: "driven" },
@@ -334,7 +287,7 @@
                 ]
             },
             {
-                q: "2. Dalam konflik kelompok, kamu…",
+                q: "2. Dalam konflik kelompok, kamu...",
                 o: [
                     { t: "A. Menjaga semua orang tetap aman", k: "guardian" },
                     { t: "B. Mencari solusi ideal jangka panjang", k: "visionary" },
@@ -343,7 +296,7 @@
                 ]
             },
             {
-                q: "3. Seseorang sedang gagal dan frustrasi. Kamu…",
+                q: "3. Seseorang sedang gagal dan frustrasi. Kamu...",
                 o: [
                     { t: "A. Melindungi dia dari tekanan tambahan", k: "guardian" },
                     { t: "B. Mendorong dia bangkit lebih kuat", k: "driven" },
@@ -352,7 +305,7 @@
                 ]
             },
             {
-                q: "4. Kalau seseorang mengabaikan nasihatmu, kamu…",
+                q: "4. Kalau seseorang mengabaikan nasihatmu, kamu...",
                 o: [
                     { t: "A. Tetap mengawasi demi keamanannya", k: "guardian" },
                     { t: "B. Membiarkan dia belajar dari realita", k: "grounded" },
@@ -361,7 +314,7 @@
                 ]
             },
             {
-                q: "5. Saat kerja kelompok, kamu biasanya…",
+                q: "5. Saat kerja kelompok, kamu biasanya...",
                 o: [
                     { t: "A. Mengatur agar semuanya aman dan stabil", k: "guardian" },
                     { t: "B. Mendorong hasil terbaik", k: "driven" },
@@ -370,7 +323,7 @@
                 ]
             },
             {
-                q: "6. Temanmu terlalu bergantung padamu. Kamu…",
+                q: "6. Temanmu terlalu bergantung padamu. Kamu...",
                 o: [
                     { t: "A. Mengontrol agar dia tidak jatuh", k: "guardian" },
                     { t: "B. Mendorong dia lebih kuat dan mandiri", k: "driven" },
@@ -379,7 +332,7 @@
                 ]
             },
             {
-                q: "7. Saat melihat ketidakadilan, kamu..",
+                q: "7. Saat melihat ketidakadilan, kamu...",
                 o: [
                     { t: "A. Melindungi pihak yang lemah", k: "guardian" },
                     { t: "B. Mengubah situasi dengan tindakan besar", k: "driven" },
@@ -388,7 +341,7 @@
                 ]
             },
             {
-                q: "8. Ketika rencana berubah mendadak, kamu…",
+                q: "8. Ketika rencana berubah mendadak, kamu...",
                 o: [
                     { t: "A. Langsung mengamankan situasi", k: "guardian" },
                     { t: "B. Melihat peluang baru", k: "visionary" },
@@ -397,7 +350,7 @@
                 ]
             },
             {
-                q: "9. Temanmu sedang sedih berat. Kamu…",
+                q: "9. Temanmu sedang sedih berat. Kamu...",
                 o: [
                     { t: "A. Menjaganya sampai stabil", k: "guardian" },
                     { t: "B. Mendorong dia bangkit", k: "driven" },
@@ -406,7 +359,7 @@
                 ]
             },
             {
-                q: "10. Dalam keputusan penting, kamu…",
+                q: "10. Dalam keputusan penting, kamu...",
                 o: [
                     { t: "A. Memilih yang paling aman", k: "guardian" },
                     { t: "B. Memilih yang paling ambisius", k: "driven" },
@@ -415,96 +368,100 @@
                 ]
             },
             {
-                q: "11. Jika seseorang tidak mendengarkanmu, kamu…",
+                q: "11. Ketika kamu melihat seseorang membuat kesalahan fatal, reaksi pertamamu...",
                 o: [
-                    { t: "A. Tetap mengawasi", k: "guardian" },
-                    { t: "B. Tetap mendorong dia berkembang", k: "driven" },
-                    { t: "C. Mengatakan kebenaran lebih tegas", k: "truthteller" },
-                    { t: "D. Tidak memaksa lagi", k: "grounded" }
+                    { t: "A. Membantu memperbaiki tanpa menghakimi", k: "guardian" },
+                    { t: "B. Menjadikannya pelajaran untuk maju terus", k: "driven" },
+                    { t: "C. Menyatakan kesalahan itu secara langsung agar sadar", k: "truthteller" },
+                    { t: "D. Menghibur hatinya agar tidak larut dalam kesedihan", k: "peacemaker" }
                 ]
             },
             {
-                q: "12. Gaya hidup yang kamu pilih lebih ke…",
+                q: "12. Apa visi terbesarmu saat memimpin sebuah tim?",
                 o: [
-                    { t: "A. Melindungi orang lain", k: "guardian" },
-                    { t: "B. Mengejar target besar", k: "driven" },
-                    { t: "C. Jujur dan realistis", k: "truthteller" },
-                    { t: "D. Hidup damai tanpa konflik", k: "peacemaker" }
+                    { t: "A. Memastikan semua anggota tim terlindungi dan sejahtera", k: "guardian" },
+                    { t: "B. Mencapai target tertinggi bagaimanapun caranya", k: "driven" },
+                    { t: "C. Menegakkan transparansi dan kejujuran mutlak", k: "truthteller" },
+                    { t: "D. Menciptakan keharmonisan dan kedamaian antar anggota", k: "peacemaker" }
                 ]
             }
         ];
 
-        // 3. PROFIL DAN LINK SCRATCH AUTOMATION
-        const profilKarakter = {
-            guardian: { nama: "THE GUARDIAN (Julius Caesar)", linkScratch: "https://scratch.mit.edu/projects/LINK_GUARDIAN_KAMU" },
-            peacemaker: { nama: "THE PEACEMAKER (Barack Obama)", linkScratch: "https://scratch.mit.edu/projects/LINK_PEACEMAKER_KAMU" },
-            visionary: { nama: "THE VISIONARY (Alexander Agung)", linkScratch: "https://scratch.mit.edu/projects/LINK_VISIONARY_KAMU" },
-            truthteller: { nama: "THE TRUTHTELLER (Socrates)", linkScratch: "https://scratch.mit.edu/projects/LINK_TRUTHTELLER_KAMU" },
-            driven: { nama: "THE CHARMER (Ratu Cleopatra)", linkScratch: "https://scratch.mit.edu/projects/LINK_CHARMER_KAMU" },
-            grounded: { nama: "THE BENEFACTOR (Mr Beast)", linkScratch: "https://scratch.mit.edu/projects/LINK_BENEFACTOR_KAMU" },
-            freespirit: { nama: "THE FREE SPIRIT (Nikola Tesla)", linkScratch: "https://scratch.mit.edu/projects/LINK_FREESPIRIT_KAMU" }
-        };
-
-        let skor = { guardian: 0, peacemaker: 0, visionary: 0, truthteller: 0, driven: 0, grounded: 0, freespirit: 0 };
-        let indeksSoal = 0;
+        let indeksSoalSkrg = 0;
+        let skorKepribadian = {};
 
         function tampilkanSoal() {
-            if (indeksSoal < dataKuis.length) {
-                let dataSekarang = dataKuis[indeksSoal];
-                document.getElementById("progress-text").innerText = `Pertanyaan ${indeksSoal + 1} dari ${dataKuis.length}`;
-                document.getElementById("question-display").innerText = dataSekarang.q;
-                
-                let opsiHtml = "";
-                dataSekarang.o.forEach(opsi => {
-                    opsiHtml += `<button class="btn-pilihan" onclick="prosesJawaban('${opsi.k}')">${opsi.t}</button>`;
-                });
-                document.getElementById("options-display").innerHTML = opsiHtml;
-            } else {
+            if (indeksSoalSkrg >= dataKuis.length) {
                 hitungDanTampilkanHasil();
+                return;
             }
+
+            // Tampilkan Progress angka soal (1 sampai 12)
+            document.getElementById('kuis-progress').innerText = `Soal ${indeksSoalSkrg + 1} dari ${dataKuis.length}`;
+            
+            // Ambil data soal
+            let soalSkrg = dataKuis[indeksSoalSkrg];
+            document.getElementById('kuis-soal').innerText = soalSkrg.q;
+
+            // Render opsi jawaban
+            let kontainerPilihan = document.getElementById('kuis-pilihan');
+            kontainerPilihan.innerHTML = "";
+
+            soalSkrg.o.forEach(opsi => {
+                let tombol = document.createElement('button');
+                tombol.className = "option-btn";
+                tombol.innerText = opsi.t;
+                tombol.onclick = () => pilihJawaban(opsi.k);
+                kontainerPilihan.appendChild(tombol);
+            });
         }
 
-        function prosesJawaban(kategori) {
-            skor[kategori]++;
-            indeksSoal++;
+        function pilihJawaban(karakter) {
+            skorKepribadian[karakter] = (skorKepribadian[karakter] || 0) + 1;
+            indeksSoalSkrg++;
             tampilkanSoal();
         }
 
+        // 4. LOGIKA PENENTUAN KARAKTER PEMENANG (ALTER EGO)
         function hitungDanTampilkanHasil() {
-            document.getElementById("tahap-kuis").classList.add("hidden");
-            
-            let skorTertinggi = -1;
-            let kategoriPemenang = "guardian"; 
+            document.getElementById('tahap-kuis').classList.add('hidden');
+            document.getElementById('tahap-hasil').classList.remove('hidden');
 
-            for (let kunci in skor) {
-                if (skor[kunci] > skorTertinggi) {
-                    skorTertinggi = skor[kunci];
-                    kategoriPemenang = kunci;
+            let karakterPemenang = "guardian"; // Nilai default cadangan
+            let skorTertinggi = -1;
+
+            for (let kunci in skorKepribadian) {
+                if (skorKepribadian[kunci] > skorTertinggi) {
+                    skorTertinggi = skorKepribadian[kunci];
+                    karakterPemenang = kunci;
                 }
             }
 
-            if (kategoriPemenang === "driven" && skor["driven"] === skor["grounded"]) {
-                kategoriPemenang = "freespirit";
-            }
+            // Mapping nama karakter formal & file gambar PNG transparan pasangannya
+            let dataVisual = {
+                "guardian": { nama: "THE GUARDIAN", img: "21154.png" },
+                "driven": { nama: "THE DRIVEN ONE", img: "21153.png" },
+                "truthteller": { nama: "THE TRUTH TELLER", img: "21155.png" },
+                "peacemaker": { nama: "THE PEACEMAKER", img: "21156.png" },
+                "visionary": { nama: "THE VISIONARY", img: "21153.png" },
+                "grounded": { nama: "THE GROUNDED", img: "21154.png" }
+            };
 
-            let finalKarakter = profilKarakter[kategoriPemenang];
-            let fileGambar = "";
+            let hasilAkhir = dataVisual[karakterPemenang] || dataVisual["guardian"];
 
-            if (kategoriPemenang === "guardian") fileGambar = "21154.png";
-            else if (kategoriPemenang === "peacemaker") fileGambar = "21153.png";
-            else if (kategoriPemenang === "visionary") fileGambar = "21152.png";
-            else if (kategoriPemenang === "truthteller") fileGambar = "21150.png";
-            else if (kategoriPemenang === "driven") fileGambar = "21149.png";
-            else if (kategoriPemenang === "grounded") fileGambar = "21148.png";
-            else if (kategoriPemenang === "freespirit") fileGambar = "21151.png";
-
-            document.getElementById("user-greeting").innerText = namaPemain;
-            document.getElementById("res-name").innerText = finalKarakter.nama;
-            document.getElementById("res-img").src = fileGambar;
-            document.getElementById("link-scratch-dinamis").href = finalKarakter.linkScratch;
-
-            document.getElementById("quiz-result").classList.remove("hidden");
+            // Pasang teks dan gambar pemenang kuis secara dinamis
+            document.getElementById('hasil-karakter').innerText = hasilAkhir.nama;
+            document.getElementById('hasil-gambar').src = hasilAkhir.img;
         }
+
+        // 5. ENGINE MOBILE NAVBAR TOGGLE (HAMBURGER MENU)
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navList = document.getElementById('nav-list');
+
+        mobileMenu.addEventListener('click', () => {
+            navList.classList.toggle('active');
+            mobileMenu.classList.toggle('is-active');
+        });
     </script>
 </body>
 </html>
