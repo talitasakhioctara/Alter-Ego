@@ -1,32 +1,63 @@
-/* RESET TOTAL - Memastikan tidak ada margin aneh */
+/* ==========================================================================
+   RESET TOTAL & SETTING LAYOUT (DIJAMIN MELEBAR)
+   ========================================================================== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
-    width: 100%;
+html, body {
+    width: 100% !important;
+    min-height: 100vh;
     margin: 0;
     padding: 0;
-    font-family: 'Poppins', sans-serif;
     background-color: #f4ecd8;
     color: #5c4033;
-    overflow-x: hidden; /* Mencegah geser ke samping */
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden; /* Biar layar gak bisa geser kanan-kiri */
+    display: block; /* Mencegah body menyusut */
 }
 
-/* KOP SURAT - Pastikan 100% lebar layar */
+/* ==========================================================================
+   KOP SURAT (DIPAKSA FULL WIDTH)
+   ========================================================================== */
 .kop-surat {
-    width: 100%;
+    width: 100% !important;
     background: #ffffff;
     padding: 25px 20px;
     text-align: center;
     border-bottom: 4px double #5c4033;
+    display: block;
 }
 
-/* NAVBAR - Pastikan 100% lebar layar */
+.kop-surat .instansi {
+    font-size: 12px;
+    letter-spacing: 3px;
+    font-weight: 600;
+    opacity: 0.8;
+}
+
+.kop-surat .nama-kelompok {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 32px;
+    font-weight: bold;
+    margin: 6px 0;
+    letter-spacing: 4px;
+}
+
+.kop-surat .sub-kop {
+    font-family: 'Metamorphous', serif;
+    font-size: 11px;
+    font-style: italic;
+    opacity: 0.9;
+}
+
+/* ==========================================================================
+   NAVBAR (DIPAKSA FULL WIDTH)
+   ========================================================================== */
 .navbar {
-    width: 100%;
+    width: 100% !important;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -37,33 +68,55 @@ body {
     height: 50px;
 }
 
-/* MENU TOGGLE */
+/* ==========================================================================
+   MENU TOGGLE (GARIS TIGA) & NAV LINKS
+   ========================================================================== */
 .menu-toggle {
+    display: block;
     cursor: pointer;
-    z-index: 1000;
+    z-index: 1001;
 }
 
-.bar {
+.menu-toggle .bar {
     display: block;
     width: 25px;
     height: 3px;
     margin: 5px auto;
     background-color: #5c4033;
-    transition: 0.3s;
+    transition: all 0.3s ease-in-out;
 }
 
-/* NAV LINKS - Posisi aman */
 .nav-links {
     position: absolute;
     top: 50px;
-    right: -200px;
+    right: -100%; /* Sembunyi sebelum diklik */
     background-color: #ffffff;
+    width: 160px;
+    border: 2px solid #5c4033;
+    border-radius: 8px;
+    padding: 8px 0;
+    display: flex;
+    flex-direction: column;
     list-style: none;
-    transition: 0.3s;
-    border: 1px solid #ccc;
-    padding: 10px;
+    transition: all 0.3s ease-in-out;
+    z-index: 1000;
 }
 
 .nav-links.active {
-    right: 0;
+    right: 25px; /* Muncul pas di bawah tombol menu saat aktif */
+}
+
+.nav-links li a {
+    display: block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #5c4033;
+    font-weight: bold;
+    text-align: center;
+}
+
+.nav-links li a:hover,
+.nav-links li a.active {
+    background-color: #5c4033;
+    color: #ffffff;
 }
