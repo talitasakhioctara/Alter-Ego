@@ -3,6 +3,9 @@
 <head>
     <meta charset="utf-8">
     <title>Alter Ego - Product Quiz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <style>
         /* Gaya Utama Wadah Kuis */
@@ -16,6 +19,27 @@
             box-shadow: 0px 5px 15px rgba(0,0,0,0.15);
             font-family: 'Georgia', serif;
             text-align: center;
+        }
+
+      /* Gaya Nama Karakter Dramatis & Sinematik */
+        .character-title {
+            font-family: 'Cinzel', serif; /* Font bergaya kerajaan/romawi kuno */
+            font-size: 28px;
+            color: #b71c1c;
+            margin: 10px 0;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2), 0 0 10px rgba(211, 47, 47, 0.3);
+            text-transform: uppercase;
+        }
+
+        /* Gaya Tulisan Mengajak Audience */
+        .cta-text {
+            font-family: 'Georgia', serif;
+            font-size: 15px;
+            line-height: 1.6;
+            color: #5c4033;
+            margin: 20px 15px;
+            font-style: italic;
         }
         
         /* Gaya Tampilan Slideshow Pembuka (Tahap 1) */
@@ -242,23 +266,29 @@
             <div id="options-display"></div>
         </div>
 
-        <!-- TAHAP 4: HALAMAN HASIL AKHIR -->
+        <!-- TAHAP 4: HALAMAN HASIL AKHIR (VERSI MINIMALIS DRAMATIS) -->
         <div id="quiz-result" class="hidden">
             <div class="result-box">
-                <p style="font-style: italic; color: #7a5a40; margin-bottom: 5px;"><span id="user-greeting">Halo</span>, Analisis Selesai! Karakter Kepribadianmu Adalah:</p>
+                <p style="font-style: italic; color: #7a5a40; margin-bottom: 15px; font-size: 16px;">
+                    ✨ <span id="user-greeting">Halo</span>, Analisis Selesai! Karakter Egomu Adalah:
+                </p>
+                
+                <!-- Nama Karakter dengan Font Dramatis -->
                 <h2 class="character-title" id="res-name">NAMA KARAKTER</h2>
-                <hr style="border: 1px solid #5c4033;">
                 
-                <div class="section-title text-baik">✨ PUBLIC SELF (Sisi Baik) ✨</div>
-                <p id="res-baik" style="text-align: justify; line-height: 1.4; margin: 0 10px;"></p>
+                <!-- Wadah Gambar Pixel Art Dinamis (Otomatis Muncul Tanpa Garis) -->
+                <div style="margin: 25px auto; width: 220px; height: 330px; display: flex; align-items: center; justify-content: center;">
+                    <img id="res-img" src="" alt="Karakter Ego" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+                </div>
                 
-                <div class="section-title text-buruk">⚠️ ALTER EGO (Sisi Gelap) ⚠️</div>
-                <p id="res-buruk" style="text-align: justify; line-height: 1.4; margin: 0 10px;"></p>
+                <!-- Kalimat Ajakan Menggugah -->
+                <p class="cta-text">
+                    Takdirmu telah terungkap. Jangan biarkan kekuatan ego ini terpendam begitu saja! <br>
+                    <strong>Ketuk tombol di bawah ini</strong> untuk melihat perwujudan visual dan kisah epik karaktermu di dunia interaktif Game Scratch sekarang!
+                </p>
                 
-                <hr style="border: 1px solid #5c4033; margin-top: 20px;">
-                
-                <p style="margin-top: 15px; font-weight: bold; color: #ff5100;">🎉 Lihat Visualisasi Karakter Egomu:</p>
-                <a href="#" id="link-scratch-dinamis" target="_blank" class="btn-scratch">LIHAT DI GAME SCRATCH</a>
+                <!-- Tombol Menuju Scratch -->
+                <a href="#" id="link-scratch-dinamis" target="_blank" class="btn-scratch">MASUK KE DUNIA SCRATCH KAMU</a>
                 
                 <br>
                 <a href="https://colab.research.google.com/drive/1kB9lbrGBvW1sT3gcFX_QMSYm_jMrQyZO?usp=sharing" target="_blank" class="btn-colab">Open Backend Python (Google Colab)</a>
@@ -505,13 +535,22 @@
                 kategoriPemenang = "freespirit";
             }
 
+            // Ambil database profil & pasangkan file gambar .png transparan yang sesuai
             let finalKarakter = profilKarakter[kategoriPemenang];
+            let fileGambar = "";
 
-            // Pasang Informasi & Data ke Tampilan Hasil Akhir
+            if (kategoriPemenang === "guardian") fileGambar = "21154.png";
+            else if (kategoriPemenang === "peacemaker") fileGambar = "21153.png";
+            else if (kategoriPemenang === "visionary") fileGambar = "21152.png";
+            else if (kategoriPemenang === "truthteller") fileGambar = "21150.png";
+            else if (kategoriPemenang === "driven") fileGambar = "21149.png";
+            else if (kategoriPemenang === "grounded") fileGambar = "21148.png";
+            else if (kategoriPemenang === "freespirit") fileGambar = "21151.png";
+
+            // Tampilkan Data ke Halaman Hasil Akhir secara Dinamis
             document.getElementById("user-greeting").innerText = namaPemain;
             document.getElementById("res-name").innerText = finalKarakter.nama;
-            document.getElementById("res-baik").innerText = finalKarakter.baik;
-            document.getElementById("res-buruk").innerText = finalKarakter.buruk;
+            document.getElementById("res-img").src = fileGambar; // Otomatis ganti gambar karakter tanpa garis bingkai
 
             // Merubah link tombol Scratch secara otomatis sesuai pemenang karakter
             document.getElementById("link-scratch-dinamis").href = finalKarakter.linkScratch;
