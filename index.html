@@ -4,17 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alter Ego - SMAN 71</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Metamorphous&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- Google Fonts Seragam -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@700&family=Metamorphous&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- Menghubungkan ke CSS Utama -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
+    <!-- KOP SURAT ATAS -->
     <div class="kop-surat">
         <div class="instansi">SMAN 71 JAKARTA</div>
         <div class="nama-kelompok">ALTER EGO</div>
         <div class="sub-kop">Proyek Informatika • Temukan Karakter Alter Egomu</div>
     </div>
 
+    <!-- NAVBAR DENGAN MENU GARIS TIGA -->
     <nav class="navbar">
         <div class="menu-toggle" id="mobile-menu">
             <span class="bar"></span>
@@ -22,16 +30,28 @@
             <span class="bar"></span>
         </div>
         <ul class="nav-links" id="nav-list">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="Design.html" class="active">Design</a></li>
+            <!-- Pindah class="active" ke Home karena ini adalah file index.html -->
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="Design.html">Design</a></li>
             <li><a href="product.html">Product</a></li>
         </ul>
     </nav>
 
-    <div class="content">
-        <h2>Our Design & Concept</h2>
+    <!-- KONTEN UTAMA BERANDA -->
+    <div class="content" style="text-align: center; max-width: 800px; margin: 40px auto; padding: 20px; font-family: 'Poppins', sans-serif;">
+        <h2 style="font-family: 'Cinzel', serif; font-size: 2.5rem; color: #5c4033; margin-bottom: 20px;">Selamat Datang di Dunia Alter Ego</h2>
+        <p style="color: #666; line-height: 1.8; font-size: 1.1rem;">
+            Setiap manusia memiliki sisi lain yang tersembunyi di balik realitas sehari-hari. Apakah kamu seorang pelindung yang tangguh, pembawa kedamaian, atau pencari kebenaran yang jujur? 
+        </p>
+        <p style="color: #666; line-height: 1.8; font-size: 1.1rem; margin-top: 15px;">
+            Melalui proyek informatika ini, kami mengajakmu untuk menjelajahi konsep desain visual, filosofi karakter, hingga menguji kepribadianmu langsung lewat kuis interaktif yang telah kami sediakan.
+        </p>
+        <div style="margin-top: 40px;">
+            <a href="product.html" style="display: inline-block; background: linear-gradient(135deg, #ff9900, #e65c00); color: white; padding: 12px 30px; border-radius: 25px; text-decoration: none; font-weight: bold; box-shadow: 0 4px 15px rgba(230, 92, 0, 0.2); transition: 0.2s;">Mulai Cari Tahu Alter Egomu</a>
         </div>
+    </div>
 
+    <!-- ENGINE MOBILE NAVBAR TOGGLE (HAMBURGER MENU) -->
     <script>
         const mobileMenu = document.getElementById('mobile-menu');
         const navList = document.getElementById('nav-list');
