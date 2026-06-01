@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alter Ego - Design</title>
+    <title>Alter Ego - Design Presentasi</title>
 
     <!-- Google Fonts Seragam -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,46 +13,70 @@
     <!-- Menghubungkan ke CSS Utama -->
     <link rel="stylesheet" href="styles.css">
 
-    <!-- Desain Konten Halaman Design (Sesuai Foto 21177.jpg & 21178.jpg) -->
+    <!-- CSS Khusus Mengatur Layout Presentasi Canva -->
     <style>
-        /* Desain Konten Halaman Design */
         .design-container {
-            max-width: 800px;
+            max-width: 850px;
             margin: 40px auto;
-            background-color: #ffffff;
-            border: 2px solid #5c4033;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            font-family: 'Poppins', sans-serif;
-            color: #5c4033;
+            padding: 20px;
+            text-align: center;
         }
 
         .design-title {
-            font-family: 'Metamorphous', serif;
-            border-bottom: 2px solid #5c4033;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-            font-size: 1.8rem;
+            font-family: 'Cinzel Decorative', serif;
+            color: #5c4033;
+            font-size: 26px;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
         }
 
-        .design-meta {
-            font-size: 0.95rem;
-            line-height: 1.8;
-            color: #666;
+        .design-subtitle {
+            font-family: 'Poppins', sans-serif;
+            color: #7a5a40;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        /* Pembungkus Iframe Canva Hasil Sinkronisasi */
+        .canva-frame-wrapper {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-top: 56.2500%;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            background-color: #ffffff;
+            will-change: transform;
+        }
+
+        /* Styling teks kredit di bawah presentasi agar estetik */
+        .canva-credit {
+            display: inline-block;
+            margin-top: 15px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+            color: #7a5a40;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .canva-credit:hover {
+            color: #e65c00;
         }
     </style>
 </head>
 <body>
 
-    <!-- KOP SURAT ATAS -->
+    <!-- KOP SURAT ATAS (Sama dengan Halaman Product) -->
     <div class="kop-surat">
         <div class="instansi">SMAN 71 JAKARTA</div>
         <div class="nama-kelompok">ALTER EGO</div>
         <div class="sub-kop">Proyek Informatika • Temukan Karakter Alter Egomu</div>
     </div>
 
-    <!-- NAVBAR DENGAN MENU GARIS TIGA -->
+    <!-- NAVBAR (Menu Design Aktif) -->
     <nav class="navbar">
         <div class="menu-toggle" id="mobile-menu">
             <span class="bar"></span>
@@ -61,40 +85,30 @@
         </div>
         <ul class="nav-links" id="nav-list">
             <li><a href="index.html">Home</a></li>
-            <!-- class="active" berada di Design untuk file ini -->
             <li><a href="Design.html" class="active">Design</a></li>
             <li><a href="product.html">Product</a></li>
         </ul>
     </nav>
 
-    <!-- KONTEN DOKUMENTASI DESIGN -->
+    <!-- KONTEN PRESENTASI CANVA -->
     <div class="design-container">
-        <h2 class="design-title">Character & System Design</h2>
-        <p class="design-meta">
-            Halaman ini berisi dokumentasi rancangan sistem kuis logika JavaScript, aset karakter pixel art, serta arsitektur game Scratch terintegrasi yang telah dibuat oleh kelompok kami.
-        </p>
+        <h2 class="design-title">DOKUMENTASI DESAIN PROYEK</h2>
+        <p class="design-subtitle">Garis besar konsep, riset karakter, dan perancangan sistem Alter Ego kelompok kami.</p>
+        
+        <!-- Area Frame Canva Terintegrasi -->
+        <div class="canva-frame-wrapper">
+            <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0;"
+                src="https://www.canva.com/design/DAHGc2qto0o/pjXDmKoFRYaL1Nz9QxHxEA/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
+            </iframe>
+        </div>
+
+        <!-- Link Kredit Terformat Rapi -->
+        <a class="canva-credit" href="https://www.canva.com/design/DAHGc2qto0o/pjXDmKoFRYaL1Nz9QxHxEA/view?utm_content=DAHGc2qto0o&amp;utm_campaign=designshare&amp;utm_medium=embeds&amp;utm_source=link" target="_blank" rel="noopener">
+            ✨ Alter Ego TIK — Oleh Talita Sakhi Octara
+        </a>
     </div>
-    
-<!-- KONTEN PRESENTASI CANVA -->
-<div class="design-container">
-    <h2 class="design-title">DOKUMENTASI DESAIN PROYEK</h2>
-    <p class="design-subtitle">Garis besar konsep, riset karakter, dan perancangan sistem Alter Ego kelompok kami.</p>
-    
-    <!-- Area Frame Canva -->
-    <div class="canva-frame-wrapper">
-        <!-- Tempel (Paste) kode iframe Canva kalian di bawah ini -->
-        <div style="position: relative; width: 100%; height: 0; padding-top: 56.2500%;
- padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
- border-radius: 8px; will-change: transform;">
-  <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
-    src="https://www.canva.com/design/DAHGc2qto0o/pjXDmKoFRYaL1Nz9QxHxEA/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
-  </iframe>
-</div>
-<a href="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAHGc2qto0o&#x2F;pjXDmKoFRYaL1Nz9QxHxEA&#x2F;view?utm_content=DAHGc2qto0o&amp;utm_campaign=designshare&amp;utm_medium=embeds&amp;utm_source=link" target="_blank" rel="noopener">Alter Ego TIK</a> oleh TALITA SAKHI OCTARA
-    </div>
-</div>
-    
-    <!-- ENGINE MOBILE NAVBAR TOGGLE (HAMBURGER MENU) -->
+
+    <!-- JAVASCRIPT NAVBAR MOBILE -->
     <script>
         const mobileMenu = document.getElementById('mobile-menu');
         const navList = document.getElementById('nav-list');
