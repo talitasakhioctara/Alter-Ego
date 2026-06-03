@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@700&family=Metamorphous&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="styles.css">
 
     <style>
         /* Menyembunyikan tahap kuis yang belum aktif agar tidak bocor ke bawah */
@@ -202,9 +202,9 @@
             <span class="bar"></span>
         </div>
         <ul class="nav-links" id="nav-list">
-            <li><a href="/">Home</a></li>
-            <li><a href="/design">Design</a></li>
-            <li><a href="/product" class="active">Product</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="Design.html">Design</a></li>
+            <li><a href="product.html" class="active">Product</a></li>
         </ul>
     </nav>
 
@@ -212,10 +212,10 @@
         
         <div id="tahap-welcome">
             <div class="slide-frame">
-                <img src="{{ url_for('static', filename='21154.png') }}" class="slide-img active" alt="Julius Caesar">
-                <img src="{{ url_for('static', filename='21153.png') }}" class="slide-img" alt="Barack Obama">
-                <img src="{{ url_for('static', filename='21152.png') }}" class="slide-img" alt="Alexander Agung">
-                <img src="{{ url_for('static', filename='21150.png') }}" class="slide-img" alt="Socrates">
+                <img src="21154.png" class="slide-img active" alt="Julius Caesar">
+                <img src="21153.png" class="slide-img" alt="Barack Obama">
+                <img src="21152.png" class="slide-img" alt="Alexander Agung">
+                <img src="21150.png" class="slide-img" alt="Socrates">
             </div>
             <div class="welcome-title">FIND YOUR ALTER EGO</div>
             <button class="btn-action" onclick="pindahKeForm()">Mulai Petualangan</button>
@@ -238,7 +238,8 @@
         <div id="tahap-kuis" class="hidden">
             <div class="progress-bar" id="kuis-progress">Soal 1 dari 12</div>
             <div class="question-text" id="kuis-soal">Memuat pertanyaan...</div>
-            <div class="options-container" id="kuis-pilihan"></div>
+            <div class="options-container" id="kuis-pilihan">
+                </div>
         </div>
 
         <div id="tahap-hasil" class="hidden">
@@ -439,7 +440,7 @@
             tampilkanSoal();
         }
 
-        // 4. LOGIKA HASIL AKHIR & PENGIRIMAN DATA KE PYTHON BACK-END
+        // 4. LOGIKA HASIL AKHIR MINIMALIS & PEMETAAN PNG BARU YANG AKURAT
         function hitungDanTampilkanHasil() {
             document.getElementById('tahap-kuis').classList.add('hidden');
             document.getElementById('tahap-hasil').classList.remove('hidden');
@@ -454,15 +455,15 @@
                 }
             }
 
-            // Database Pemetaan Gambar .png yang Akurat Menggunakan Struktur static Flask
+            // Database Pemetaan Gambar .png yang Akurat Sesuai Request Terbaru
             const databaseKarakter = {
-                "guardian": { nama: "THE GUARDIAN", tokoh: "(Julius Caesar)", img: "/static/21154.png", link: "https://scratch.mit.edu/projects/LINK_GUARDIAN_KAMU" },
-                "peacemaker": { nama: "THE PEACEMAKER", tokoh: "(Barack Obama)", img: "/static/21153.png", link: "https://scratch.mit.edu/projects/LINK_PEACEMAKER_KAMU" },
-                "visionary": { nama: "THE VISIONARY", tokoh: "(Alexander Agung)", img: "/static/21152.png", link: "https://scratch.mit.edu/projects/LINK_VISIONARY_KAMU" },
-                "truthteller": { nama: "THE TRUTH TELLER", tokoh: "(Socrates)", img: "/static/21150.png", link: "https://scratch.mit.edu/projects/LINK_TRUTHTELLER_KAMU" },
-                "charmer": { nama: "THE CHARMER", tokoh: "(Ratu Cleopatra)", img: "/static/21149.png", link: "https://scratch.mit.edu/projects/LINK_CHARMER_KAMU" },
-                "benefactor": { nama: "THE BENEFACTOR", tokoh: "(Mr Beast)", img: "/static/21148.png", link: "https://scratch.mit.edu/projects/LINK_BENEFACTOR_KAMU" },
-                "freespirit": { nama: "THE FREE SPIRIT", tokoh: "(Nikola Tesla)", img: "/static/21151.png", link: "https://scratch.mit.edu/projects/LINK_FREESPIRIT_KAMU" }
+                "guardian": { nama: "THE GUARDIAN", tokoh: "(Julius Caesar)", img: "21154.png", link: "https://scratch.mit.edu/projects/LINK_GUARDIAN_KAMU" },
+                "peacemaker": { nama: "THE PEACEMAKER", tokoh: "(Barack Obama)", img: "21153.png", link: "https://scratch.mit.edu/projects/LINK_PEACEMAKER_KAMU" },
+                "visionary": { nama: "THE VISIONARY", tokoh: "(Alexander Agung)", img: "21152.png", link: "https://scratch.mit.edu/projects/LINK_VISIONARY_KAMU" },
+                "truthteller": { nama: "THE TRUTH TELLER", tokoh: "(Socrates)", img: "21150.png", link: "https://scratch.mit.edu/projects/LINK_TRUTHTELLER_KAMU" },
+                "charmer": { nama: "THE CHARMER", tokoh: "(Ratu Cleopatra)", img: "21149.png", link: "https://scratch.mit.edu/projects/LINK_CHARMER_KAMU" },
+                "benefactor": { nama: "THE BENEFACTOR", tokoh: "(Mr Beast)", img: "21148.png", link: "https://scratch.mit.edu/projects/LINK_BENEFACTOR_KAMU" },
+                "freespirit": { nama: "THE FREE SPIRIT", tokoh: "(Nikola Tesla)", img: "21151.png", link: "https://scratch.mit.edu/projects/LINK_FREESPIRIT_KAMU" }
             };
 
             let hasilFinal = databaseKarakter[karakterPemenang] || databaseKarakter["guardian"];
@@ -474,21 +475,6 @@
             document.getElementById('hasil-teks-ajakan').innerText = `Halo ${namaPemain}! Karakter tokomu adalah ${hasilFinal.nama} ${hasilFinal.tokoh}. Ingin tahu bagaimana petualangan serunya? Yuk buka link Scratch khusus karaktermu di bawah ini!`;
             
             document.getElementById('hasil-link-scratch').href = hasilFinal.link;
-
-            // === PENAMBAHAN WAJIB TUGAS PYTHON ===
-            // Mengirimkan hasil kuis ke server Python (app.py) agar dicatat ke file txt
-            fetch('/simpan-peserta', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    nama: namaPemain,
-                    email: emailPemain,
-                    karakter: hasilFinal.nama + " " + hasilFinal.tokoh
-                })
-            })
-            .then(response => response.json())
-            .then(data => console.log("Respon Server Python:", data.message))
-            .catch(err => console.error("Gagal mengirim data ke Python Back-End:", err));
         }
 
         // 5. ENGINE NAVBAR MOBILE
