@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@700&family=Metamorphous&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="static/styles.css?v=1">
+    <link rel="stylesheet" href="static/styles.css?v=1.2">
 </head>
 <body>
 
@@ -35,13 +35,11 @@
         </ul>
     </nav>
 
-    <!-- CONTAINER UTAMA -->
     <div class="home-hero-container">
         <video autoplay loop muted playsinline class="home-frame-video">
             <source src="static/22030.mp4" type="video/mp4">
         </video>
 
-        <!-- KONTEN INI WAJIB ADA AGAR TIDAK TENGGELAM -->
         <div class="home-hero-content">
             <div class="home-logo-wrapper">
                 <img src="static/11012.png" class="home-circular-logo" alt="Alter Ego Logo">
@@ -54,9 +52,15 @@
         <p class="home-description">
             Halo semuanya! Selamat datang di <strong>Alter Ego</strong>, sebuah website yang mengajak kalian untuk mengenal sisi lain dari diri melalui berbagai karakter unik yang memiliki kepribadian, nilai, dan cara pandang yang berbeda.
         </p>
+
         <p class="home-description">
             Website ini dikembangkan melalui kerja sama tim dalam menyusun konsep, mendesain tampilan, membuat konten, serta menghadirkan fitur kuis interaktif yang dapat membantu pengguna menemukan karakter alter ego yang paling sesuai dengan dirinya.
         </p>
+
+        <p class="home-description">
+            Kami mengundang Anda untuk mengeksplorasi setiap karakter yang tersedia dan menemukan alter ego yang paling mencerminkan kepribadian Anda. Semoga pengalaman ini memberikan wawasan baru serta kesan yang bermakna selama menjelajahi website kami.
+        </p>
+
         <div class="team-section">
             <h2 class="team-title">Tim Pengembang</h2>
             <div class="team-list">
@@ -66,17 +70,22 @@
                 <p>4. TALITA SAKHI OCTARA (34)</p>
             </div>
         </div>
+
         <div class="home-btn-wrapper">
-            <a href="product.html" class="home-btn-start">FIND YOUR ALTER EGO</a>
+            <a href="product.html" class="home-btn-start">
+               FIND YOUR ALTER EGO
+            </a>
         </div>
     </section>
     
     <script>
         const mobileMenu = document.getElementById('mobile-menu');
         const navList = document.getElementById('nav-list');
-        mobileMenu.addEventListener('click', () => {
-            navList.classList.toggle('active');
-        });
+        if(mobileMenu) {
+            mobileMenu.addEventListener('click', () => {
+                navList.classList.toggle('active');
+            });
+        }
     </script>
 </body>
 </html>
