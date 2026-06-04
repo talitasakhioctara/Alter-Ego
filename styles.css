@@ -230,11 +230,49 @@ html, body {
     height: auto;
 }
 
-.home-main-title,
-.home-description,
-.home-btn-start {
-    position: relative;
-    z-index: 5;
+.home-main-title {
+    font-family: 'Cinzel Decorative', serif; /* Font megah gaya gothic */
+    font-size: 4rem;                         /* Ukuran teks diperbesar */
+    font-weight: 700;
+    color: #ffffff;                          /* Warna dasar teks putih cerah */
+    letter-spacing: 8px;                     /* Jarak antar huruf sinematik (A L T E R  E G O) */
+    margin-top: 35px;                        /* Jarak renggang aman agar tidak nempel dengan logo */
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    
+    /* Mengatur kecepatan transisi (0.4 detik) agar efek melompat naik-turunnya halus dan memantul */
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    
+    /* Efek bayangan neon cyan-biru di awal */
+    text-shadow: 0 0 10px rgba(0, 242, 254, 0.6),
+                 0 0 20px rgba(0, 242, 254, 0.4);
+                 
+    /* Menjalankan animasi denyut cahaya pelan */
+    animation: neonPulse 3s ease-in-out infinite alternate;
+}
+
+/* 🌟 EFEK INTERAKTIF: Saat teks disentuh / dilewati kursor */
+.home-main-title:hover {
+    transform: translateY(-12px) scale(1.03); /* Teks melompat NAIK ke atas dan efek pop-up membesar */
+    cursor: pointer;                           /* Mengubah kursor menjadi icon tangan */
+    
+    /* Efek neon otomatis menyala JAUH LEBIH TERANG saat disentuh */
+    text-shadow: 0 0 20px rgba(0, 242, 254, 1),
+                 0 0 40px rgba(0, 242, 254, 0.8),
+                 0 0 60px rgba(0, 122, 255, 0.6);
+}
+
+/* ✨ KODE ANIMASI DENYUT NEON (Otomatis berjalan sendiri) */
+@keyframes neonPulse {
+    from {
+        text-shadow: 0 0 8px rgba(0, 242, 254, 0.6), 
+                     0 0 15px rgba(0, 242, 254, 0.4);
+    }
+    to {
+        text-shadow: 0 0 15px rgba(0, 242, 254, 0.9), 
+                     0 0 30px rgba(0, 242, 254, 0.6),
+                     0 0 40px rgba(0, 122, 255, 0.4);
+    }
 }
 
 .home-info-section {
