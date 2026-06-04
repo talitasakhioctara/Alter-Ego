@@ -3,64 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alter Ego - Design Presentasi</title>
+    <title>Alter Ego - Design Gallery</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@700&family=Metamorphous&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <style>
-        .design-container {
-            max-width: 850px;
-            margin: 40px auto;
-            padding: 20px;
-            text-align: center;
-            box-sizing: border-box;
-        }
-        .design-title {
-            font-family: 'Cinzel Decorative', serif;
-            color: #00f2fe;
-            font-size: 26px;
-            margin-bottom: 10px;
-            letter-spacing: 1px;
-            text-shadow: 0 0 8px rgba(0, 242, 254, 0.6);
-        }
-        .design-subtitle {
-            font-family: 'Poppins', sans-serif;
-            color: #ff8c00;
-            font-size: 14px;
-            margin-bottom: 30px;
-        }
-        .canva-frame-wrapper {
-            position: relative;
-            width: 100%;
-            height: 0;
-            padding-top: 56.2500%;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-            border: 2px solid #00f2fe;
-            border-radius: 12px;
-            overflow: hidden;
-            background-color: #0b0617;
-            will-change: transform;
-        }
-        .canva-credit {
-            display: inline-block;
-            margin-top: 15px;
-            font-family: 'Poppins', sans-serif;
-            font-size: 13px;
-            color: #00f2fe;
-            text-decoration: none;
-            font-weight: 600;
-            transition: 0.2s;
-        }
-        .canva-credit:hover {
-            color: #e65c00;
-        }
-    </style>
+    <link rel="stylesheet" href="static/styles.css">
 </head>
 <body>
 
     <video autoplay loop muted playsinline class="video-bg">
-        <source src="{{ url_for('static', filename='22030.mp4') }}" type="video/mp4">
+        <source src="static/22030.mp4" type="video/mp4">
     </video>
 
     <div class="kop-surat">
@@ -76,34 +28,106 @@
             <span class="bar"></span>
         </div>
         <ul class="nav-links" id="nav-list">
-            <li><a href="/index.html">Home</a></li>
-            <li><a href="/AboutUs.html">AboutUs</a></li>
-            <li><a href="/Design.html" class="active">Design</a></li>
-            <li><a href="/product.html">Product</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="AboutUs.html">AboutUs</a></li>
+            <li><a href="Design.html" class="active">Design</a></li>
+            <li><a href="product.html">Product</a></li>
         </ul>
     </nav>
 
-    <div class="design-container">
-        <h2 class="design-title">DOKUMENTASI DESAIN PROYEK</h2>
-        <p class="design-subtitle">Garis besar konsep, riset karakter, dan perancangan sistem Alter Ego kelompok kami.</p>
-        <div class="canva-frame-wrapper">
-            <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0;"
-            src="https://www.canva.com/design/DAHJD3Jr4a8/uytm7lrTIL8WX-K6R4mSoQ/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
-            </iframe>
-        </div>
+    <div class="design-gallery-container">
+        <h2 class="gallery-main-title">ALTER EGO CHARACTERS</h2>
+        <p class="gallery-subtitle">Masing-masing dari 7 entitas berikut membawa energi dan filosofi kepribadian yang berbeda.</p>
 
-        <a class="canva-credit" href="https://www.canva.com/design/DAHGc2qto0o/pjXDmKoFRYaL1Nz9QxHxEA/view?utm_content=DAHGc2qto0o&amp;utm_campaign=designshare&amp;utm_medium=embeds&amp;utm_source=link" target="_blank" rel="noopener">
-            ✨ Alter Ego TIK
-        </a>
+        <div class="gallery-masonry">
+            <!-- Karakter 1 -->
+            <div class="gallery-item animate-item">
+                <div class="char-image-box">
+                    <img src="static/21154.png" alt="Julius Caesar">
+                </div>
+                <div class="char-info">
+                    <h3 class="char-title-name">THE GUARDIAN</h3>
+                    <p class="char-tokoh-meta">Julius Caesar</p>
+                </div>
+            </div>
+
+            <!-- Karakter 2 -->
+            <div class="gallery-item animate-item">
+                <div class="char-image-box">
+                    <img src="static/21153.png" alt="Barack Obama">
+                </div>
+                <div class="char-info">
+                    <h3 class="char-title-name">THE PEACEMAKER</h3>
+                    <p class="char-tokoh-meta">Barack Obama</p>
+                </div>
+            </div>
+
+            <!-- Karakter 3 -->
+            <div class="gallery-item animate-item">
+                <div class="char-image-box">
+                    <img src="static/21152.png" alt="Alexander Agung">
+                </div>
+                <div class="char-info">
+                    <h3 class="char-title-name">THE VISIONARY</h3>
+                    <p class="char-tokoh-meta">Alexander Agung</p>
+                </div>
+            </div>
+
+            <!-- Karakter 4 -->
+            <div class="gallery-item animate-item">
+                <div class="char-image-box">
+                    <img src="static/21150.png" alt="Socrates">
+                </div>
+                <div class="char-info">
+                    <h3 class="char-title-name">THE TRUTHTELLER</h3>
+                    <p class="char-tokoh-meta">Socrates</p>
+                </div>
+            </div>
+
+            <!-- Karakter 5 -->
+            <div class="gallery-item animate-item">
+                <div class="char-image-box">
+                    <img src="static/21149.png" alt="Ratu Cleopatra">
+                </div>
+                <div class="char-info">
+                    <h3 class="char-title-name">THE CHARMER</h3>
+                    <p class="char-tokoh-meta">Ratu Cleopatra</p>
+                </div>
+            </div>
+
+            <!-- Karakter 6 -->
+            <div class="gallery-item animate-item">
+                <div class="char-image-box">
+                    <img src="static/21148.png" alt="Mr Beast">
+                </div>
+                <div class="char-info">
+                    <h3 class="char-title-name">THE BENEFACTOR</h3>
+                    <p class="char-tokoh-meta">Mr Beast</p>
+                </div>
+            </div>
+
+            <!-- Karakter 7 -->
+            <div class="gallery-item animate-item">
+                <div class="char-image-box">
+                    <img src="static/21151.png" alt="Nikola Tesla">
+                </div>
+                <div class="char-info">
+                    <h3 class="char-title-name">THE FREE SPIRIT</h3>
+                    <p class="char-tokoh-meta">Nikola Tesla</p>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
         const mobileMenu = document.getElementById('mobile-menu');
         const navList = document.getElementById('nav-list');
-        mobileMenu.addEventListener('click', () => {
-            navList.classList.toggle('active');
-            mobileMenu.classList.toggle('is-active');
-        });
+        if(mobileMenu) {
+            mobileMenu.addEventListener('click', () => {
+                navList.classList.toggle('active');
+                mobileMenu.classList.toggle('is-active');
+            });
+        }
     </script>
 </body>
 </html>
