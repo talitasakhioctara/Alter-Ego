@@ -184,17 +184,6 @@ html, body {
     background: transparent;
 }
 
-.home-hero-container::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url("/static/22030.mp4");
-    z-index: -2;
-}
-
 .home-hero-container::after {
     content: "";
     position: absolute;
@@ -216,6 +205,7 @@ html, body {
 .home-hero-content {
     position: relative;
     z-index: 3;
+    text-align: center;
 }
 
 .home-logo-wrapper {
@@ -228,41 +218,44 @@ html, body {
     width: 350px;
     max-width: 80%;
     height: auto;
+    margin: 0 auto;
 }
 
+/* 🌟 UTAMA: JUDUL DENGAN EFEK GOWING, RENGGANG & TRANSISI SMOOTH */
 .home-main-title {
-    font-family: 'Cinzel Decorative', serif; /* Font megah gaya gothic */
-    font-size: 4rem;                         /* Ukuran teks diperbesar */
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 4rem;
     font-weight: 700;
-    color: #ffffff;                          /* Warna dasar teks putih cerah */
-    letter-spacing: 8px;                     /* Jarak antar huruf sinematik (A L T E R  E G O) */
-    margin-top: 35px;                        /* Jarak renggang aman agar tidak nempel dengan logo */
+    color: #ffffff;
+    letter-spacing: 8px;
+    margin-top: 35px;
     margin-bottom: 20px;
     text-transform: uppercase;
+    display: inline-block; /* Wajib agar efek transform pop-up bisa jalan sempurna */
     
-    /* Mengatur kecepatan transisi (0.4 detik) agar efek melompat naik-turunnya halus dan memantul */
+    /* Mengatur transisi animasi (0.4 detik) menggunakan efek pantul cubic-bezier agar estetik */
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     
-    /* Efek bayangan neon cyan-biru di awal */
+    /* Bayangan glow neon default */
     text-shadow: 0 0 10px rgba(0, 242, 254, 0.6),
                  0 0 20px rgba(0, 242, 254, 0.4);
                  
-    /* Menjalankan animasi denyut cahaya pelan */
+    /* Animasi denyut lambat otomatis */
     animation: neonPulse 3s ease-in-out infinite alternate;
 }
 
-/* 🌟 EFEK INTERAKTIF: Saat teks disentuh / dilewati kursor */
+/* 🌟 HOVER EFFECT: Saat teks disentuh / dilewati kursor (Melesat Naik & Pop Up Membesar) */
 .home-main-title:hover {
-    transform: translateY(-12px) scale(1.03); /* Teks melompat NAIK ke atas dan efek pop-up membesar */
-    cursor: pointer;                           /* Mengubah kursor menjadi icon tangan */
+    transform: translateY(-15px) scale(1.05); /* Teks naik 15px dan membesar 5% */
+    cursor: pointer;
     
-    /* Efek neon otomatis menyala JAUH LEBIH TERANG saat disentuh */
+    /* Lampu neon menyala jauh lebih tajam dan terang */
     text-shadow: 0 0 20px rgba(0, 242, 254, 1),
                  0 0 40px rgba(0, 242, 254, 0.8),
                  0 0 60px rgba(0, 122, 255, 0.6);
 }
 
-/* ✨ KODE ANIMASI DENYUT NEON (Otomatis berjalan sendiri) */
+/* ✨ ANIMASI DENYUT CAHAYA NEON */
 @keyframes neonPulse {
     from {
         text-shadow: 0 0 8px rgba(0, 242, 254, 0.6), 
@@ -275,6 +268,9 @@ html, body {
     }
 }
 
+/* ==========================================================================
+   INFO SECTION & DETAIL HALAMAN UTAMA
+   ========================================================================== */
 .home-info-section {
     max-width: 1000px;
     margin: 60px auto;
@@ -320,4 +316,10 @@ html, body {
     text-shadow: 0 0 10px #00f2fe;
     font-family: 'Cinzel Decorative', serif;
     text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.home-btn-start:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px #ff8c00, 0 0 35px #ff8c00;
 }
