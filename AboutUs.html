@@ -7,54 +7,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@700&family=Metamorphous&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <style>
-        .design-container {
-            max-width: 850px;
-            margin: 40px auto;
-            padding: 20px;
-            text-align: center;
-            box-sizing: border-box;
-        }
-        .design-title {
-            font-family: 'Cinzel Decorative', serif;
-            color: #00f2fe;
-            font-size: 26px;
-            margin-bottom: 10px;
-            letter-spacing: 1px;
-            text-shadow: 0 0 8px rgba(0, 242, 254, 0.6);
-        }
-        .canva-frame-wrapper {
-            position: relative;
-            width: 100%;
-            height: 0;
-            padding-top: 56.2500%;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-            border: 2px solid #00f2fe;
-            border-radius: 12px;
-            overflow: hidden;
-            background-color: #0b0617;
-            will-change: transform;
-        }
-        .canva-credit {
-            display: inline-block;
-            margin-top: 15px;
-            font-family: 'Poppins', sans-serif;
-            font-size: 13px;
-            color: #00f2fe;
-            text-decoration: none;
-            font-weight: 600;
-            transition: 0.2s;
-        }
-        .canva-credit:hover {
-            color: #e65c00;
-        }
-    </style>
+    <link rel="stylesheet" href="static/styles.css">
 </head>
 <body>
 
     <video autoplay loop muted playsinline class="video-bg">
-        <source src="{{ url_for('static', filename='22030.mp4') }}" type="video/mp4">
+        <source src="static/22030.mp4" type="video/mp4">
     </video>
 
     <div class="kop-surat">
@@ -70,30 +28,68 @@
             <span class="bar"></span>
         </div>
         <ul class="nav-links" id="nav-list">
-            <li><a href="/index.html">Home</a></li>
-            <li><a href="/AboutUs.html" class="active">AboutUs</a></li>
-            <li><a href="/Design.html">Design</a></li>
-            <li><a href="/product.html">Product</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="AboutUs.html" class="active">AboutUs</a></li>
+            <li><a href="Design.html">Design</a></li>
+            <li><a href="product.html">Product</a></li>
         </ul>
     </nav>
 
-    <div class="design-container">
-        <h2 class="design-title">GET TO KNOW US</h2>
-         <div class="canva-frame-wrapper">
-            <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0; margin: 0;"
-            src="https://www.canva.com/design/DAHGc2qto0o/pjXDmKoFRYaL1Nz9QxHxEA/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
-            </iframe>
+    <div class="about-container">
+        <h2 class="about-main-title">TIM PENGEMBANG</h2>
+        
+        <div class="about-grid">
+            <!-- Anggota 1 -->
+            <div class="profile-card animate-card">
+                <div class="profile-frame">
+                    <img src="static/11013.png" class="profile-img" alt="Ardra">
+                </div>
+                <h3 class="profile-name">ARDRAKYNAN ALKINA ARGO</h3>
+                <p class="profile-role">Absen: 04</p>
+                <p class="profile-desc">Penyusun konsep dasar kuis, merumuskan database kecocokan karakter, serta bertanggung jawab atas integrasi logika kuis agar berjalan dengan akurat.</p>
+            </div>
+
+            <!-- Anggota 2 -->
+            <div class="profile-card animate-card">
+                <div class="profile-frame">
+                    <img src="static/11016.png" class="profile-img" alt="Ayu">
+                </div>
+                <h3 class="profile-name">AYU UFAIRA AZZAHRA</h3>
+                <p class="profile-role">Absen: 07</p>
+                <p class="profile-desc">Content Creator dan Penyusun Narasi. Bertanggung jawab dalam merangkai kata-kata deskripsi setiap karakter alter ego agar terkesan mendalam.</p>
+            </div>
+
+            <!-- Anggota 3 -->
+            <div class="profile-card animate-card">
+                <div class="profile-frame">
+                    <img src="static/11015.png" class="profile-img" alt="Mahendra">
+                </div>
+                <h3 class="profile-name">MAHENDRA FATHURRAHMAN</h3>
+                <p class="profile-role">Absen: 25</p>
+                <p class="profile-desc">UI/UX Designer. Berperan penting dalam merancang tata letak (layout) website agar terlihat modern, interaktif, dan nyaman saat diakses oleh pengguna.</p>
+            </div>
+
+            <!-- Anggota 4 -->
+            <div class="profile-card animate-card">
+                <div class="profile-frame">
+                    <img src="static/11014.png" class="profile-img" alt="Talita">
+                </div>
+                <h3 class="profile-name">TALITA SAKHI OCTARA</h3>
+                <p class="profile-role">Absen: 34</p>
+                <p class="profile-desc">Front-End Developer. Menyusun struktur kode HTML, mengaplikasikan tema neon neon gothic melalui CSS, dan mengelola repositori GitHub kelompok.</p>
+            </div>
         </div>
-        <a class="canva-credit" href="https://www.canva.com/design/DAHGc2qto0o/pjXDmKoFRYaL1Nz9QxHxEA/view?utm_content=DAHGc2qto0o&amp;utm_campaign=designshare&amp;utm_medium=embeds&amp;utm_source=link" target="_blank" rel="noopener"></a>
     </div>
 
     <script>
         const mobileMenu = document.getElementById('mobile-menu');
         const navList = document.getElementById('nav-list');
-        mobileMenu.addEventListener('click', () => {
-            navList.classList.toggle('active');
-            mobileMenu.classList.toggle('is-active');
-        });
+        if(mobileMenu) {
+            mobileMenu.addEventListener('click', () => {
+                navList.classList.toggle('active');
+                mobileMenu.classList.toggle('is-active');
+            });
+        }
     </script>
 </body>
 </html>
