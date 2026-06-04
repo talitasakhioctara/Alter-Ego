@@ -7,12 +7,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@700&family=Metamorphous&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <!-- Path CSS langsung ke folder static -->
+    <link rel="stylesheet" href="static/styles.css">
 </head>
 <body>
 
     <video autoplay loop muted playsinline class="video-bg">
-        <source src="{{ url_for('static', filename='22030.mp4') }}" type="video/mp4">
+        <source src="static/22030.mp4" type="video/mp4">
     </video>
 
     <div class="kop-surat">
@@ -28,21 +29,21 @@
             <span class="bar"></span>
         </div>
         <ul class="nav-links" id="nav-list">
-            <li><a href="/index.html" class="active">Home</a></li>
-            <li><a href="/AboutUs.html">AboutUs</a></li>
-            <li><a href="/Design.html">Design</a></li>
-            <li><a href="/product.html">Product</a></li>
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="AboutUs.html">AboutUs</a></li>
+            <li><a href="Design.html">Design</a></li>
+            <li><a href="product.html">Product</a></li>
         </ul>
     </nav>
 
     <center>
         <div class="home-hero-container">
             <video autoplay loop muted playsinline class="home-frame-video">
-                <source src="/static/22030.mp4" type="video/mp4">
+                <source src="static/22030.mp4" type="video/mp4">
             </video>
 
             <div class="home-logo-wrapper">
-                <img src="/static/11012.png" class="home-circular-logo" alt="Alter Ego Logo">
+                <img src="static/11012.png" class="home-circular-logo" alt="Alter Ego Logo">
             </div>
 
             <h1 class="home-main-title">ALTER EGO</h1>
@@ -72,7 +73,7 @@
             </div>
 
             <div class="home-btn-wrapper">
-                <a href="/product.html" class="home-btn-start">
+                <a href="product.html" class="home-btn-start">
                    FIND YOUR ALTER EGO
                 </a>
             </div>
@@ -82,10 +83,12 @@
     <script>
         const mobileMenu = document.getElementById('mobile-menu');
         const navList = document.getElementById('nav-list');
-        mobileMenu.addEventListener('click', () => {
-            navList.classList.toggle('active');
-            mobileMenu.classList.toggle('is-active');
-        });
+        if(mobileMenu) {
+            mobileMenu.addEventListener('click', () => {
+                navList.classList.toggle('active');
+                mobileMenu.classList.toggle('is-active');
+            });
+        }
     </script>
 </body>
 </html>
