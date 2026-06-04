@@ -7,7 +7,621 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+De<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alter Ego - Product Quiz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@700&family=Metamorphous&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        .hidden {
+            display: none !important;
+        }
+        .quiz-box {
+            background-color: rgba(20, 12, 38, 0.75);
+            border: 2px solid #00f2fe;
+            border-radius: 15px;
+            padding: 35px;
+            max-width: 600px;
+            margin: 40px auto;
+            text-align: center;
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.25), inset 0 0 15px rgba(0, 242, 254, 0.1);
+            backdrop-filter: blur(8px);
+            position: relative;
+            box-sizing: border-box;
+        }
+        .slide-frame {
+            width: 100%;
+            height: 350px;
+            margin: 0 auto 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background-color: transparent;
+        }
+        .slide-img {
+            position: absolute;
+            max-height: 260px;
+            object-fit: contain;
+            transition: all 0.6s ease-in-out;
+            opacity: 0;
+            transform: scale(0.5);
+            z-index: 1;
+            pointer-events: none;
+            filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
+        }
+        .slide-img.active {
+            opacity: 1;
+            transform: scale(1.1) translateX(0);
+            z-index: 3;
+            filter: drop-shadow(0 0 20px rgba(0, 242, 254, 0.6));
+        }
+        .slide-img.next {
+            opacity: 0.25;
+            transform: scale(0.65) translateX(160px);
+            z-index: 2;
+            filter: grayscale(80%);
+        }
+        .slide-img.prev {
+            opacity: 0.25;
+            transform: scale(0.65) translateX(-160px);
+            z-index: 2;
+            filter: grayscale(80%);
+        }
+        .welcome-title {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 28px;
+            color: #00f2fe;
+            text-shadow: 0 0 12px rgba(0, 242, 254, 0.6);
+            margin-bottom: 25px;
+            letter-spacing: 2px;
+        }
+        .form-container {
+            padding: 10px;
+            text-align: left;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            color: #e0d5ff;
+            margin-bottom: 8px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid rgba(0, 242, 254, 0.4);
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+            background-color: #110a24;
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            transition: 0.3s;
+        }
+        .form-group input:focus {
+            border-color: #00f2fe;
+            outline: none;
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.4);
+        }
+        .btn-action {
+            display: inline-block;
+            width: 100%;
+            background: linear-gradient(135deg, #ff9900, #ff4500);
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            text-decoration: none;
+            margin-top: 15px;
+            text-align: center;
+            box-sizing: border-box;
+            box-shadow: 0 4px 15px rgba(255, 69, 0, 0.4);
+        }
+        .btn-action:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 25px rgba(255, 69, 0, 0.7);
+        }
+        .progress-container {
+            background-color: #110a24;
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            border-radius: 10px;
+            height: 10px;
+            width: 100%;
+            margin-bottom: 8px;
+            overflow: hidden;
+        }
+        #progress-fluid {
+            background: linear-gradient(to right, #00f2fe, #4facfe);
+            box-shadow: 0 0 10px #00f2fe;
+            height: 100%;
+            width: 0%;
+            border-radius: 10px;
+            transition: width 0.4s ease-in-out;
+        }
+        .progress-bar {
+            font-size: 13px;
+            color: #00f2fe;
+            font-weight: bold;
+            text-align: right;
+            margin-bottom: 20px;
+            text-shadow: 0 0 5px rgba(0, 242, 254, 0.5);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .question-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 25px;
+            text-align: left;
+            animation: fadeIn 0.4s ease-out;
+        }
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            animation: fadeIn 0.5s ease-out;
+        }
+        .option-btn {
+            background-color: rgba(17, 10, 36, 0.6);
+            border: 2px solid rgba(147, 112, 219, 0.4);
+            color: #e0d5ff;
+            padding: 14px 20px;
+            font-size: 15px;
+            text-align: left;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+        }
+        .option-btn:hover {
+            background: linear-gradient(to right, rgba(0, 242, 254, 0.2), rgba(79, 172, 254, 0.2));
+            border-color: #00f2fe;
+            color: #ffffff;
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 5px 15px rgba(0, 242, 254, 0.3);
+        }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #110a24;
+            border-top: 5px solid #00f2fe;
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.3);
+            border-radius: 50%;
+            margin: 30px auto;
+            animation: putar 1s linear infinite;
+        }
+        @keyframes putar {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        #loading-text {
+            font-size: 16px;
+            font-weight: 600;
+            color: #00f2fe;
+            font-style: italic;
+            margin-top: 15px;
+            text-shadow: 0 0 5px rgba(0, 242, 254, 0.5);
+        }
+        .result-title {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 34px;
+            font-weight: bold;
+            color: #ff8c00;
+            text-shadow: 0 0 15px rgba(255, 140, 0, 0.6);
+            margin: 5px 0;
+            animation: fadeIn 0.6s ease-out;
+        }
+        .result-tokoh {
+            font-family: 'Cinzel', serif;
+            font-size: 22px;
+            color: #00f2fe;
+            text-shadow: 0 0 8px rgba(0, 242, 254, 0.4);
+            margin-bottom: 15px;
+            font-style: italic;
+            font-weight: bold;
+            animation: fadeIn 0.7s ease-out;
+        }
+        .result-img {
+            max-width: 220px;
+            height: auto;
+            margin: 20px auto;
+            display: block;
+            animation: fadeIn 0.8s ease-out;
+            filter: drop-shadow(0 0 15px rgba(255, 140, 0, 0.5));
+        }
+        .result-cta {
+            font-size: 15px;
+            color: #ffffff;
+            font-weight: 500;
+            margin: 25px 0 15px 0;
+            line-height: 1.6;
+            text-align: justify;
+            background-color: rgba(17, 10, 36, 0.8);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #ff8c00;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            animation: fadeIn 0.9s ease-out;
+        }
+    </style>
+</head>
+<body>
+
+    <video autoplay loop muted playsinline class="video-bg">
+        <source src="{{ url_for('static', filename='22030.mp4') }}" type="video/mp4">
+    </video>
+
+    <div class="kop-surat">
+        <div class="instansi">SMAN 71 JAKARTA</div>
+        <div class="nama-kelompok">ALTER EGO</div>
+        <div class="sub-kop">Proyek Informatika • Temukan Karakter Alter Egomu</div>
+    </div>
+
+    <nav class="navbar">
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        <ul class="nav-links" id="nav-list">
+            <li><a href="/index.html">Home</a></li>
+            <li><a href="/AboutUs.html">AboutUs</a></li>
+            <li><a href="/Design.html">Design</a></li>
+            <li><a href="/product.html" class="active">Product</a></li>
+        </ul>
+    </nav>
+
+    <div class="quiz-box">
+        
+        <div id="tahap-welcome">
+            <div class="slide-frame">
+                <img src="/static/21154.png" class="slide-img" alt="Julius Caesar">
+                <img src="/static/21153.png" class="slide-img" alt="Barack Obama">
+                <img src="/static/21152.png" class="slide-img" alt="Alexander Agung">
+                <img src="/static/21150.png" class="slide-img" alt="Socrates">
+                <img src="/static/21149.png" class="slide-img" alt="Ratu Cleopatra">
+                <img src="/static/21148.png" class="slide-img" alt="Mr Beast">
+                <img src="/static/21151.png" class="slide-img" alt="Nikola Tesla">
+            </div>
+            <div class="welcome-title">FIND YOUR ALTER EGO</div>
+            <button class="btn-action" onclick="pindahKeForm()">Mulai Petualangan</button>
+        </div>
+
+        <div id="tahap-form" class="hidden">
+            <div class="form-container">
+                <div class="form-group">
+                    <label for="nama-input">Nama Lengkap / Panggilan :</label>
+                    <input type="text" id="nama-input" placeholder="Masukkan namamu...">
+                </div>
+                <div class="form-group">
+                    <label for="email-input">Alamat Email Aktif :</label>
+                    <input type="email" id="email-input" placeholder="Masukkan emailmu...">
+                </div>
+                <button class="btn-action" onclick="pindahKeKuis()">Masuk Ke Dunia Alter Ego</button>
+            </div>
+        </div>
+
+        <div id="tahap-kuis" class="hidden">
+            <div class="progress-container">
+                <div id="progress-fluid"></div>
+            </div>
+            <div class="progress-bar" id="kuis-progress">Soal 1 dari 12</div>
+            <div class="question-text" id="kuis-soal">Memuat pertanyaan...</div>
+            <div class="options-container" id="kuis-pilihan"></div>
+        </div>
+
+        <div id="tahap-loading" class="hidden">
+            <div class="spinner"></div>
+            <div id="loading-text">Menganalisis pola jawabanmu...</div>
+        </div>
+
+        <div id="tahap-hasil" class="hidden">
+            <p style="font-size: 13px; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; color: #00f2fe; margin-bottom: 0; text-shadow: 0 0 5px rgba(0,242,254,0.4);">Alter Egomu Adalah</p>
+            
+            <div class="result-title" id="hasil-karakter">THE GUARDIAN</div>
+            <div class="result-tokoh" id="hasil-tokoh">(Julius Caesar)</div>
+            
+            <img src="" id="hasil-gambar" class="result-img" alt="Karakter Pemenang">
+            
+            <p class="result-cta" id="hasil-teks-ajakan">Memuat kesimpulan...</p>
+            
+            <a href="#" id="hasil-link-canva" target="_blank" class="btn-action">Buka Lembar Karakter Canva-mu</a>
+        </div>
+
+    </div>
+
+    <script>
+        let indeksSlide = 0;
+        const daftarGambar = document.querySelectorAll('.slide-img');
+        
+        function jalankanSlideshow() {
+            if(daftarGambar.length === 0) return;
+            
+            daftarGambar.forEach(img => {
+                img.classList.remove('active', 'next', 'prev');
+            });
+            
+            let indeksTengah = indeksSlide;
+            let indeksKanan = (indeksSlide + 1) % daftarGambar.length;
+            let indeksKiri = (indeksSlide - 1 + daftarGambar.length) % daftarGambar.length;
+            
+            daftarGambar[indeksTengah].classList.add('active');
+            daftarGambar[indeksKanan].classList.add('next');
+            daftarGambar[indeksKiri].classList.add('prev');
+            
+            indeksSlide = (indeksSlide + 1) % daftarGambar.length;
+        }
+        
+        jalankanSlideshow();
+        let intervalSlideshow = setInterval(jalankanSlideshow, 2300);
+
+        function pindahKeForm() {
+            clearInterval(intervalSlideshow);
+            document.getElementById('tahap-welcome').classList.add('hidden');
+            document.getElementById('tahap-form').classList.remove('hidden');
+        }
+
+        let namaPemain = "";
+        let emailPemain = "";
+
+        function pindahKeKuis() {
+            namaPemain = document.getElementById('nama-input').value.trim();
+            emailPemain = document.getElementById('email-input').value.trim();
+
+            if (namaPemain === "" || emailPemain === "") {
+                alert("Harap isi Nama dan Email kamu terlebih dahulu ya!");
+                return;
+            }
+
+            document.getElementById('tahap-form').classList.add('hidden');
+            document.getElementById('tahap-kuis').classList.remove('hidden');
+            tampilkanSoal();
+        }
+
+        const dataKuis = [
+            {
+                q: "1. Temanmu hampir membuat keputusan berisiko besar. Kamu…",
+                o: [
+                    { t: "A. Mengambil alih demi melindungi dia", k: "guardian" },
+                    { t: "B. Mendorong dia mengambil langkah besar", k: "visionary" },
+                    { t: "C. Menjelaskan realita apa adanya", k: "truthteller" },
+                    { t: "D. Menenangkan dia agar tidak panik", k: "peacemaker" }
+                ]
+            },
+            {
+                q: "2. Dalam konflik kelompok, kamu…",
+                o: [
+                    { t: "A. Menjaga semua orang tetap aman", k: "guardian" },
+                    { t: "B. Mencari solusi ideal jangka panjang", k: "visionary" },
+                    { t: "C. Menyampaikan fakta siapa yang benar", k: "truthteller" },
+                    { t: "D. Meredakan suasana agar damai", k: "peacemaker" }
+                ]
+            },
+            {
+                q: "3. Seseorang sedang gagal dan frustrasi. Kamu…",
+                o: [
+                    { t: "A. Melindungi dia dari tekanan tambahan", k: "guardian" },
+                    { t: "B. Mendorong dia bangkit lebih kuat", k: "charmer" },
+                    { t: "C. Memberi perspektif jujur tentang kesalahannya", k: "truthteller" },
+                    { t: "D. Membuat dia merasa lebih tenang", k: "peacemaker" }
+                ]
+            },
+            {
+                q: "4. Kalau seseorang mengabaikan nasihatmu, kamu…",
+                o: [
+                    { t: "A. Tetap mengawasi demi keamanannya", k: "guardian" },
+                    { t: "B. Membiarkan dia belajar dari realita sendiri", k: "freespirit" },
+                    { t: "C. Mengingatkan dengan tegas dan jujur", k: "truthteller" },
+                    { t: "D. Mengurangi konflik dan tidak memaksa", k: "peacemaker" }
+                ]
+            },
+            {
+                q: "5. Saat kerja kelompok, kamu biasanya…",
+                o: [
+                    { t: "A. Mengatur agar semuanya aman dan stabil", k: "guardian" },
+                    { t: "B. Rela memberikan fasilitas/bantuan agar semua sukses", k: "benefactor" },
+                    { t: "C. Memberi arah besar yang jelas", k: "visionary" },
+                    { t: "D. Menjaga suasana tetap harmonis", k: "peacemaker" }
+                ]
+            },
+            {
+                q: "6. Temanmu terlalu bergantung padamu. Kamu…",
+                o: [
+                    { t: "A. Mengontrol agar dia tidak jatuh", k: "guardian" },
+                    { t: "B. Membantu memberikan koneksi/bantuan materi", k: "benefactor" },
+                    { t: "C. Menghadapkan dia pada realita", k: "truthteller" },
+                    { t: "D. Menenangkan agar dia tidak cemas berlebihan", k: "peacemaker" }
+                ]
+            },
+            {
+                q: "7. Saat melihat ketidakadilan, kamu…",
+                o: [
+                    { t: "A. Melindungi pihak yang lemah", k: "guardian" },
+                    { t: "B. Menggunakan karisma untuk mengubah suasana", k: "charmer" },
+                    { t: "C. Mengatakan fakta tanpa bias", k: "truthteller" },
+                    { t: "D. Mengajak damai", k: "peacemaker" }
+                ]
+            },
+            {
+                q: "8. Ketika rencana berubah mendadak, kamu…",
+                o: [
+                    { t: "A. Langsung mengamankan situasi", k: "guardian" },
+                    { t: "B. Melihat peluang dan ide baru yang seru", k: "visionary" },
+                    { t: "C. Menganalisis realita yang terjadi", k: "truthteller" },
+                    { t: "D. Mengajak santai dan keluar dari zona kaku", k: "freespirit" }
+                ]
+            },
+            {
+                q: "9. Temanmu sedang sedih berat. Kamu…",
+                o: [
+                    { t: "A. Menjaganya sampai stabil", k: "guardian" },
+                    { t: "B. Mengajak dia melakukan hal spontan yang seru", k: "freespirit" },
+                    { t: "C. Memberi kebenaran yang perlu dia dengar", k: "truthteller" },
+                    { t: "D. Menenangkan emosinya", k: "peacemaker" }
+                ]
+            },
+            {
+                q: "10. Dalam keputusan penting, kamu…",
+                o: [
+                    { t: "A. Memilih yang paling aman bagi kelompok", k: "guardian" },
+                    { t: "B. Memilih yang paling visioner dan berstandar tinggi", k: "visionary" },
+                    { t: "C. Memilih berdasarkan fakta paling realistis", k: "truthteller" },
+                    { t: "D. Memilih yang paling damai dan minim konflik", k: "peacemaker" }
+                ]
+            },
+            {
+                q: "11. Jika seseorang tidak mendengarkanmu, kamu…",
+                o: [
+                    { t: "A. Tetap mengawasi agar dia tidak terluka", k: "guardian" },
+                    { t: "B. Menggunakan pesona karismatik agar dia luluh", k: "charmer" },
+                    { t: "C. Mengatakan kebenaran lebih tegas tanpa drama", k: "truthteller" },
+                    { t: "D. Menghilang sementara/tidak mau ambil pusing", k: "freespirit" }
+                ]
+            },
+            {
+                q: "12. Gaya hidup yang kamu pilih lebih ke…",
+                o: [
+                    { t: "A. Melindungi dan mengayomi orang lain", k: "guardian" },
+                    { t: "B. Suka berderma dan berinvestasi demi kesuksesan orang", k: "benefactor" },
+                    { t: "C. Jujur, objektif, dan realistis", k: "truthteller" },
+                    { t: "D. Hidup damai penuh keharmonisan tanpa konflik", k: "peacemaker" }
+                ]
+            }
+        ];
+
+        let indeksSoalSkrg = 0;
+        let skorKepribadian = {
+            guardian: 0, peacemaker: 0, visionary: 0, 
+            truthteller: 0, charmer: 0, benefactor: 0, freespirit: 0
+        };
+
+        function tampilkanSoal() {
+            if (indeksSoalSkrg >= dataKuis.length) {
+                pindahKeLoadingDanHitung();
+                return;
+            }
+
+            let persentaseProgress = (indeksSoalSkrg / dataKuis.length) * 100;
+            document.getElementById('progress-fluid').style.width = `${persentaseProgress}%`;
+            document.getElementById('kuis-progress').innerText = `Soal ${indeksSoalSkrg + 1} dari ${dataKuis.length}`;
+            
+            let soalSkrg = dataKuis[indeksSoalSkrg];
+            let elemenSoal = document.getElementById('kuis-soal');
+            elemenSoal.innerText = soalSkrg.q;
+
+            let kontainerPilihan = document.getElementById('kuis-pilihan');
+            kontainerPilihan.innerHTML = "";
+
+            soalSkrg.o.forEach(opsi => {
+                let tombol = document.createElement('button');
+                tombol.className = "option-btn";
+                tombol.innerText = opsi.t;
+                tombol.onclick = () => pilihJawaban(opsi.k);
+                kontainerPilihan.appendChild(tombol);
+            });
+        }
+
+        function pilihJawaban(karakter) {
+            skorKepribadian[karakter] = (skorKepribadian[karakter] || 0) + 1;
+            indeksSoalSkrg++;
+            tampilkanSoal();
+        }
+
+        function pindahKeLoadingDanHitung() {
+            document.getElementById('tahap-kuis').classList.add('hidden');
+            document.getElementById('tahap-loading').classList.remove('hidden');
+
+            const teksLoading = document.getElementById('loading-text');
+            setTimeout(() => { teksLoading.innerText = "Mengkalkulasi kecocokan energi kepribadian..."; }, 900);
+            setTimeout(() => { teksLoading.innerText = "Menghubungkan data ke server basis Flask..."; }, 1700);
+
+            setTimeout(() => {
+                eksekusiKoneksiFlask();
+            }, 2500);
+        }
+
+        function eksekusiKoneksiFlask() {
+            let dataKirim = {
+                nama: namaPemain,
+                email: emailPemain,
+                skor: skorKepribadian
+            };
+
+            fetch('/hitung-hasil', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(dataKirim)
+            })
+            .then(response => response.json())
+            .then(hasilPython => {
+                document.getElementById('tahap-loading').classList.add('hidden');
+                document.getElementById('tahap-hasil').classList.remove('hidden');
+
+                document.getElementById('hasil-karakter').innerText = hasilPython.nama_karakter;
+                document.getElementById('hasil-tokoh').innerText = hasilPython.tokoh_karakter;
+                document.getElementById('hasil-gambar').src = `/static/${hasilPython.img_karakter}`;
+                
+                document.getElementById('hasil-teks-ajakan').innerText = `Halo ${hasilPython.nama_pemain}! Berdasarkan analisis algoritma kami, karakter alter egomu adalah ${hasilPython.nama_karakter} ${hasilPython.tokoh_karakter}. Karaktermu ini sangat unik dan mencerminkan esensi dirimu yang terdalam. Yuk pelajari selengkapnya tentang karakter hebatmu lewat tautan portal Canva di bawah ini!`;
+                
+                // --- BAGIAN PENYESUAIAN LINK CANVA SESUAI KARAKTER DI SISI FRONTEND ---
+                let linkCanvaTujuan = "https://www.canva.com"; 
+                let idKarakterKecil = hasilPython.id_karakter.toLowerCase();
+
+                if (idKarakterKecil === "guardian") {
+                    linkCanvaTujuan = "https://punya-septi.my.canva.site/1-the-guardian-julius-caesar";
+                } else if (idKarakterKecil === "peacemaker") {
+                    linkCanvaTujuan = "https://punya-septi.my.canva.site/2-the-peacemaker-barack-obama";
+                } else if (idKarakterKecil === "visionary") {
+                    linkCanvaTujuan = "https://punya-septi.my.canva.site/3-the-visionary-alexander-agung";
+                } else if (idKarakterKecil === "truthteller") {
+                    linkCanvaTujuan = "https://punya-septi.my.canva.site/4-the-truthteller-socrates";
+                } else if (idKarakterKecil === "charmer") {
+                    linkCanvaTujuan = "https://punya-septi.my.canva.site/5-the-charmer-ratu-cleopatra";
+                } else if (idKarakterKecil === "benefactor") {
+                    linkCanvaTujuan = "https://punya-septi.my.canva.site/6-the-benecfactor-mr-beast";
+                } else if (idKarakterKecil === "freespirit") {
+                    linkCanvaTujuan = "https://punya-septi.my.canva.site/7-the-free-spirit-nikola-tesla";
+                }
+
+                document.getElementById('hasil-link-canva').href = linkCanvaTujuan;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Waduh, gagal terhubung ke server Python!');
+                document.getElementById('tahap-loading').classList.add('hidden');
+                document.getElementById('tahap-welcome').classList.remove('hidden');
+            });
+        }
+
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navList = document.getElementById('nav-list');
+        mobileMenu.addEventListener('click', () => {
+            navList.classList.toggle('active');
+            mobileMenu.classList.toggle('is-active');
+        });
+    </script>
+</body>
+</html>corative:wght@700&family=Cinzel:wght@700&family=Metamorphous&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="styles.css">
 
