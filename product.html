@@ -7,7 +7,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@700&family=Metamorphous&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <!-- Menggunakan path statis agar terbaca di GitHub Pages -->
+    <link rel="stylesheet" href="static/styles.css">
     <style>
         .hidden {
             display: none !important;
@@ -257,7 +258,7 @@
 <body>
 
     <video autoplay loop muted playsinline class="video-bg">
-        <source src="{{ url_for('static', filename='22030.mp4') }}" type="video/mp4">
+        <source src="static/22030.mp4" type="video/mp4">
     </video>
 
     <div class="kop-surat">
@@ -273,29 +274,31 @@
             <span class="bar"></span>
         </div>
         <ul class="nav-links" id="nav-list">
-            <li><a href="/index.html">Home</a></li>
-            <li><a href="/AboutUs.html">AboutUs</a></li>
-            <li><a href="/Design.html">Design</a></li>
-            <li><a href="/product.html" class="active">Product</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="AboutUs.html">AboutUs</a></li>
+            <li><a href="Design.html">Design</a></li>
+            <li><a href="product.html" class="active">Product</a></li>
         </ul>
     </nav>
 
     <div class="quiz-box">
         
+        <!-- TAHAP 1: WELCOME -->
         <div id="tahap-welcome">
             <div class="slide-frame">
-                <img src="/static/21154.png" class="slide-img" alt="Julius Caesar">
-                <img src="/static/21153.png" class="slide-img" alt="Barack Obama">
-                <img src="/static/21152.png" class="slide-img" alt="Alexander Agung">
-                <img src="/static/21150.png" class="slide-img" alt="Socrates">
-                <img src="/static/21149.png" class="slide-img" alt="Ratu Cleopatra">
-                <img src="/static/21148.png" class="slide-img" alt="Mr Beast">
-                <img src="/static/21151.png" class="slide-img" alt="Nikola Tesla">
+                <img src="static/21154.png" class="slide-img" alt="Julius Caesar">
+                <img src="static/21153.png" class="slide-img" alt="Barack Obama">
+                <img src="static/21152.png" class="slide-img" alt="Alexander Agung">
+                <img src="static/21150.png" class="slide-img" alt="Socrates">
+                <img src="static/21149.png" class="slide-img" alt="Ratu Cleopatra">
+                <img src="static/21148.png" class="slide-img" alt="Mr Beast">
+                <img src="static/21151.png" class="slide-img" alt="Nikola Tesla">
             </div>
             <div class="welcome-title">FIND YOUR ALTER EGO</div>
             <button class="btn-action" onclick="pindahKeForm()">Mulai Petualangan</button>
         </div>
 
+        <!-- TAHAP 2: FORM DATA -->
         <div id="tahap-form" class="hidden">
             <div class="form-container">
                 <div class="form-group">
@@ -310,6 +313,7 @@
             </div>
         </div>
 
+        <!-- TAHAP 3: PERTANYAAN KUIS (12 SOAL ORIGINAL) -->
         <div id="tahap-kuis" class="hidden">
             <div class="progress-container">
                 <div id="progress-fluid"></div>
@@ -319,11 +323,13 @@
             <div class="options-container" id="kuis-pilihan"></div>
         </div>
 
+        <!-- TAHAP 4: LOADING SCREEN INTERAKTIF -->
         <div id="tahap-loading" class="hidden">
             <div class="spinner"></div>
             <div id="loading-text">Menganalisis pola jawabanmu...</div>
         </div>
 
+        <!-- TAHAP 5: HASIL UTAMA & LINK CANVA -->
         <div id="tahap-hasil" class="hidden">
             <p style="font-size: 13px; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; color: #00f2fe; margin-bottom: 0; text-shadow: 0 0 5px rgba(0,242,254,0.4);">Alter Egomu Adalah</p>
             
@@ -340,15 +346,13 @@
     </div>
 
     <script>
+        // --- LOGIKA SLIDESHOW ---
         let indeksSlide = 0;
         const daftarGambar = document.querySelectorAll('.slide-img');
         
         function jalankanSlideshow() {
             if(daftarGambar.length === 0) return;
-            
-            daftarGambar.forEach(img => {
-                img.classList.remove('active', 'next', 'prev');
-            });
+            daftarGambar.forEach(img => img.classList.remove('active', 'next', 'prev'));
             
             let indeksTengah = indeksSlide;
             let indeksKanan = (indeksSlide + 1) % daftarGambar.length;
@@ -360,7 +364,6 @@
             
             indeksSlide = (indeksSlide + 1) % daftarGambar.length;
         }
-        
         jalankanSlideshow();
         let intervalSlideshow = setInterval(jalankanSlideshow, 2300);
 
@@ -387,6 +390,7 @@
             tampilkanSoal();
         }
 
+        // --- DATA 12 PERTANYAAN ORIGINAL DARI PY/FLASK ---
         const dataKuis = [
             {
                 q: "1. Temanmu hampir membuat keputusan berisiko besar. Kamu…",
@@ -506,7 +510,7 @@
 
         function tampilkanSoal() {
             if (indeksSoalSkrg >= dataKuis.length) {
-                pindahKeLoadingDanHitung();
+                prosesKalkulasiLokal();
                 return;
             }
 
@@ -515,8 +519,7 @@
             document.getElementById('kuis-progress').innerText = `Soal ${indeksSoalSkrg + 1} dari ${dataKuis.length}`;
             
             let soalSkrg = dataKuis[indeksSoalSkrg];
-            let elemenSoal = document.getElementById('kuis-soal');
-            elemenSoal.innerText = soalSkrg.q;
+            document.getElementById('kuis-soal').innerText = soalSkrg.q;
 
             let kontainerPilihan = document.getElementById('kuis-pilihan');
             kontainerPilihan.innerHTML = "";
@@ -536,79 +539,66 @@
             tampilkanSoal();
         }
 
-        function pindahKeLoadingDanHitung() {
+        // --- ALGORITMA PENGGANTI BACKEND PYTHON (SAMA PERSIS) ---
+        function prosesKalkulasiLokal() {
             document.getElementById('tahap-kuis').classList.add('hidden');
             document.getElementById('tahap-loading').classList.remove('hidden');
 
             const teksLoading = document.getElementById('loading-text');
             setTimeout(() => { teksLoading.innerText = "Mengkalkulasi kecocokan energi kepribadian..."; }, 900);
-            setTimeout(() => { teksLoading.innerText = "Menghubungkan data ke server basis Flask..."; }, 1700);
+            setTimeout(() => { teksLoading.innerText = "Sinkronisasi profil dengan data intelijen karakter..."; }, 1700);
 
             setTimeout(() => {
-                eksekusiKoneksiFlask();
-            }, 2500);
-        }
+                // Cari skor tertinggi dari 7 kategori (Logika Python's max)
+                let idPemenang = Object.keys(skorKepribadian).reduce((a, b) => skorKepribadian[a] > skorKepribadian[b] ? a : b);
+                
+                // Mapping data karakter persis seperti dictionary Python kemarin
+                const databaseKarakter = {
+                    guardian: { nama: "THE GUARDIAN", tokoh: "(Julius Caesar)", img: "21154.png" },
+                    peacemaker: { nama: "THE PEACEMAKER", tokoh: "(Barack Obama)", img: "21153.png" },
+                    visionary: { nama: "THE VISIONARY", tokoh: "(Alexander Agung)", img: "21152.png" },
+                    truthteller: { nama: "THE TRUTHTELLER", tokoh: "(Socrates)", img: "21150.png" },
+                    charmer: { nama: "THE CHARMER", tokoh: "(Ratu Cleopatra)", img: "21149.png" },
+                    benefactor: { nama: "THE BENEFACTOR", tokoh: "(Mr Beast)", img: "21148.png" },
+                    freespirit: { nama: "THE FREE SPIRIT", tokoh: "(Nikola Tesla)", img: "21151.png" }
+                };
 
-        function eksekusiKoneksiFlask() {
-            let dataKirim = {
-                nama: namaPemain,
-                email: emailPemain,
-                skor: skorKepribadian
-            };
+                const linksCanva = {
+                    guardian: "https://punya-septi.my.canva.site/1-the-guardian-julius-caesar",
+                    peacemaker: "https://punya-septi.my.canva.site/2-the-peacemaker-barack-obama",
+                    visionary: "https://punya-septi.my.canva.site/3-the-visionary-alexander-agung",
+                    truthteller: "https://punya-septi.my.canva.site/4-the-truthteller-socrates",
+                    charmer: "https://punya-septi.my.canva.site/5-the-charmer-ratu-cleopatra",
+                    benefactor: "https://punya-septi.my.canva.site/6-the-benecfactor-mr-beast",
+                    freespirit: "https://punya-septi.my.canva.site/7-the-free-spirit-nikola-tesla"
+                };
 
-            fetch('/hitung-hasil', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(dataKirim)
-            })
-            .then(response => response.json())
-            .then(hasilPython => {
+                let karakterFinal = databaseKarakter[idPemenang];
+
+                // Pindah Tampilan ke Hasil
                 document.getElementById('tahap-loading').classList.add('hidden');
                 document.getElementById('tahap-hasil').classList.remove('hidden');
 
-                document.getElementById('hasil-karakter').innerText = hasilPython.nama_karakter;
-                document.getElementById('hasil-tokoh').innerText = hasilPython.tokoh_karakter;
-                document.getElementById('hasil-gambar').src = `/static/${hasilPython.img_karakter}`;
+                document.getElementById('hasil-karakter').innerText = karakterFinal.nama;
+                document.getElementById('hasil-tokoh').innerText = karakterFinal.tokoh;
+                document.getElementById('hasil-gambar').src = `static/${karakterFinal.img}`;
                 
-                document.getElementById('hasil-teks-ajakan').innerText = `Halo ${hasilPython.nama_pemain}! Berdasarkan analisis algoritma kami, karakter alter egomu adalah ${hasilPython.nama_karakter} ${hasilPython.tokoh_karakter}. Karaktermu ini sangat unik dan mencerminkan esensi dirimu yang terdalam. Yuk pelajari selengkapnya tentang karakter hebatmu lewat tautan portal Canva di bawah ini!`;
+                document.getElementById('hasil-teks-ajakan').innerText = `Halo ${namaPemain}! Berdasarkan analisis algoritma kami, karakter alter egomu adalah ${karakterFinal.nama} ${karakterFinal.tokoh}. Karaktermu ini sangat unik dan mencerminkan esensi dirimu yang terdalam. Yuk pelajari selengkapnya tentang karakter hebatmu lewat tautan portal Canva di bawah ini!`;
                 
-                let linkCanvaTujuan = "https://www.canva.com"; 
-                let idKarakterKecil = hasilPython.id_karakter.toLowerCase();
+                document.getElementById('hasil-link-canva').href = linksCanva[idPemenang];
 
-                if (idKarakterKecil === "guardian") {
-                    linkCanvaTujuan = "https://punya-septi.my.canva.site/1-the-guardian-julius-caesar";
-                } else if (idKarakterKecil === "peacemaker") {
-                    linkCanvaTujuan = "https://punya-septi.my.canva.site/2-the-peacemaker-barack-obama";
-                } else if (idKarakterKecil === "visionary") {
-                    linkCanvaTujuan = "https://punya-septi.my.canva.site/3-the-visionary-alexander-agung";
-                } else if (idKarakterKecil === "truthteller") {
-                    linkCanvaTujuan = "https://punya-septi.my.canva.site/4-the-truthteller-socrates";
-                } else if (idKarakterKecil === "charmer") {
-                    linkCanvaTujuan = "https://punya-septi.my.canva.site/5-the-charmer-ratu-cleopatra";
-                } else if (idKarakterKecil === "benefactor") {
-                    linkCanvaTujuan = "https://punya-septi.my.canva.site/6-the-benecfactor-mr-beast";
-                } else if (idKarakterKecil === "freespirit") {
-                    linkCanvaTujuan = "https://punya-septi.my.canva.site/7-the-free-spirit-nikola-tesla";
-                }
-
-                document.getElementById('hasil-link-canva').href = linkCanvaTujuan;
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Waduh, gagal terhubung ke server Python!');
-                document.getElementById('tahap-loading').classList.add('hidden');
-                document.getElementById('tahap-welcome').classList.remove('hidden');
-            });
+            }, 2500);
         }
 
+        // --- NAV MENU RESPONSIVE ---
         const mobileMenu = document.getElementById('mobile-menu');
         const navList = document.getElementById('nav-list');
-        mobileMenu.addEventListener('click', () => {
-            navList.classList.toggle('active');
-            mobileMenu.classList.toggle('is-active');
-        });
+        if(mobileMenu) {
+            mobileMenu.addEventListener('click', () => {
+                navList.classList.toggle('active');
+                mobileMenu.classList.toggle('is-active');
+            });
+        }
     </script>
 </body>
 </html>
