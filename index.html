@@ -4,25 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alter Ego - SMAN 71</title>
-
-    <!-- Google Fonts Seragam -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@700&family=Metamorphous&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-
-    <!-- Menghubungkan ke CSS Utama -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
 
-    <!-- KOP SURAT ATAS -->
+    <video autoplay loop muted playsinline aria-hidden="true" autoplay="true" muted="true" class="video-bg">
+        <source src="{{ url_for('static', filename='22030.mp4') }}" type="video/mp4">
+    </video>
+
     <div class="kop-surat">
         <div class="instansi">SMAN 71 JAKARTA</div>
         <div class="nama-kelompok">ALTER EGO</div>
         <div class="sub-kop">Proyek Informatika • Temukan Karakter Alter Egomu</div>
     </div>
 
-    <!-- NAVBAR DENGAN MENU GARIS TIGA -->
     <nav class="navbar">
         <div class="menu-toggle" id="mobile-menu">
             <span class="bar"></span>
@@ -30,35 +28,67 @@
             <span class="bar"></span>
         </div>
         <ul class="nav-links" id="nav-list">
-            <!-- Pindah class="active" ke Home karena ini adalah file index.html -->
-            <li><a href="index.html" class="active">Home</a></li>
-            <li><a href="Design.html">Design</a></li>
-            <li><a href="product.html">Product</a></li>
+            <li><a href="/index.html" class="active">Home</a></li>
+            <li><a href="/AboutUs.html">AboutUs</a></li>
+            <li><a href="/Design.html">Design</a></li>
+            <li><a href="/product.html">Product</a></li>
         </ul>
     </nav>
 
-<!-- KONTEN UTAMA BERANDA BARU (TANPA DIV LOCK WIDTH) -->
     <center>
-        <h2 style="font-family: 'Cinzel', serif; font-size: 2.5rem; color: #5c4033; margin-top: 40px; margin-bottom: 20px;">Selamat Datang di Dunia Alter Ego</h2>
-        
-        <p style="color: #666; line-height: 1.8; font-size: 1.1rem; max-width: 700px; padding: 0 20px; text-align: center;">
-            Setiap manusia memiliki sisi lain yang tersembunyi di balik realitas sehari-hari. Apakah kamu seorang pelindung yang tangguh, pembawa kedamaian, atau pencari kebenaran yang jujur?
-        </p>
-        
-        <p style="color: #666; line-height: 1.8; font-size: 1.1rem; max-width: 700px; padding: 0 20px; margin-top: 15px; text-align: center;">
-            Melalui proyek Informatika ini, kami mengajakmu untuk menjelajahi konsep desain visual, filosofi karakter, hingga menguji kepribadianmu langsung lewat kuis interaktif yang telah kami sediakan.
-        </p>
+        <div class="home-hero-container">
 
-        <div style="margin-top: 40px; margin-bottom: 50px;">
-            <a href="product.html" style="display: inline-block; background: linear-gradient(135deg, #ff9900, #e65c00); color: white; padding: 12px 30px; border-radius: 25px; text-decoration: none; font-weight: bold; box-shadow: 0 4px 15px rgba(230, 92, 0, 0.3);">Mulai Cari Tahu Alter Egomu</a>
+            <video autoplay loop muted playsinline class="home-frame-video">
+                <source src="/static/22030.mp4" type="video/mp4">
+            </video>
+
+            <div class="home-logo-wrapper">
+                <img src="/static/11012.png" class="home-circular-logo" alt="Alter Ego Logo">
+            </div>
+
+            <h1 class="home-main-title">ALTER EGO</h1>
+            
         </div>
+
+<section class="home-info-section">
+
+    <p class="home-description">
+        Halo semuanya! Selamat datang di <strong>Alter Ego</strong>, sebuah website yang mengajak kalian untuk mengenal sisi lain dari diri melalui berbagai karakter unik yang memiliki kepribadian, nilai, dan cara pandang yang berbeda.
+    </p>
+
+    <p class="home-description">
+        Website ini dikembangkan melalui kerja sama tim dalam menyusun konsep, mendesain tampilan, membuat konten, serta menghadirkan fitur kuis interaktif yang dapat membantu pengguna menemukan karakter alter ego yang paling sesuai dengan dirinya.
+    </p>
+
+    <p class="home-description">
+        Kami mengundang Anda untuk mengeksplorasi setiap karakter yang tersedia dan menemukan alter ego yang paling mencerminkan kepribadian Anda. Semoga pengalaman ini memberikan wawasan baru serta kesan yang bermakna selama menjelajahi website kami.
+    </p>
+
+    <div class="team-section">
+
+        <h2 class="team-title">Tim Pengembang</h2>
+
+        <div class="team-list">
+            <p>1. ARDRAKYNAN ALKINA ARGO (4)</p>
+            <p>2. AYU UFAIRA AZZAHRA (7)</p>
+            <p>3. MAHENDRA FATHURRAHMAN (25)</p>
+            <p>4. TALITA SAKHI OCTARA (34)</p>
+        </div>
+
+    </div>
+
+    <div class="home-btn-wrapper">
+        <a href="/product.html" class="home-btn-start">
+           FIND YOUR ALTER EGO
+        </a>
+    </div>
+
+</section>
     </center>
     
-    <!-- ENGINE MOBILE NAVBAR TOGGLE (HAMBURGER MENU) -->
     <script>
         const mobileMenu = document.getElementById('mobile-menu');
         const navList = document.getElementById('nav-list');
-
         mobileMenu.addEventListener('click', () => {
             navList.classList.toggle('active');
             mobileMenu.classList.toggle('is-active');
