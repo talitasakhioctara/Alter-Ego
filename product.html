@@ -73,12 +73,14 @@
             margin-bottom: 25px;
             letter-spacing: 2px;
         }
+        /* Kontainer untuk merapikan dua tombol pilihan gerbang utama */
         .gate-container {
             display: flex;
             flex-direction: column;
             gap: 15px;
             margin-top: 10px;
         }
+        /* Styling khusus tombol arah Google Colab */
         .btn-gate-colab {
             display: inline-block;
             width: 100%;
@@ -288,27 +290,25 @@
         <source src="static/22030.mp4" type="video/mp4">
     </video>
 
-    <div class="fixed-header-container">
-        <div class="kop-surat">
-            <div class="instansi">SMAN 71 JAKARTA</div>
-            <div class="nama-kelompok">ALTER EGO</div>
-            <div class="sub-kop">Proyek Informatika • Temukan Karakter Alter Egomu</div>
-        </div>
-
-        <nav class="navbar">
-            <div class="menu-toggle" id="mobile-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-            <ul class="nav-links" id="nav-list">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="AboutUs.html">AboutUs</a></li>
-                <li><a href="Design.html">Design</a></li>
-                <li><a href="product.html" class="active">Product</a></li>
-            </ul>
-        </nav>
+    <div class="kop-surat">
+        <div class="instansi">SMAN 71 JAKARTA</div>
+        <div class="nama-kelompok">ALTER EGO</div>
+        <div class="sub-kop">Proyek Informatika • Temukan Karakter Alter Egomu</div>
     </div>
+
+    <nav class="navbar">
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        <ul class="nav-links" id="nav-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="AboutUs.html">AboutUs</a></li>
+            <li><a href="Design.html">Design</a></li>
+            <li><a href="product.html" class="active">Product</a></li>
+        </ul>
+    </nav>
 
     <div class="quiz-box">
         
@@ -418,7 +418,7 @@
             tampilkanSoal();
         }
 
-        // --- DATA 12 PERTANYAAN ORIGINAL ---
+        // --- DATA 12 PERTANYAAN ORIGINAL DARI PY/FLASK ---
         const dataKuis = [
             {
                 q: "1. Temanmu hampir membuat keputusan berisiko besar. Kamu…",
@@ -567,6 +567,7 @@
             tampilkanSoal();
         }
 
+        // --- ALGORITMA SINKRONISASI HASIL ---
         function prosesKalkulasiLokal() {
             document.getElementById('tahap-kuis').classList.add('hidden');
             document.getElementById('tahap-loading').classList.remove('hidden');
@@ -614,6 +615,7 @@
             }, 2500);
         }
 
+        // --- NAV MENU RESPONSIVE ---
         const mobileMenu = document.getElementById('mobile-menu');
         const navList = document.getElementById('nav-list');
         if(mobileMenu) {
