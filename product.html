@@ -7,7 +7,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@700&family=Metamorphous&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <!-- Menggunakan path statis agar terbaca di GitHub Pages -->
     <link rel="stylesheet" href="static/styles.css">
     <style>
         .hidden {
@@ -74,6 +73,34 @@
             margin-bottom: 25px;
             letter-spacing: 2px;
         }
+        .gate-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        .btn-gate-colab {
+            display: inline-block;
+            width: 100%;
+            background: linear-gradient(135deg, #00f2fe, #4facfe);
+            color: #0b0617;
+            border: none;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            text-decoration: none;
+            text-align: center;
+            box-sizing: border-box;
+            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.4);
+        }
+        .btn-gate-colab:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 25px rgba(0, 242, 254, 0.7);
+        }
         .form-container {
             padding: 10px;
             text-align: left;
@@ -118,7 +145,7 @@
             transition: all 0.3s ease;
             font-family: 'Poppins', sans-serif;
             text-decoration: none;
-            margin-top: 15px;
+            margin-top: 5px;
             text-align: center;
             box-sizing: border-box;
             box-shadow: 0 4px 15px rgba(255, 69, 0, 0.4);
@@ -261,29 +288,30 @@
         <source src="static/22030.mp4" type="video/mp4">
     </video>
 
-    <div class="kop-surat">
-        <div class="instansi">SMAN 71 JAKARTA</div>
-        <div class="nama-kelompok">ALTER EGO</div>
-        <div class="sub-kop">Proyek Informatika • Temukan Karakter Alter Egomu</div>
-    </div>
-
-    <nav class="navbar">
-        <div class="menu-toggle" id="mobile-menu">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
+    <div class="fixed-header-container">
+        <div class="kop-surat">
+            <div class="instansi">SMAN 71 JAKARTA</div>
+            <div class="nama-kelompok">ALTER EGO</div>
+            <div class="sub-kop">Proyek Informatika • Temukan Karakter Alter Egomu</div>
         </div>
-        <ul class="nav-links" id="nav-list">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="AboutUs.html">AboutUs</a></li>
-            <li><a href="Design.html">Design</a></li>
-            <li><a href="product.html" class="active">Product</a></li>
-        </ul>
-    </nav>
+
+        <nav class="navbar">
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="nav-links" id="nav-list">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="AboutUs.html">AboutUs</a></li>
+                <li><a href="Design.html">Design</a></li>
+                <li><a href="product.html" class="active">Product</a></li>
+            </ul>
+        </nav>
+    </div>
 
     <div class="quiz-box">
         
-        <!-- TAHAP 1: WELCOME -->
         <div id="tahap-welcome">
             <div class="slide-frame">
                 <img src="static/21154.png" class="slide-img" alt="Julius Caesar">
@@ -295,10 +323,13 @@
                 <img src="static/21151.png" class="slide-img" alt="Nikola Tesla">
             </div>
             <div class="welcome-title">FIND YOUR ALTER EGO</div>
-            <button class="btn-action" onclick="pindahKeForm()">Mulai Petualangan</button>
+            
+            <div class="gate-container">
+                <button class="btn-action" onclick="pindahKeForm()">Mulai Versi Website (Web Quiz)</button>
+                <a href="https://colab.research.google.com/drive/1vrjmkACtpl37gEiGMBxW4ztSxyjWYzaV?usp=sharing" target="_blank" class="btn-gate-colab">Buka Versi Google Colab (Python)</a>
+            </div>
         </div>
 
-        <!-- TAHAP 2: FORM DATA -->
         <div id="tahap-form" class="hidden">
             <div class="form-container">
                 <div class="form-group">
@@ -313,7 +344,6 @@
             </div>
         </div>
 
-        <!-- TAHAP 3: PERTANYAAN KUIS (12 SOAL ORIGINAL) -->
         <div id="tahap-kuis" class="hidden">
             <div class="progress-container">
                 <div id="progress-fluid"></div>
@@ -323,13 +353,11 @@
             <div class="options-container" id="kuis-pilihan"></div>
         </div>
 
-        <!-- TAHAP 4: LOADING SCREEN INTERAKTIF -->
         <div id="tahap-loading" class="hidden">
             <div class="spinner"></div>
             <div id="loading-text">Menganalisis pola jawabanmu...</div>
         </div>
 
-        <!-- TAHAP 5: HASIL UTAMA & LINK CANVA -->
         <div id="tahap-hasil" class="hidden">
             <p style="font-size: 13px; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; color: #00f2fe; margin-bottom: 0; text-shadow: 0 0 5px rgba(0,242,254,0.4);">Alter Egomu Adalah</p>
             
@@ -390,7 +418,7 @@
             tampilkanSoal();
         }
 
-        // --- DATA 12 PERTANYAAN ORIGINAL DARI PY/FLASK ---
+        // --- DATA 12 PERTANYAAN ORIGINAL ---
         const dataKuis = [
             {
                 q: "1. Temanmu hampir membuat keputusan berisiko besar. Kamu…",
@@ -539,7 +567,6 @@
             tampilkanSoal();
         }
 
-        // --- ALGORITMA PENGGANTI BACKEND PYTHON (SAMA PERSIS) ---
         function prosesKalkulasiLokal() {
             document.getElementById('tahap-kuis').classList.add('hidden');
             document.getElementById('tahap-loading').classList.remove('hidden');
@@ -549,10 +576,8 @@
             setTimeout(() => { teksLoading.innerText = "Sinkronisasi profil dengan data intelijen karakter..."; }, 1700);
 
             setTimeout(() => {
-                // Cari skor tertinggi dari 7 kategori (Logika Python's max)
                 let idPemenang = Object.keys(skorKepribadian).reduce((a, b) => skorKepribadian[a] > skorKepribadian[b] ? a : b);
                 
-                // Mapping data karakter persis seperti dictionary Python kemarin
                 const databaseKarakter = {
                     guardian: { nama: "THE GUARDIAN", tokoh: "(Julius Caesar)", img: "21154.png" },
                     peacemaker: { nama: "THE PEACEMAKER", tokoh: "(Barack Obama)", img: "21153.png" },
@@ -575,7 +600,6 @@
 
                 let karakterFinal = databaseKarakter[idPemenang];
 
-                // Pindah Tampilan ke Hasil
                 document.getElementById('tahap-loading').classList.add('hidden');
                 document.getElementById('tahap-hasil').classList.remove('hidden');
 
@@ -590,7 +614,6 @@
             }, 2500);
         }
 
-        // --- NAV MENU RESPONSIVE ---
         const mobileMenu = document.getElementById('mobile-menu');
         const navList = document.getElementById('nav-list');
         if(mobileMenu) {
